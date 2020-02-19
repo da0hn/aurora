@@ -1,0 +1,18 @@
+aurora::init
+    au::var numero;
+    au::var fatorial;
+
+    au::write("Escreva um numero: ");
+    au::read(numero);
+
+    fatorial=1;
+
+    au::loop( numero > 1 )
+        fatorial = fatorial * numero;
+        numero = numero - 1;
+    au::endloop
+
+    au::write("Fatorial: ");
+    au::write(fatorial);
+
+aurora::close

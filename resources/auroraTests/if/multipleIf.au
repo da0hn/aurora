@@ -1,0 +1,19 @@
+aurora::init
+    au::var num;
+    au::var fatorial;
+
+    au::write("Entre com um numero: ");
+    au::read(num);
+
+    au::if (num > 2)
+        au::write("O Valor eh maior que 2: ");
+        au::write(num);
+    au::else
+        au::write("O valor eh menor 2");
+        au::if (num > 1)
+            au::write("O valor eh maior que 1");
+        au::endif
+    au::endif
+
+    au::write("Fim do programa");
+aurora::close

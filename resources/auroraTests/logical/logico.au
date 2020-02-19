@@ -1,0 +1,16 @@
+// Developed By Gabriel Honda
+// quarta-feira fevereiro 2020 (19/02/2020)
+aurora::init
+    au::var num;
+
+    au::write("Entre com um numero inteiro para ser testado: ");
+    au::read(num);
+
+    au::if( num > 7 )
+        au::write("O valor inserido eh maior do que 7");
+    au::else
+        au::if( num < 7 )
+            au::write("O valor inserido eh menor que 7");
+        au::endif
+    au::endif
+aurora::close

@@ -1,0 +1,25 @@
+aurora::init
+
+	au::var variavel;
+	au::var valorLido;
+
+	variavel = 5;
+
+	au::read(valorLido);
+
+	au::if( variavel < 5 )
+		au::write("eh menor 5");
+	au::else
+		au::if(inteiro > 5)
+			au::write("eh maior 5");
+		au::endif
+	au::else
+		au::write("nao sei");
+	au::endif
+
+	au::loop( inteiro < valorLido )
+		au::write(inteiro);
+		inteiro = inteiro + 1;
+	au::endloop
+
+aurora::close

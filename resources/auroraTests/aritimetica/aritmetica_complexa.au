@@ -1,0 +1,20 @@
+// Developed By Gabriel Honda
+// quarta-feira fevereiro 2020 (19/02/2020)
+aurora::init
+    au::var num;
+    au::var fatorial;
+
+    au::write("Entre com um numero: ");
+    au::read(num);
+
+    au::if (num > 5)
+        au::write("Realizando conta ((2 * 2) + (6/2)) + 12 e salvando no fatorial...");
+        fatorial = ((2 * 2) + (6 / 2)) + 12;
+    au::else
+        au::write("O valor eh menor ou igual a 5");
+    au::endif
+
+    au::write("O resultado de fatorial eh: ");
+    au::write(fatorial);
+    au::write("Fim do programa");
+aurora::close

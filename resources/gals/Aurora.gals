@@ -1,0 +1,128 @@
+#Options
+GenerateScanner = true
+GenerateParser = true
+Language = Java
+ScannerName = Lexico
+ParserName = Sintatico
+SemanticName = Semantico
+ScannerCaseSensitive = true
+ScannerTable = Full
+Input = Stream
+Parser = LL
+#RegularDefinitions
+whitespace : [\s\t\n]
+comment    : [\0-\41\43-\255]
+character  : [a-zA-Z]
+underline  : ["_"]
+colon      : ["::"]
+integer    : [0-9]
+string     : [\0-\9\11-\33\35-\91\93-\255]
+#Tokens
+                        : {whitespace}*
+                        : / / [^\n]*
+                        : / \* ({comment} | \* [^/])* \* /	
+identifier              : ({character} | {underline}) ({character} | {integer} | {underline})*
+keyword		      : ({character} | {colon})*
+integer_literal         : ({integer})+
+string_literal          : \" ({string} | \\ \" | \\ {character})* \"
+
+init_program	= keyword : "aurora::init"
+end_program	= keyword : "aurora::close"
+
+if       	= keyword : "au::if"
+else     	= keyword : "au::else"
+endif		= keyword : "au::endif"
+
+loop     	= keyword : "au::loop"
+endloop  	= keyword : "au::endloop"
+
+write    	= keyword : "au::write"
+read    		= keyword : "au::read"
+var      	= keyword : "au::var"
+
+"("
+")"
+";"
+"="
+"+"
+"-"
+"*"
+"/"
+"<"
+">"
+
+#NonTerminals
+<aurora>
+<recursive_statement>
+<statement>
+<write>
+<read>
+<conditional>
+<if>
+<else>
+<loop>
+<while>
+<declaration>
+<assignment>
+<basic_expression>
+<basic_operator>
+<string_expression>
+<string_operator>
+<any_expression>
+
+#Grammar
+<aurora>          ::= init_program <recursive_statement> end_program
+|                         î
+;
+<recursive_statement> ::= <statement> <recursive_statement>
+|                         î
+;
+<statement>           ::= <write>
+|                         <read>
+|                         <conditional>
+|                         <loop>
+|                         <declaration>
+|                         <assignment>
+;
+<write>               ::= write "(" <any_expression> ")" ";"
+;
+<read>                ::= read "(" identifier ")" ";"
+;
+<conditional>         ::= <if> <else> endif
+;
+<if>                  ::= if "(" <basic_expression> ")" <recursive_statement>
+;
+<else>                ::= else <recursive_statement>
+|                         î
+;
+<loop>                ::= <while> endloop
+;
+<while>               ::= loop "(" <basic_expression> ")" <recursive_statement>
+;
+<declaration>         ::= var identifier ";"
+;
+<assignment>          ::= identifier "=" <basic_expression> ";"
+;
+<basic_expression>    ::= identifier <basic_operator>
+|                         integer_literal <basic_operator>
+|                         "+" <basic_expression>
+|                         "-" <basic_expression>
+|                         "(" <basic_expression> ")" <basic_operator>
+;
+<basic_operator>      ::= "+" <basic_expression>
+|                         "-" <basic_expression>
+|                         "*" <basic_expression>
+|                         "/" <basic_expression>
+|                         "<" <basic_expression>
+|                         ">" <basic_expression>
+|                         î
+;
+<string_expression>   ::= string_literal <string_operator>
+;
+<string_operator>     ::= "+" <string_expression>
+|                         î
+;
+<any_expression>      ::= <basic_expression>
+|                         <string_expression>
+;
+
