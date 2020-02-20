@@ -1,14 +1,12 @@
 package aurora.parser.argument;
 
-import aurora.parser.ParsedData;
+import aurora.parser.ParsedPath;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 /*
  * @project aurora
@@ -17,47 +15,46 @@ import java.util.Optional;
 public class Argument {
 
     /*
-    * criar .asm com o mesmo nome do arquivo .au
-    * */
-
-    private static final String aurora = ".au";
-    private static final String assembly  = ".asm";
-
-    public static ParsedData parseArgs(String[] args) {
+     * criar .asm com o mesmo nome do arquivo .au
+     * */
+    public static ParsedPath parseArgs(String[] args) {
+        final String aurora = ".au";
+        final String assembly = ".asm";
+        // converte os argumentos para ArrayList para utilizar Stream
         List<String> listArgs = Arrays.asList(args);
 
-        System.out.println(listArgs.toString());
-
-        if(listArgs.contains("--all")){
-            for(Flag f : Flag.values()){
-                f.setValue(true);
-            }
-            listArgs.removeIf(s -> s.equals("--all"));
+        if(listArgs.contains("--all")) {
+            // ativa todas as flags
+            Stream.of(Flag.values())
+                    .forEach(f -> f.setValue(true));
+        } else {
+            listArgs.stream()
+                    // filtra as Strings dentro de listArgs checando se estao contidas dentro
+                    // da lista E se comecam com '--' que sinaliza o inicio de uma flag
+                    .filter(arg -> listArgs.contains(arg) && arg.startsWith("--"))
+                    .forEach(arg -> Flag.getFlag(arg).setValue(true));
         }
-        else {
-            for(String arg : args) {
-                if(listArgs.contains(arg) && arg.contains("--")) {
-                    Flag.getFlag(arg).setValue(true);
-                }
-            }
-        }
-        Path input = parseInput(listArgs.stream()
-                                .filter(arg -> arg.endsWith(aurora))
-                                .findFirst()
-                                .orElseThrow(() -> new IllegalArgumentException("Não foi encontrado o arquivo " + aurora))
-        );
-        Path output = parseOutput(listArgs.stream()
-                                .filter(arg -> arg.endsWith(assembly))
-                                .findFirst()
-                                .orElseThrow(() -> new IllegalStateException("Não foi encontrado o arquivo " + assembly)));
-        return new ParsedData(input, output);
+        // assume-se que um arquivo aurora deve-se ter a extensao .au,
+        // procura dentro da lista uma string que termina com .au
+        Path pathAU = Path.of(findFile(listArgs,
+                                       arg -> arg.endsWith(aurora),
+                                       aurora
+        ));
+        Path pathASM = Path.of(findFile(listArgs,                       // lista que talvez contenha o caminho do arquivo
+                                        arg -> arg.endsWith(assembly),  // teste para encontrar o arquivo
+                                        assembly
+        ));                     // extensão para a mensagem de erro
+        // retorna uma instancia de ParsedPath que possui a informacao do caminho dos arquivos de input e output
+        // que serao usados por outras classes
+        return new ParsedPath(pathAU, pathASM);
     }
 
-    private static Path parseOutput(String output) {
-        return Path.of(output);
+    private static String findFile(List<String> list, Predicate<String> constraint, String ext) {
+        return list.stream()
+                .filter(constraint)     // executa o metodo de teste
+                .findFirst()            // recupera o primeiro resultado que é um Optional
+                // se o Optional for nulo lança a exceção
+                .orElseThrow(() -> new IllegalArgumentException("Não foi encontrado o arquivo do tipo" + ext));
     }
 
-    private static Path parseInput(String input){
-        return Path.of(input);
-    }
 }
