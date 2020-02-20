@@ -1,0 +1,7 @@
+precisa estar em src:
+
+javac aurora/parser/argument/*.java -d ./../test/out/
+javac aurora/parser/*.java -d ./../test/out/
+javac aurora/app/*.java -d ./../test/out/
+
+javac aurora/parser/argument/*.java aurora/parser/*.java aurora/app/*.java -d ./../compiled/
