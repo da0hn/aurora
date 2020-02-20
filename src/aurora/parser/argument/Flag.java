@@ -39,7 +39,14 @@ public enum Flag {
             case "--symbols":
                 return Flag.SYMBOLS;
         }
-        throw new IllegalStateException("A flag não foi reconhecida.");
+        throw new IllegalStateException("A flag "+ arg +" não foi reconhecida.");
     }
 
+    @Override
+    public String toString() {
+        return "Flag{" +
+                "arg='" + arg + '\'' +
+                ", value=" + value +
+                '}';
+    }
 }
