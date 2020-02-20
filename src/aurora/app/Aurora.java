@@ -1,6 +1,9 @@
 package aurora.app;
 
 import aurora.parser.argument.Argument;
+import aurora.parser.argument.Flag;
+
+import java.util.Arrays;
 
 /*
  * @project aurora
@@ -10,6 +13,10 @@ public class Aurora {
 
     public static void main(String[] args) {
         var data = Argument.parseArgs(args);
+
+       for(Flag f : Flag.values()) {
+           System.out.println(f);
+       }
 
         System.out.println(data.getAssembly());
         System.out.println(data.getAurora());
