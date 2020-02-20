@@ -1,7 +1,4 @@
-package aurora.parser.args;
-
-import java.util.ArrayList;
-import java.util.List;
+package aurora.parser.argument;
 
 /*
  * @project aurora
