@@ -28,11 +28,15 @@ public class Argument {
         // procura dentro da lista uma string que termina com .au
         Optional<String> _au = findFile(listArgs, arg -> arg.endsWith(auroraExt));
 
-        Optional<String> _asm = findFile(listArgs, arg -> arg.endsWith(asmExt));
+        // caso nao seja encontrado o arquivo aurora o lança excecao e encerra a aplicacao
+        auroraPath = Path.of(_au.orElseThrow(() -> new IllegalArgumentException("Não foi encontrado o arquivo do tipo " + auroraExt)));
 
-        auroraPath = Path.of(_au.orElseThrow(() -> new IllegalArgumentException("Não foi encontrado o arquivo do tipo" + auroraExt)));
-
-        asmPath = processAsmPath(auroraPath, _asm);
+        // procura o arquivo passado por argumento,
+        // caso o arquivo nao seja encontrado gera um .asm com o mesmo nome
+        // do arquivo aurora
+        asmPath = processAsmPath(auroraPath, findFile(listArgs,
+                                                      arg -> arg.endsWith(asmExt))
+        );
 
         // retorna uma instancia de ParsedPath que possui a informacao do caminho
         // dos arquivos de input e output
