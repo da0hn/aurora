@@ -13,7 +13,6 @@ Parser = LL
 whitespace : [\s\t\n]
 comment    : [\0-\41\43-\255]
 character  : [a-zA-Z]
-underline  : ["_"]
 colon      : ["::"]
 integer    : [0-9]
 string     : [\0-\9\11-\33\35-\91\93-\255]
@@ -21,7 +20,7 @@ string     : [\0-\9\11-\33\35-\91\93-\255]
                         : {whitespace}*
                         : / / [^\n]*
                         : / \* ({comment} | \* [^/])* \* /	
-identifier              : ({character} | {underline}) ({character} | {integer} | {underline})*
+identifier              : {character}({character} | {integer} )*
 keyword		      : ({character} | {colon})*
 integer_literal         : ({integer})+
 string_literal          : \" ({string} | \\ \" | \\ {character})* \"
@@ -117,10 +116,7 @@ var      	= keyword : "au::var"
 |                         ">" <basic_expression>
 |                         î
 ;
-<string_expression>   ::= string_literal <string_operator>
-;
-<string_operator>     ::= "+" <string_expression>
-|                         î
+<string_expression>   ::= string_literal
 ;
 <any_expression>      ::= <basic_expression>
 |                         <string_expression>
