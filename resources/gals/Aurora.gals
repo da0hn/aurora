@@ -17,16 +17,16 @@ colon      : ["::"]
 integer    : [0-9]
 string     : [\0-\9\11-\33\35-\91\93-\255]
 #Tokens
-                        : {whitespace}*
-                        : / / [^\n]*
-                        : / \* ({comment} | \* [^/])* \* /	
-identifier              : {character}({character} | {integer} )*
-keyword		      : ({character} | {colon})*
-integer_literal         : ({integer})+
-string_literal          : \" ({string} | \\ \" | \\ {character})* \"
+                        	: {whitespace}*
+                        	: / / [^\n]*
+                        	: / \* ({comment} | \* [^/])* \* /	
+id	              	: {character}({character} | {integer} )*
+keyword		      	: ({character} | {colon})*
+number         		: ({integer})+
+string_literal          	: \" ({string} | \\ \" | \\ {character})* \"
 
 init_program	= keyword : "aurora::init"
-end_program	= keyword : "aurora::close"
+close_program	= keyword : "aurora::close"
 
 if       	= keyword : "au::if"
 else     	= keyword : "au::else"
@@ -70,7 +70,7 @@ var      	= keyword : "au::var"
 <any_expression>
 
 #Grammar
-<aurora>          ::= init_program <recursive_statement> end_program
+<aurora>          ::= init_program <recursive_statement> close_program
 |                         î
 ;
 <recursive_statement> ::= <statement> <recursive_statement>
@@ -85,7 +85,7 @@ var      	= keyword : "au::var"
 ;
 <write>               ::= write "(" <any_expression> ")" ";"
 ;
-<read>                ::= read "(" identifier ")" ";"
+<read>                ::= read "(" id ")" ";"
 ;
 <conditional>         ::= <if> <else> endif
 ;
@@ -98,12 +98,12 @@ var      	= keyword : "au::var"
 ;
 <while>               ::= loop "(" <basic_expression> ")" <recursive_statement>
 ;
-<declaration>         ::= var identifier ";"
+<declaration>         ::= var id ";"
 ;
-<assignment>          ::= identifier "=" <basic_expression> ";"
+<assignment>          ::= id "=" <basic_expression> ";"
 ;
-<basic_expression>    ::= identifier <basic_operator>
-|                         integer_literal <basic_operator>
+<basic_expression>    ::= id <basic_operator>
+|                         number <basic_operator>
 |                         "+" <basic_expression>
 |                         "-" <basic_expression>
 |                         "(" <basic_expression> ")" <basic_operator>
