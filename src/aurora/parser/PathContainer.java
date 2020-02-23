@@ -7,12 +7,12 @@ import java.nio.file.Path;
  * @project aurora
  * @author Gabriel Honda on 20/02/2020
  */
-public class ParsedPath {
+public class PathContainer {
 
     private final Path aurora;
     private final Path assembly;
 
-    public ParsedPath(Path aurora, Path assembly) {
+    public PathContainer(Path aurora, Path assembly) {
         this.aurora = aurora;
         this.assembly = assembly;
     }
