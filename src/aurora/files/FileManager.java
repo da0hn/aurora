@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
  * @author Gabriel Honda on 20/02/2020
  */
 public class FileManager {
-    // TODO: Implementar o gerenciamento da escrita e leitura de arquivo
 
     private PathContainer manager;
 
@@ -26,10 +25,11 @@ public class FileManager {
         List<String> lines = new ArrayList<>();
         try ( var buffer = Files.newBufferedReader(manager.getAurora())) {
             lines = buffer.lines().collect(Collectors.toList());
-        }
-        catch(IOException e) {
+        } catch(IOException e) {
             e.printStackTrace();
         }
         return lines;
     }
+    // TODO: Implementar escrita do arquivo .asm
+    public void writeDataOnAsmFile(){}
 }

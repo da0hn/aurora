@@ -1,5 +1,6 @@
 package aurora.app;
 
+import aurora.analyzer.lexical.Lexical;
 import aurora.files.FileManager;
 import aurora.parser.PathContainer;
 import aurora.parser.Argument;
@@ -21,12 +22,15 @@ public class Aurora {
        }
 
         FileManager manager = new FileManager(data);
-        List<String> strings = manager.readLinesAuroraFile();
+        List<String> code = manager.readLinesAuroraFile();
 
-        for(String line : strings) {
+        for(String line : code) {
             System.out.println(line);
         }
 
+        Lexical lex = new Lexical();
+        lex.analyze(code);
+        System.out.println(lex.getTokens());
     }
 
 }
