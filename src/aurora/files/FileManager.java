@@ -1,8 +1,4 @@
-package aurora.file;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
+package aurora.files;
 
 /*
  * @project aurora
@@ -10,4 +6,7 @@ import java.nio.file.Path;
  */
 public class FileManager {
     // TODO: Implementar o gerenciamento da escrita e leitura de arquivo
+
+
+
 }
