@@ -1,4 +1,4 @@
-package aurora.parser.argument;
+package aurora.parser;
 
 /*
  * @project aurora
@@ -14,7 +14,7 @@ public enum Flag {
     SYNTACTIC(false,"--syntactic"),
     SEMANTIC(false, "--semantic"),
     SYMBOLS(false,"--symbols"),
-    FINAL_CODE(false,"--finalcode");
+    FINAL_CODE(false,"--final-code");
 
     private String arg;
     private boolean value;
@@ -42,6 +42,8 @@ public enum Flag {
                 return Flag.SEMANTIC;
             case "--symbols":
                 return Flag.SYMBOLS;
+            case "--final-code":
+                return Flag.FINAL_CODE;
         }
         throw new IllegalStateException("A flag "+ arg +" não foi reconhecida.");
     }

@@ -1,7 +1,6 @@
-package aurora.parser.argument;
+package aurora.parser;
 
 import aurora.files.AsmFile;
-import aurora.parser.PathContainer;
 
 import java.nio.file.Path;
 import java.util.Arrays;
