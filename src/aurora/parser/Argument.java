@@ -1,7 +1,7 @@
 package aurora.parser.argument;
 
 import aurora.files.AsmFile;
-import aurora.parser.ParsedPath;
+import aurora.parser.PathContainer;
 
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -16,7 +16,7 @@ import java.util.stream.Stream;
  */
 public class Argument {
 
-    public static ParsedPath parseArgs(String[] args) {
+    public static PathContainer parseArgs(String[] args) {
         Path asmPath, auroraPath;
         final String auroraExt = ".au";
         final String asmExt = ".asm";
@@ -41,7 +41,7 @@ public class Argument {
         // retorna uma instancia de ParsedPath que possui a informacao do caminho
         // dos arquivos de input e output
         // que serao usados por outras classes
-        return new ParsedPath(auroraPath, asmPath);
+        return new PathContainer(auroraPath, asmPath);
     }
 
     private static List<String> activateFlags(String[] args) {
