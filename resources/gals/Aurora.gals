@@ -19,7 +19,6 @@ string     : [\0-\9\11-\33\35-\91\93-\255]
 #Tokens
                         	: {whitespace}*
                         	: / / [^\n]*
-                        	: / \* ({comment} | \* [^/])* \* /	
 id	              	: {character}({character} | {integer} )*
 keyword		      	: ({character} | {colon})*
 number         		: ({integer})+
