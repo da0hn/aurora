@@ -1,4 +1,4 @@
-package aurora.analyzer.semantic;
+package aurora.analyzer.lexical;
 
 /*
  * @project aurora
