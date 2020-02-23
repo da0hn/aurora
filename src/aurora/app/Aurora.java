@@ -1,9 +1,11 @@
 package aurora.app;
 
-import aurora.parser.argument.Argument;
-import aurora.parser.argument.Flag;
+import aurora.files.FileManager;
+import aurora.parser.PathContainer;
+import aurora.parser.Argument;
+import aurora.parser.Flag;
 
-import java.util.Arrays;
+import java.util.List;
 
 /*
  * @project aurora
@@ -12,14 +14,18 @@ import java.util.Arrays;
 public class Aurora {
 
     public static void main(String[] args) {
-        var data = Argument.parseArgs(args);
+        PathContainer data = Argument.parseArgs(args);
 
        for(Flag f : Flag.values()) {
            System.out.println(f);
        }
 
-        System.out.println(data.getAssembly());
-        System.out.println(data.getAurora());
+        FileManager manager = new FileManager(data);
+        List<String> strings = manager.readLinesAuroraFile();
+
+        for(String line : strings) {
+            System.out.println(line);
+        }
 
     }
 
