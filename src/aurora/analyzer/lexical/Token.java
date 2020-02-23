@@ -1,11 +1,16 @@
 package aurora.analyzer.lexical;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 /*
  * @project aurora
  * @author Gabriel Honda on 22/02/2020
  */
-public enum Token {
+public enum Token implements IToken {
 
+    FINAL("$"),
     ID("id"),
     NUMBER("number"),
     STRING("string_literal"),
@@ -19,18 +24,7 @@ public enum Token {
     ENDLOOP("endloop"),
     WRITE("write"),
     READ("read"),
-    VAR("var"),
-
-    OPEN_PARENTHESIS("("),
-    CLOSE_PARENTHESIS(")"),
-    SEMICOLON(";"),
-    EQUALS("="),
-    PLUS("+"),
-    MINUS("-"),
-    ASTERISK("*"),
-    FOWARDSLASH("/"),
-    GREATERTHAN(">"),
-    LESSTHAN("<");
+    VAR("var");
 
     private String token;
 
@@ -38,7 +32,14 @@ public enum Token {
         this.token = token;
     }
 
+    @Override
     public String getName() {
         return token;
+    }
+
+    public static List<String> getValues(){
+        return Arrays.stream(Token.values())
+                .map(Token::getName)
+                .collect(Collectors.toList());
     }
 }
