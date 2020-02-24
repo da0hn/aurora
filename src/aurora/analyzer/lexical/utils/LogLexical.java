@@ -1,5 +1,6 @@
 package aurora.analyzer.lexical.utils;
 
+import aurora.analyzer.lexical.enums.IToken;
 import aurora.analyzer.lexical.exception.LexicalException;
 import aurora.log.Log;
 
@@ -7,15 +8,15 @@ import aurora.log.Log;
  * @project aurora
  * @author Gabriel Honda on 23/02/2020
  */
-public class LogLexical implements Log {
-    @Override
-    public void message(String msg, int line, int column) {
-        System.out.println("["+line + ", "+ column +"]: "+ msg );
+public class LogLexical {
+
+    public void message(TokenContainer tk) {
+        System.out.println( tk.getToken() + " at [" + tk.getLine() + ", " + tk.getColumn() + "]" +
+                                   ": lexeme='" + tk.getLexeme() + '\'');
     }
 
-    @Override
     public void error(String err, int line, int column) {
-        System.err.println("["+line+", "+column+"]: " + err);
+        System.err.println("Error at ["+line+", "+column+"]: " + err);
         //        throw new LexicalException();
     }
 }

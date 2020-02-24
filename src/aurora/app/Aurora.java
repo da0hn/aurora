@@ -30,7 +30,6 @@ public class Aurora {
 
         Lexical lex = new Lexical(new LogLexical());
         lex.analyze(code);
-        lex.getTokens().forEach(System.out::println);
     }
 
 }

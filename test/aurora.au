@@ -12,5 +12,5 @@ aurora::init
         num = num - 1;
     au::endloop
 
-    au::write("Fim do programa");
+    au::write(Fim do programa);
 aurora::close
