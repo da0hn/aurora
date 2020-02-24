@@ -1,4 +1,4 @@
-package aurora.analyzer.lexical;
+package aurora.analyzer.lexical.enums;
 
 import java.util.Arrays;
 import java.util.List;
@@ -35,6 +35,15 @@ public enum Token implements IToken {
     @Override
     public String getName() {
         return token;
+    }
+
+    public static Token toEnum(String str) {
+        for(Token token : Token.values()) {
+            if( token.getName().equals(str)) {
+                return token;
+            }
+        }
+        throw new IllegalArgumentException("Este simbolo '"+ str +"' nao pode ser convertido.");
     }
 
     public static List<String> getValues(){

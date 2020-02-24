@@ -1,4 +1,4 @@
-package aurora.analyzer.lexical;
+package aurora.analyzer.lexical.enums;
 
 import java.util.Arrays;
 import java.util.List;

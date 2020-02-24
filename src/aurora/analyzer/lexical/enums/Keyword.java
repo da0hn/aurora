@@ -1,4 +1,4 @@
-package aurora.analyzer.lexical;
+package aurora.analyzer.lexical.enums;
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,6 +30,15 @@ public enum Keyword implements IToken {
     @Override
     public String getName() {
         return keyword;
+    }
+
+    public static Keyword toEnum(String str) {
+        for(Keyword keyword : Keyword.values()) {
+            if( keyword.getName().equals(str)) {
+                return keyword;
+            }
+        }
+        throw new IllegalArgumentException("Este simbolo '"+ str +"' nao pode ser convertido.");
     }
 
     public static List<String> getValues(){
