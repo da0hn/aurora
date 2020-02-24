@@ -21,7 +21,7 @@ public enum Token implements IToken {
     ELSE("else"),
     ENDIF("endif"),
     LOOP("loop"),
-    ENDLOOP("endloop"),
+    END_LOOP("endloop"),
     WRITE("write"),
     READ("read"),
     VAR("var");

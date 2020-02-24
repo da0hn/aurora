@@ -40,17 +40,14 @@ public class Lexical {
     private void analyzeLine(String line) {
         if(line.isEmpty() && line.isBlank()) return;
 
-//        AtomicInteger index = new AtomicInteger(0);
-        Integer index = 0;
+        AtomicInteger index = new AtomicInteger(0);
         StringBuilder buffer = new StringBuilder();
+        Character curr, next;
 
-        Character curr;
-        Character next;
+        while(index.get() < line.length()) {
 
-        while(index < line.length()) {
-
-            curr = line.charAt(index++);
-            next = index < line.length() ? line.charAt(index) : ' ';
+            curr = line.charAt(index.getAndIncrement());
+            next = index.get() < line.length() ? line.charAt(index.get()) : 0;
 
             if(curr.equals('/') && next.equals('/')) {
                 return;
@@ -59,26 +56,7 @@ public class Lexical {
                 this.column++;
             }
             else if(curr.equals('"')) {
-
-                buffer = new StringBuilder();
-                buffer.append('"');
-                do {
-                    curr = line.charAt(index++);
-                    buffer.append(curr);
-                    if(index == line.length()) {
-                        log.error("Error: missing closing quotes", this.line, this.column);
-                        break;
-                    }
-
-                } while(!curr.equals('"'));
-
-                if(curr.equals('"')) {
-                    var tk = new TokenContainer(Token.STRING, buffer.toString(), this.line, this.column);
-                    log.message(tk);
-                    tokens.add(tk);
-                }
-
-                this.column += buffer.length();
+                analyzeQuote(line, index);
                 buffer = new StringBuilder();
             }
             else if(Symbol.getValues().contains(curr.toString())) {
@@ -102,24 +80,22 @@ public class Lexical {
         }
     }
 
-    private void quoteHandler(String line, Character curr, int index) {
+    private void analyzeQuote(String line,  AtomicInteger index) {
         StringBuilder buffer = new StringBuilder();
         buffer.append('"');
+        Character curr;
         do {
-            curr = line.charAt(index++);
+            curr = line.charAt(index.getAndIncrement());
             buffer.append(curr);
-            if(index == line.length()) {
-                log.error("Error: missing closing quotes", this.line, this.column);
+            if(index.get() == line.length()) {
+                log.error("missing closing quotes", this.line, this.column);
                 return;
             }
-
         } while(!curr.equals('"'));
-        if(curr.equals('"')) {
-            var tk = new TokenContainer(Token.STRING, buffer.toString(), this.line, this.column);
-            log.message(tk);
-            tokens.add(tk);
-        }
 
+        var tk = new TokenContainer(Token.STRING, buffer.toString(), this.line, this.column);
+        log.message(tk);
+        tokens.add(tk);
         this.column += buffer.length();
     }
 
