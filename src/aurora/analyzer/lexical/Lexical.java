@@ -8,6 +8,7 @@ import aurora.analyzer.lexical.utils.TokenContainer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /*
@@ -100,29 +101,30 @@ public class Lexical {
     }
 
     private void analyzeBuffer(String buffer) {
-        TokenContainer tk = null;
+        Optional<TokenContainer> tk = Optional.empty();
 
-        if(Keyword.getValues().contains(buffer)) {
-            tk = new TokenContainer(Keyword.toEnum(buffer), buffer, this.line, this.column);
-            log.message(tk);
+        if(isKeyword(buffer)) {
+            tk = Optional.of(new TokenContainer(Keyword.toEnum(buffer), buffer, this.line, this.column));
         }
         else if(isIdentifier(buffer)) {
-            tk = new TokenContainer(Token.ID, buffer, this.line, this.column);
-            log.message(tk);
+            tk = Optional.of(new TokenContainer(Token.ID, buffer, this.line, this.column));
         }
         else if(isNumber(buffer)) {
-            tk = new TokenContainer(Token.NUMBER, buffer, this.line, this.column);
-            log.message(tk);
+            tk = Optional.of(new TokenContainer(Token.NUMBER, buffer, this.line, this.column));
         }
 
-        if(tk != null) {
-            this.tokens.add(tk);
+        if( tk.isPresent() ) {
+            tokens.add(tk.get());
+            log.message(tk.get());
         }
         else {
             log.error("the lexeme was not recognized", this.line, this.column);
         }
     }
 
+    private boolean isKeyword(String str) {
+        return Keyword.getValues().contains(str);
+    }
     private boolean isIdentifier(String str) {
         if(Character.isDigit(str.charAt(0))) {
             return false;

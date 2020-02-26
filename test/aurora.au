@@ -3,11 +3,11 @@
 aurora::init
     au::var num;
 
-    au::write("Entre com um valor: );
+    au::write("Entre com um valor: ");
     au::read(num);
 
     au::loop (num > 0)
-        au::write("Olar);
+        au::write("Olar");
         au::write(num);
         num = num - 1;
     au::endloop
