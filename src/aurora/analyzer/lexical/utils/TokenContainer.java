@@ -1,6 +1,6 @@
 package aurora.analyzer.lexical.utils;
 
-import aurora.analyzer.lexical.enums.IToken;
+import aurora.analyzer.lexical.interfaces.IToken;
 
 /*
  * @project aurora

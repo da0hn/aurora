@@ -10,7 +10,7 @@ public class LogLexical {
 
     public void message(TokenContainer tk) {
         System.out.println(tk.getToken() + " at [" + tk.getLine() + ", " + tk.getColumn() + "]" +
-                                   ": lexeme='" + tk.getLexeme() + '\'');
+                                   ": token='" + tk.getLexeme() + '\'');
     }
 
     public void error(String err, int line, int column) {
