@@ -1,6 +1,6 @@
 package aurora.app;
 
-import aurora.analyzer.lexical.Lexical;
+import aurora.analyzer.lexical.LexicalRegex;
 import aurora.analyzer.lexical.utils.LogLexical;
 import aurora.files.FileManager;
 import aurora.parser.PathContainer;
@@ -28,7 +28,7 @@ public class Aurora {
 //            System.out.println(line);
 //        }
 
-        Lexical lex = new Lexical(new LogLexical());
+        LexicalRegex lex = new LexicalRegex(new LogLexical());
         lex.analyze(code);
     }
 
