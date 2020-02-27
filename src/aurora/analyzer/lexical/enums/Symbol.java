@@ -1,5 +1,7 @@
 package aurora.analyzer.lexical.enums;
 
+import aurora.analyzer.lexical.interfaces.IToken;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;

@@ -1,5 +1,7 @@
 package aurora.analyzer.lexical.enums;
 
+import aurora.analyzer.lexical.interfaces.IToken;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,7 +18,7 @@ public enum Keyword implements IToken {
     ENDIF("au::endif"),
     ELSE("au::else"),
     LOOP("au::loop"),
-    ENDLOOP("au::endloop"),
+    END_LOOP("au::endloop"),
     WRITE("au::write"),
     READ("au::read"),
     VAR("au::var");
