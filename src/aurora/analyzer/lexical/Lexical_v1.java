@@ -22,7 +22,7 @@ import static aurora.analyzer.lexical.interfaces.BufferAnalyzer.number;
  */
 class Lexical_v1 {
     /*
-    * primeira implementacao do lexico,
+    * primeira implementacao do analisador lexico,
     * sera mantido como consulta de exemplo
     * */
     private Integer line = 0;
