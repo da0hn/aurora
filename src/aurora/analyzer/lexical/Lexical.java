@@ -1,127 +1,105 @@
 package aurora.analyzer.lexical;
 
-import aurora.analyzer.lexical.interfaces.IToken;
-import aurora.analyzer.lexical.enums.Symbol;
-import aurora.analyzer.lexical.enums.Token;
-import aurora.analyzer.lexical.interfaces.BufferAnalyzer;
-import aurora.analyzer.lexical.utils.LogLexical;
-import aurora.analyzer.lexical.utils.TokenContainer;
+import aurora.analyzer.lexical.interfaces.AnalyzerService;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Consumer;
 
-import static aurora.analyzer.lexical.interfaces.BufferAnalyzer.isIdentifier;
-import static aurora.analyzer.lexical.interfaces.BufferAnalyzer.isNumber;
+import static aurora.analyzer.lexical.Lexical.Controls.*;
+import static aurora.analyzer.lexical.interfaces.AnalyzerService.stringAnalyzer;
+import static aurora.analyzer.lexical.interfaces.AnalyzerService.isLineEmpty;
+import static aurora.analyzer.lexical.interfaces.LinesParserService.splitBy;
 
 /*
  * @project aurora
  * @author Gabriel Honda on 22/02/2020
  */
 public class Lexical {
+    /*
+    * classe interna responsavel pelo controle das linhas,
+    * colunas e tamanho da linha
+    * */
+    public static class Controls {
+        private static Integer line = 1;
+        private static Integer column = 1;
+        private static Integer lineLength;
 
-    private Integer line = 0;
-    private Integer column = 1;
-    private List<TokenContainer> tokens;
-    private LogLexical log;
-
-    public Lexical(LogLexical log) {
-        this.tokens = new ArrayList<>();
-        this.log = log;
-    }
-
-    public void analyze(List<String> code) {
-        for(String line : code) {
-            this.line++;
-            analyzeLine(line);
-            this.column = 1;
+        public static void setLineLength(List<String> line){
+            // recebe a linha atual e soma os caracteres de cada String inserida
+            // na lista
+            lineLength = line.stream()
+                    .mapToInt(String::length)
+                    .sum();
         }
-        this.tokens.add(new TokenContainer(Token.FINAL, "$",
-                                           this.line, this.column
-        ));
+
+        public static void incrementColumn(){ column++;}
+        public static void incrementColumn(Integer column){
+            Controls.column += column;
+        }
+        public static void incrementLine(){ line++;}
+        public static void resetColumn(){ column = 1;}
+        public static Integer getColumn() {
+            return column;
+        }
+        public static Integer getLine() {
+            return line;
+        }
+        public static Integer getLineLength() {
+            return lineLength;
+        }
     }
 
-    private void analyzeLine(String line) {
-        if(line.isEmpty() && line.isBlank()) return;
+    public void analyze(List<String> lines){
 
-        AtomicInteger index = new AtomicInteger(0);
-        StringBuilder buffer = new StringBuilder();
-        Character curr, next;
+        // metodo splitBy() quebra a linha de acordo com o delimitador
+        // o delimitador é mantido na lista criada para analise
+        for(String line : lines) {
+            var parsedLines = splitBy("\\)")
+                    .andThen(splitBy("\\("))
+                    .andThen(splitBy("\\s"))
+                    .andThen(splitBy(";"))
+                    .andThen(splitBy("\""))
+                    .andThen(splitBy(">"))
+                    .andThen(splitBy("<"))
+                    .andThen(splitBy("="))
+                    .andThen(splitBy("\\+"))
+                    .andThen(splitBy("\\-"))
+                    .andThen(splitBy("\\*"))
+                    .andThen(splitBy("/"))
+                    .apply(Collections.singletonList(line));
+//            System.out.println(parsedLines + " size -> " + parsedLines.size());
+            analyzeLines(parsedLines);
 
-        while(index.get() < line.length()) {
+            incrementLine();
+            resetColumn();
+        }
+    }
 
-            curr = line.charAt(index.getAndIncrement());
-            next = index.get() < line.length() ? line.charAt(index.get()) : 0;
-
-            if(curr.equals('/') && next.equals('/')) {
+    private void analyzeLines(List<String> lines) {
+        if(isLineEmpty(lines)) return;
+        // seta o tamanho total da linha
+        setLineLength(lines);
+        var it = lines.listIterator();
+        // itera a lista que representa uma linha do arquivo .au
+        while(it.hasNext()){
+            var current = it.next();
+            // teste de comentario
+            if(current.equals("/") && it.next().equals("/")) {
                 return;
             }
-            else if(Character.isWhitespace(curr)) {
-                this.column++;
+            // teste de linha em branco
+            else if(current.equals(" ")){
+                incrementColumn();
             }
-            else if(curr.equals('"')) {
-                analyzeQuote(line, index);
-                buffer = new StringBuilder();
+            // testa se e um comentario
+            else if(current.equals("\"")){
+                if(stringAnalyzer(it)) return;
             }
-            else if(Symbol.getValues().contains(curr.toString())) {
-                var tk = new TokenContainer(Symbol.toEnum(curr.toString()),
-                                            curr.toString(), this.line, this.column
-                );
-                tokens.add(tk);
-                log.message(tk);
-                this.column++;
-                buffer = new StringBuilder();
-            }
-            else if(!Character.isLetterOrDigit(next) && !next.equals(':')) {
-                buffer.append(curr);
-                analyzeBuffer(buffer.toString());
-                this.column += buffer.length();
-                buffer = new StringBuilder();
-            }
+            // caso nao entre em nenhuma das classificacoes anteriores
+            // provavelmente entra na classificacao de token
             else {
-                buffer.append(curr);
+                AnalyzerService.tokenAnalyzer(current);
             }
         }
-    }
-
-    private void analyzeQuote(String line,  AtomicInteger index) {
-        StringBuilder buffer = new StringBuilder();
-        buffer.append('"');
-        Character curr;
-        do {
-            curr = line.charAt(index.getAndIncrement());
-            buffer.append(curr);
-            if(index.get() == line.length()) {
-                log.error("missing closing quotes", this.line, this.column);
-                return;
-            }
-        } while(!curr.equals('"'));
-
-        var tk = new TokenContainer(Token.STRING, buffer.toString(), this.line, this.column);
-        log.message(tk);
-        tokens.add(tk);
-        this.column += buffer.length();
-    }
-
-    private void analyzeBuffer(String buffer){
-        Optional<IToken> optToken = BufferAnalyzer.isKeyword().orElse(isIdentifier())
-                .orElse(isNumber()).apply(buffer);
-
-        Consumer<IToken> addAndLog = tk -> {
-            var temp = new TokenContainer(tk, buffer, this.line, this.column);
-            tokens.add(temp);
-            log.message(temp);
-        };
-
-        Runnable logError =  () -> log.error("the lexeme was not recognized", this.line, this.column);
-
-        optToken.ifPresentOrElse(addAndLog, logError);
-
-    }
-
-    public List<TokenContainer> getTokens() {
-        return tokens;
     }
 }
