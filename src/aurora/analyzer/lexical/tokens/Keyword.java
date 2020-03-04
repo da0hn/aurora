@@ -1,4 +1,4 @@
-package aurora.analyzer.lexical.enums;
+package aurora.analyzer.lexical.tokens;
 
 import aurora.analyzer.lexical.interfaces.IToken;
 
