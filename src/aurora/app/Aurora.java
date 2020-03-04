@@ -1,10 +1,9 @@
 package aurora.app;
 
-import aurora.analyzer.lexical.LexicalRegex;
-import aurora.analyzer.lexical.utils.LogLexical;
+import aurora.analyzer.lexical.Lexical;
 import aurora.files.FileManager;
-import aurora.parser.PathContainer;
 import aurora.parser.Argument;
+import aurora.parser.PathContainer;
 
 import java.util.List;
 
@@ -17,19 +16,12 @@ public class Aurora {
     public static void main(String[] args) {
         PathContainer data = Argument.parseArgs(args);
 
-//        for(Flag f : Flag.values()) {
-//            System.out.println(f);
-//        }
-
         FileManager manager = new FileManager(data);
         List<String> code = manager.readLinesAuroraFile();
 
-//        for(String line : code) {
-//            System.out.println(line);
-//        }
-
-        LexicalRegex lex = new LexicalRegex(new LogLexical());
+        var lex = new Lexical();
         lex.analyze(code);
+
     }
 
 }
