@@ -2,7 +2,6 @@ package aurora.files;
 
 import aurora.parser.PathContainer;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
