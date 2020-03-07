@@ -1,8 +1,8 @@
 package aurora.analyzer.lexical.interfaces;
 
-import aurora.analyzer.lexical.tokens.Keyword;
-import aurora.analyzer.lexical.tokens.Symbol;
-import aurora.analyzer.lexical.tokens.Token;
+import aurora.analyzer.lexical.utils.tokens.Keyword;
+import aurora.analyzer.lexical.utils.tokens.Symbol;
+import aurora.analyzer.lexical.utils.tokens.Token;
 
 import java.util.Optional;
 import java.util.function.Function;

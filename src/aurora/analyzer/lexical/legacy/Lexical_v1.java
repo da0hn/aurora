@@ -1,10 +1,10 @@
-package aurora.analyzer.lexical;
+package aurora.analyzer.lexical.legacy;
 
 import aurora.analyzer.lexical.interfaces.IToken;
-import aurora.analyzer.lexical.tokens.Symbol;
-import aurora.analyzer.lexical.tokens.Token;
+import aurora.analyzer.lexical.utils.tokens.Symbol;
+import aurora.analyzer.lexical.utils.tokens.Token;
 import aurora.analyzer.lexical.interfaces.BufferAnalyzer;
-import aurora.analyzer.lexical.utils.LogLexical;
+import aurora.analyzer.lexical.log.LogLexical;
 import aurora.analyzer.lexical.utils.TokenContainer;
 
 import java.util.ArrayList;

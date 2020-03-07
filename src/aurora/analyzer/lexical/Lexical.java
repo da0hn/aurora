@@ -1,7 +1,7 @@
 package aurora.analyzer.lexical;
 
 import aurora.analyzer.lexical.interfaces.AnalyzerService;
-import aurora.analyzer.lexical.utils.LogLexical;
+import aurora.analyzer.lexical.log.LogLexical;
 import aurora.parser.Flag;
 
 import java.util.Collections;

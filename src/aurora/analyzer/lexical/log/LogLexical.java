@@ -1,6 +1,7 @@
-package aurora.analyzer.lexical.utils;
+package aurora.analyzer.lexical.log;
 
 import aurora.analyzer.lexical.exception.LexicalException;
+import aurora.analyzer.lexical.utils.TokenContainer;
 import aurora.parser.Flag;
 
 /*
