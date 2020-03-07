@@ -73,7 +73,7 @@ class Lexical_v1 {
                                             curr.toString(), this.line, this.column
                 );
                 tokens.add(tk);
-                LogLexical.message(tk);
+                LogLexical.add(tk);
                 this.column++;
                 buffer = new StringBuilder();
             }
@@ -103,7 +103,7 @@ class Lexical_v1 {
         } while(!curr.equals('"'));
 
         var tk = new TokenContainer(Token.STRING, buffer.toString(), this.line, this.column);
-        LogLexical.message(tk);
+        LogLexical.add(tk);
         tokens.add(tk);
         this.column += buffer.length();
     }
@@ -115,7 +115,7 @@ class Lexical_v1 {
         Consumer<IToken> addAndLog = tk -> {
             var temp = new TokenContainer(tk, buffer, this.line, this.column);
             tokens.add(temp);
-            LogLexical.message(temp);
+            LogLexical.add(temp);
         };
 
         Runnable logError =  () -> LogLexical.error("the lexeme was not recognized", this.line, this.column);

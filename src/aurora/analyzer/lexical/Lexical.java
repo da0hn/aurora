@@ -2,6 +2,8 @@ package aurora.analyzer.lexical;
 
 import aurora.analyzer.lexical.interfaces.AnalyzerService;
 import aurora.analyzer.lexical.log.LogLexical;
+import aurora.analyzer.lexical.utils.TokenContainer;
+import aurora.analyzer.lexical.utils.tokens.Token;
 import aurora.parser.Flag;
 
 import java.util.Collections;
@@ -61,33 +63,29 @@ public class Lexical {
         // metodo splitBy() quebra a linha de acordo com o delimitador
         // o delimitador é mantido na lista criada para analise
         for(String line : lines) {
-            try {
-                var parsedLines = splitBy("\\)")
-                        .andThen(splitBy("\\("))
-                        .andThen(splitBy("\\s"))
-                        .andThen(splitBy(";"))
-                        .andThen(splitBy("\""))
-                        .andThen(splitBy(">"))
-                        .andThen(splitBy("<"))
-                        .andThen(splitBy("="))
-                        .andThen(splitBy("\\+"))
-                        .andThen(splitBy("\\-"))
-                        .andThen(splitBy("\\*"))
-                        .andThen(splitBy("/"))
-                        .apply(Collections.singletonList(line));
+            var parsedLines = splitBy("\\)")
+                    .andThen(splitBy("\\("))
+                    .andThen(splitBy("\\s"))
+                    .andThen(splitBy(";"))
+                    .andThen(splitBy("\""))
+                    .andThen(splitBy(">"))
+                    .andThen(splitBy("<"))
+                    .andThen(splitBy("="))
+                    .andThen(splitBy("\\+"))
+                    .andThen(splitBy("\\-"))
+                    .andThen(splitBy("\\*"))
+                    .andThen(splitBy("/"))
+                    .apply(Collections.singletonList(line));
 //            System.out.println(parsedLines + " size -> " + parsedLines.size());
-                analyzeLines(parsedLines);
-                incrementLine();
-                resetColumn();
-                if(Flag.READABLE.getValue()) {
-                    Thread.sleep(400);
-                }
-            }
-            catch(InterruptedException e) {
-                e.printStackTrace();
-            }
+            analyzeLines(parsedLines);
+            incrementLine();
+            resetColumn();
+
         }
-        LogLexical.message("Lexical OK");
+        LogLexical.add(new TokenContainer(Token.FINAL, "Lexical OK!",
+                                          Controls.getLine(), Controls.getColumn()
+        ));
+        LogLexical.log();
     }
 
     private void analyzeLines(List<String> lines) {

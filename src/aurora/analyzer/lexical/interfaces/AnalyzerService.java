@@ -35,7 +35,7 @@ public interface AnalyzerService {
         Consumer<IToken> addAndLog = tk -> {
             var temp = new TokenContainer(tk, buffer, Controls.getLine(), Controls.getColumn());
             Tokens.add(temp);
-            LogLexical.message(temp);
+            LogLexical.add(temp);
         };
         // caso o lexema nao seja reconhecido cria um log no
         // console informando o erro, a linha e a coluna
@@ -74,7 +74,7 @@ public interface AnalyzerService {
             var tk = new TokenContainer(Token.STRING, buffer.toString(),
                                         getLine(), getColumn()
             );
-            LogLexical.message(tk);
+            LogLexical.add(tk);
             Tokens.add(tk);
             incrementColumn(buffer.length());
         }
