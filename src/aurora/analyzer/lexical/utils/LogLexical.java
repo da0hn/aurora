@@ -1,6 +1,7 @@
 package aurora.analyzer.lexical.utils;
 
 import aurora.analyzer.lexical.exception.LexicalException;
+import aurora.parser.Flag;
 
 /*
  * @project aurora
@@ -8,12 +9,20 @@ import aurora.analyzer.lexical.exception.LexicalException;
  */
 public class LogLexical {
 
+    public static void message(String msg) {
+        System.out.println(msg);
+    }
+
     public static void message(TokenContainer tk) {
-        System.out.println(tk.getToken() + " at [" + tk.getLine() + ", " + tk.getColumn() + "]" +
-                                   ": token='" + tk.getLexeme() + '\'');
+        if(Flag.TOKENS.getValue()) {
+            System.out.println(tk.getToken() + " at [" + tk.getLine()
+                                       + ", " + tk.getColumn() + "]" +
+                                       ": token='" + tk.getLexeme() + '\'');
+        }
     }
 
     public static void error(String err, int line, int column) {
-        throw new LexicalException("Error at [" + line + ", " + column + "]: " + err);
+        throw new LexicalException("Error at [" + line
+                                           + ", " + column + "]: " + err);
     }
 }
