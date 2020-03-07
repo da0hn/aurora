@@ -21,6 +21,8 @@ public class Argument {
         final String asmExt = ".asm";
 
         // converte os argumentos para ArrayList para utilizar Stream
+        // analisa se os argumentos possuem alguma flag e as ativam para serem utilizadas
+        // em outras classes
         List<String> listArgs = activateFlags(args);
 
         // assume-se que um arquivo aurora deve-se ter a extensao .au,
@@ -28,14 +30,13 @@ public class Argument {
         Optional<String> _au = findFile(listArgs, arg -> arg.endsWith(auroraExt));
 
         // caso nao seja encontrado o arquivo aurora o lança excecao e encerra a aplicacao
-        auroraPath = Path.of(_au.orElseThrow(() -> new IllegalArgumentException("Não foi encontrado o arquivo do tipo " + auroraExt)));
+        auroraPath = Path.of(_au.orElseThrow(() -> new IllegalArgumentException("Não foi encontrado o arquivo " +
+                                                                                        "do tipo " + auroraExt)));
 
         // procura o arquivo passado por argumento,
         // caso o arquivo nao seja encontrado gera um .asm com o mesmo nome
         // do arquivo aurora
-        asmPath = processAsmPath(auroraPath, findFile(listArgs,
-                                                      arg -> arg.endsWith(asmExt))
-        );
+        asmPath = processAsmPath(auroraPath, findFile(listArgs, arg -> arg.endsWith(asmExt)));
 
         // retorna uma instancia de ParsedPath que possui a informacao do caminho
         // dos arquivos de input e output
@@ -48,26 +49,35 @@ public class Argument {
 
         if(listArgs.contains("--all")) {
             // ativa todas as flags
+            System.out.println("--all");
+            System.out.println("Ativando todas as flags");
             Stream.of(Flag.values())
                     .forEach(f -> f.setValue(true));
-        } else {
+        }
+        else {
             listArgs.stream()
                     // filtra as Strings dentro de listArgs checando se estao contidas dentro
                     // da lista E se comecam com '--' que sinaliza o inicio de uma flag
                     .filter(arg -> listArgs.contains(arg) && arg.startsWith("--"))
-                    .forEach(arg -> Flag.getFlag(arg).setValue(true));
+                    .forEach(arg -> {
+                        System.out.println("Ativando flag: " + arg);
+                        Flag.getFlag(arg).setValue(true);
+                    });
         }
         return listArgs;
     }
+
     private static Path processAsmPath(Path auroraPath, Optional<String> _asm) {
         Path asmPath;
-        if(_asm.isEmpty()){
+        if(_asm.isEmpty()) {
             asmPath = AsmFile.create(auroraPath);
-        } else {
+        }
+        else {
             asmPath = Path.of(_asm.get());
         }
         return asmPath;
     }
+
     private static Optional<String> findFile(List<String> list, Predicate<String> constraint) {
         return list.stream()
                 .filter(constraint)     // executa o metodo de teste
