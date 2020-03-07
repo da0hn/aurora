@@ -6,14 +6,15 @@ package aurora.parser;
  */
 public enum Flag {
     /*
-    * Enumerados sao Singletons por natureza, os valores das flags sao mantidos em toda
-    * a execucao da aplicacao, assim se o booleano for alterado
+    * Enumerados sao Singletons por natureza, os valores das flags sao mantidos
+    * em toda a execucao da aplicacao, assim se o booleano for alterado
     * essa alteracao sera permanente ate o final da execucao do programa
     * */
     TOKENS(false, "--tokens"),
     SYNTACTIC(false,"--syntactic"),
     SEMANTIC(false, "--semantic"),
     SYMBOLS(false,"--symbols"),
+    READABLE(false, "--readable"),
     FINAL_CODE(false,"--final-code");
 
     private String arg;
@@ -28,22 +29,13 @@ public enum Flag {
         this.value = value;
     }
 
-    public String getValue(){
-        return this.arg;
+    public boolean getValue(){
+        return this.value;
     }
 
     public static Flag getFlag(String arg){
-        switch( arg ){
-            case "--tokens":
-                return Flag.TOKENS;
-            case "--syntactic":
-                return Flag.SYNTACTIC;
-            case "--semantic":
-                return Flag.SEMANTIC;
-            case "--symbols":
-                return Flag.SYMBOLS;
-            case "--final-code":
-                return Flag.FINAL_CODE;
+        for(Flag flag : Flag.values()) {
+            if(flag.arg.equals(arg)) return flag;
         }
         throw new IllegalStateException("A flag "+ arg +" não foi reconhecida.");
     }
