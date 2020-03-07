@@ -24,26 +24,29 @@ public interface AnalyzerService {
 
     static void tokenAnalyzer(String buffer) {
         /*executa varios testes consecutivos utilizando o pattern composite
-        * e a interface funcional predicate, se o buffer for enquadrado
-        * em alguma das classificacoes sera instanciado um Enum que implementa
-        * a interface de marcacao IToken para ser inserido na lista logo em seguida
-        * */
+         * e a interface funcional predicate, se o buffer for enquadrado em
+         * alguma das classificacoes sera instanciado um Enum que implementa
+         * a interface de marcacao IToken para ser inserido na lista logo em seguida
+         * */
         Optional<IToken> optToken = BufferAnalyzer.keyword().orElse(identifier())
                 .orElse(number()).orElse(symbol()).apply(buffer);
-        // insere no obj Tokens o obj do tipo IToken e cria um log no console informando o usuario
+        // insere no obj Tokens o obj do tipo IToken
+        // e cria um log no console informando o usuario
         Consumer<IToken> addAndLog = tk -> {
             var temp = new TokenContainer(tk, buffer, Controls.getLine(), Controls.getColumn());
             Tokens.add(temp);
             LogLexical.message(temp);
         };
-        // caso o lexema nao seja reconhecido cria um log no console informando o erro, a linha e a coluna
-        Runnable logError =  () -> LogLexical.error("the lexeme was not recognized: " + buffer,
-                                                    Controls.getLine(), Controls.getColumn());
+        // caso o lexema nao seja reconhecido cria um log no
+        // console informando o erro, a linha e a coluna
+        Runnable logError = () -> LogLexical.error("the lexeme was not recognized: " + buffer,
+                                                   Controls.getLine(), Controls.getColumn()
+        );
         /*
-        * optToken e do tipo Optional para evitar erros com NullPointerException
-        * o metodo ifPresentOrElse() executa o metodo addAndLog() caso optToken
-        * nao seja nulo, caso contrario executa o metodo logError()
-        * */
+         * optToken e do tipo Optional para evitar erros com NullPointerException
+         * o metodo ifPresentOrElse() executa o metodo addAndLog() caso optToken
+         * nao seja nulo, caso contrario executa o metodo logError()
+         * */
         optToken.ifPresentOrElse(addAndLog, logError);
         // incrementa a coluna com o total de caracteres da string
         Controls.incrementColumn(buffer.length());
@@ -51,12 +54,13 @@ public interface AnalyzerService {
 
     static boolean stringAnalyzer(ListIterator<String> it) {
         /*
-        * ao encontrar um abre aspas checa se e uma string
-        * itera o resto da linha adicionando cada String no buffer
-        * ate chegar no final ou encontrar um fecha aspas
-        * ao encontrar as aspas ativa a flag closeQuotes, saindo do loop e adicionando na lista
-        * uma instancia de IToken e incrementando a coluna
-        * */
+         * ao encontrar um abre aspas checa se e uma string
+         * itera o resto da linha adicionando cada String no buffer
+         * ate chegar no final ou encontrar um fecha aspas
+         * ao encontrar as aspas ativa a flag closeQuotes,
+         * saindo do loop e adicionando na lista
+         * uma instancia de IToken e incrementando a coluna
+         * */
         var buffer = new StringBuilder();
         var closeQuotes = false;
         buffer.append('"');
@@ -67,18 +71,22 @@ public interface AnalyzerService {
             if(curr.equals("\"")) closeQuotes = true;
         }
         if(closeQuotes) {
-            var tk = new TokenContainer(Token.STRING, buffer.toString(), getLine(), getColumn());
+            var tk = new TokenContainer(Token.STRING, buffer.toString(),
+                                        getLine(), getColumn()
+            );
             LogLexical.message(tk);
             Tokens.add(tk);
             incrementColumn(buffer.length());
         }
         else {
             LogLexical.error("missing closing quotes",
-                             getLine(), getColumn());
+                             getLine(), getColumn()
+            );
             return true;
         }
         return false;
     }
+
     static boolean isLineEmpty(List<String> line) {
         return line.stream().allMatch(s -> s.isEmpty() && s.isBlank());
     }
@@ -100,7 +108,7 @@ public interface AnalyzerService {
                 .contains(buffer);
     }
 
-    static boolean isLetterOrDigit(String buffer){
+    static boolean isLetterOrDigit(String buffer) {
         return buffer.chars().allMatch(Character::isLetterOrDigit);
     }
 
