@@ -5,4 +5,5 @@ package aurora.analyzer.syntactic;
  * @author Gabriel Honda on 22/02/2020
  */
 public class Syntactic {
+    // TODO: syntactic analysis
 }
