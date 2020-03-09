@@ -1,6 +1,7 @@
 package aurora.app;
 
 import aurora.analyzer.lexical.Lexical;
+import aurora.analyzer.syntactic.Syntactic;
 import aurora.files.FileManager;
 import aurora.parser.Argument;
 import aurora.parser.PathContainer;
@@ -22,6 +23,8 @@ public class Aurora {
         var lex = new Lexical();
         lex.analyze(code);
 
+        var syn = new Syntactic();
+        syn.analyze();
     }
 
 }
