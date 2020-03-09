@@ -65,7 +65,6 @@ var      	= keyword : "au::var"
 <basic_expression>
 <basic_operator>
 <string_expression>
-<string_operator>
 <any_expression>
 
 #Grammar
