@@ -1,6 +1,4 @@
-package aurora.analyzer.lexical.lang;
-
-import aurora.analyzer.lexical.interfaces.Terminal;
+package aurora.lang;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,26 +10,32 @@ import java.util.stream.Collectors;
  */
 public enum Symbol implements Terminal {
 
-    OPEN_PARENTHESIS("("),
-    CLOSE_PARENTHESIS(")"),
-    SEMICOLON(";"),
-    EQUALS("="),
-    PLUS("+"),
-    MINUS("-"),
-    ASTERISK("*"),
-    FORWARD_SLASH("/"),
-    GREATER_THAN(">"),
-    LESS_THAN("<");
+    OPEN_PARENTHESIS(15,"("),
+    CLOSE_PARENTHESIS(16,")"),
+    SEMICOLON(17,";"),
+    EQUALS(18,"="),
+    PLUS(19,"+"),
+    MINUS(20,"-"),
+    ASTERISK(21,"*"),
+    FORWARD_SLASH(22,"/"),
+    GREATER_THAN(23,">"),
+    LESS_THAN(24,"<");
 
     private final String symbol;
+    private int index;
 
-    Symbol(String symbol) {
+    Symbol(int index, String symbol) {
         this.symbol = symbol;
     }
 
     @Override
     public String getName() {
         return symbol;
+    }
+
+    @Override
+    public int getIndex() {
+        return index;
     }
 
     public static Symbol toEnum(String str) {

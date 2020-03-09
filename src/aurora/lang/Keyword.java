@@ -1,6 +1,4 @@
-package aurora.analyzer.lexical.lang;
-
-import aurora.analyzer.lexical.interfaces.Terminal;
+package aurora.lang;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,26 +10,32 @@ import java.util.stream.Collectors;
  */
 public enum Keyword implements Terminal {
 
-    INIT("aurora::init"),
-    CLOSE("aurora::close"),
-    IF("au::if"),
-    ENDIF("au::endif"),
-    ELSE("au::else"),
-    LOOP("au::loop"),
-    END_LOOP("au::endloop"),
-    WRITE("au::write"),
-    READ("au::read"),
-    VAR("au::var");
+    INIT(-1,"aurora::init"),
+    CLOSE(-1,"aurora::close"),
+    IF(-1,"au::if"),
+    ENDIF(-1,"au::endif"),
+    ELSE(-1,"au::else"),
+    LOOP(-1,"au::loop"),
+    END_LOOP(-1,"au::endloop"),
+    WRITE(-1,"au::write"),
+    READ(-1,"au::read"),
+    VAR(-1,"au::var");
 
     private final String keyword;
+    private int index;
 
-    Keyword(String keyword) {
+    Keyword(int index, String keyword) {
         this.keyword = keyword;
     }
 
     @Override
     public String getName() {
         return keyword;
+    }
+
+    @Override
+    public int getIndex() {
+        return index;
     }
 
     public static Keyword toEnum(String str) {
