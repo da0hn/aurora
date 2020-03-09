@@ -1,8 +1,8 @@
 package aurora.analyzer.lexical.legacy;
 
-import aurora.analyzer.lexical.interfaces.Terminal;
-import aurora.analyzer.lexical.lang.Symbol;
-import aurora.analyzer.lexical.lang.Token;
+import aurora.lang.Terminal;
+import aurora.lang.Symbol;
+import aurora.lang.Token;
 import aurora.analyzer.lexical.interfaces.BufferAnalyzer;
 import aurora.analyzer.lexical.log.LogLexical;
 import aurora.analyzer.lexical.utils.TokenContainer;

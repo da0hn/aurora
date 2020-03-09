@@ -1,6 +1,6 @@
 package aurora.analyzer.lexical.utils;
 
-import aurora.analyzer.lexical.interfaces.Terminal;
+import aurora.lang.Terminal;
 import aurora.analyzer.lexical.interfaces.LexicalObject;
 
 /*

@@ -3,7 +3,7 @@ package aurora.analyzer.lexical;
 import aurora.analyzer.lexical.interfaces.AnalyzerService;
 import aurora.analyzer.lexical.log.LogLexical;
 import aurora.analyzer.lexical.utils.TokenContainer;
-import aurora.analyzer.lexical.lang.Token;
+import aurora.lang.Token;
 
 import java.util.Collections;
 import java.util.List;
