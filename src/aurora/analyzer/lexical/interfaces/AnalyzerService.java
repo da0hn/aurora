@@ -1,10 +1,10 @@
 package aurora.analyzer.lexical.interfaces;
 
 import aurora.analyzer.lexical.Lexical.Controls;
-import aurora.analyzer.lexical.utils.tokens.Keyword;
-import aurora.analyzer.lexical.utils.tokens.Symbol;
-import aurora.analyzer.lexical.utils.tokens.Token;
-import aurora.analyzer.lexical.utils.tokens.Tokens;
+import aurora.analyzer.lexical.lang.Keyword;
+import aurora.analyzer.lexical.lang.Symbol;
+import aurora.analyzer.lexical.lang.Token;
+import aurora.analyzer.lexical.utils.Tokens;
 import aurora.analyzer.lexical.log.LogLexical;
 import aurora.analyzer.lexical.utils.TokenContainer;
 

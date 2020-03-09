@@ -1,4 +1,4 @@
-package aurora.analyzer.lexical.utils.tokens;
+package aurora.analyzer.lexical.utils;
 
 import aurora.analyzer.lexical.utils.TokenContainer;
 
