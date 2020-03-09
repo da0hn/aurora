@@ -113,8 +113,8 @@ public interface AnalyzerService {
     }
 
     static boolean isIdentifier(String buffer) {
-        return Character.isDigit(buffer.charAt(0))
-                || isLetterOrDigit(buffer);
+        return !Character.isDigit(buffer.charAt(0))
+                && isLetterOrDigit(buffer);
     }
 
     static boolean isNumber(String buffer) {
