@@ -1,12 +1,13 @@
 package aurora.analyzer.lexical.utils;
 
 import aurora.analyzer.lexical.interfaces.IToken;
+import aurora.analyzer.lexical.interfaces.LexicalObject;
 
 /*
  * @project aurora
  * @author Gabriel Honda on 23/02/2020
  */
-public class TokenContainer {
+public class TokenContainer implements LexicalObject {
 
     private Integer line;
     private Integer column;
@@ -37,12 +38,9 @@ public class TokenContainer {
     }
 
     @Override
-    public String toString() {
-        return "TokenContainer{" +
-                "line=" + line +
-                ", column=" + column +
-                ", token=" + token +
-                ", lexeme='" + lexeme + '\'' +
-                '}';
+    public String print() {
+        return this.getToken() + " at [" + this.getLine()
+                                               + ", " + this.getColumn() + "]" +
+                                               ": '" + this.getLexeme() + '\'';
     }
 }
