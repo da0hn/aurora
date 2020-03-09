@@ -1,6 +1,6 @@
 package aurora.analyzer.lexical.utils;
 
-import aurora.analyzer.lexical.interfaces.IToken;
+import aurora.analyzer.lexical.interfaces.Terminal;
 import aurora.analyzer.lexical.interfaces.LexicalObject;
 
 /*
@@ -11,10 +11,10 @@ public class TokenContainer implements LexicalObject {
 
     private Integer line;
     private Integer column;
-    private IToken token;
+    private Terminal token;
     private String lexeme;
 
-    public TokenContainer(IToken token, String lexeme, Integer line, Integer column ) {
+    public TokenContainer(Terminal token, String lexeme, Integer line, Integer column ) {
         this.line = line;
         this.column = column;
         this.token = token;
@@ -29,7 +29,7 @@ public class TokenContainer implements LexicalObject {
         return column;
     }
 
-    public IToken getToken() {
+    public Terminal getToken() {
         return token;
     }
 

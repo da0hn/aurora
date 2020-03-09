@@ -28,11 +28,11 @@ public interface AnalyzerService {
          * alguma das classificacoes sera instanciado um Enum que implementa
          * a interface de marcacao IToken para ser inserido na lista logo em seguida
          * */
-        Optional<IToken> optToken = BufferAnalyzer.keyword().orElse(identifier())
+        Optional<Terminal> optToken = BufferAnalyzer.keyword().orElse(identifier())
                 .orElse(number()).orElse(symbol()).apply(buffer);
         // insere no obj Tokens o obj do tipo IToken
         // e cria um log no console informando o usuario
-        Consumer<IToken> addAndLog = tk -> {
+        Consumer<Terminal> addAndLog = tk -> {
             var temp = new TokenContainer(tk, buffer, Controls.getLine(), Controls.getColumn());
             Tokens.add(temp);
             LogLexical.add(temp);

@@ -11,7 +11,7 @@ import java.util.function.Function;
  * @project aurora
  * @author Gabriel Honda on 26/02/2020
  */
-public interface BufferAnalyzer extends Function<String, Optional<IToken>> {
+public interface BufferAnalyzer extends Function<String, Optional<Terminal>> {
 
     /*
     * BufferAnalyzer utiliza o pattern composite para encadear metodos,
@@ -45,7 +45,7 @@ public interface BufferAnalyzer extends Function<String, Optional<IToken>> {
     //
     default BufferAnalyzer orElse(BufferAnalyzer other) {
         return buffer -> {
-            Optional<IToken> result = other.apply(buffer);
+            Optional<Terminal> result = other.apply(buffer);
             return result.or(() -> this.apply(buffer));
         };
     }

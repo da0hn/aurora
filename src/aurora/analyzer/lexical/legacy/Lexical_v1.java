@@ -1,6 +1,6 @@
 package aurora.analyzer.lexical.legacy;
 
-import aurora.analyzer.lexical.interfaces.IToken;
+import aurora.analyzer.lexical.interfaces.Terminal;
 import aurora.analyzer.lexical.lang.Symbol;
 import aurora.analyzer.lexical.lang.Token;
 import aurora.analyzer.lexical.interfaces.BufferAnalyzer;
@@ -109,10 +109,10 @@ class Lexical_v1 {
     }
 
     private void analyzeBuffer(String buffer){
-        Optional<IToken> optToken = BufferAnalyzer.keyword().orElse(identifier())
+        Optional<Terminal> optToken = BufferAnalyzer.keyword().orElse(identifier())
                 .orElse(number()).apply(buffer);
 
-        Consumer<IToken> addAndLog = tk -> {
+        Consumer<Terminal> addAndLog = tk -> {
             var temp = new TokenContainer(tk, buffer, this.line, this.column);
             tokens.add(temp);
             LogLexical.add(temp);
