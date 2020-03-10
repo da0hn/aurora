@@ -26,6 +26,7 @@ public enum Keyword implements Terminal {
 
     Keyword(int index, String keyword) {
         this.keyword = keyword;
+        this.index = index;
     }
 
     @Override

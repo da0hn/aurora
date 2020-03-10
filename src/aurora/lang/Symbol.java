@@ -18,13 +18,14 @@ public enum Symbol implements Terminal {
     MINUS(20,"-"),
     ASTERISK(21,"*"),
     FORWARD_SLASH(22,"/"),
-    GREATER_THAN(23,">"),
-    LESS_THAN(24,"<");
+    LESS_THAN(23,"<"),
+    GREATER_THAN(24,">");
 
     private final String symbol;
     private int index;
 
     Symbol(int index, String symbol) {
+        this.index = index;
         this.symbol = symbol;
     }
 

@@ -6,7 +6,7 @@ package aurora.lang;
  */
 public enum NonTerminal implements Language {
     
-    INIT(0, "init"),
+    AURORA(0, "aurora"),
     RECURSIVE_STATEMENT(1,"recursive_statement"),
     STATEMENT(2,"statement"),
     WRITE(3,"write"),
@@ -28,6 +28,7 @@ public enum NonTerminal implements Language {
 
     NonTerminal(int index, String name) {
         this.name = name;
+        this.index = index;
     }
 
     @Override
