@@ -60,7 +60,7 @@ public class Argument {
                     // da lista E se comecam com '--' que sinaliza o inicio de uma flag
                     .filter(arg -> listArgs.contains(arg) && arg.startsWith("--"))
                     .forEach(arg -> {
-                        System.out.println("Ativando flag: " + arg);
+                        System.out.println("Flag ativa: " + arg);
                         Flag.getFlag(arg).setValue(true);
                     });
         }
@@ -68,14 +68,7 @@ public class Argument {
     }
 
     private static Path processAsmPath(Path auroraPath, Optional<String> _asm) {
-        Path asmPath;
-        if(_asm.isEmpty()) {
-            asmPath = AsmFile.create(auroraPath);
-        }
-        else {
-            asmPath = Path.of(_asm.get());
-        }
-        return asmPath;
+        return _asm.isEmpty() ? AsmFile.create(auroraPath) : Path.of(_asm.get());
     }
 
     private static Optional<String> findFile(List<String> list, Predicate<String> constraint) {
