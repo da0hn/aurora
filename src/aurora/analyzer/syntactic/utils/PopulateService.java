@@ -1,5 +1,6 @@
 package aurora.analyzer.syntactic.utils;
 
+import aurora.analyzer.syntactic.log.LogSyntactic;
 import aurora.lang.Language;
 import aurora.lang.NonTerminal;
 import aurora.lang.Symbol;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Stack;
 
 import static java.util.Arrays.asList;
+import static java.util.Collections.EMPTY_LIST;
 import static java.util.Collections.singletonList;
 
 /*
@@ -22,11 +24,11 @@ public class PopulateService {
 //                <aurora> ::= init_program <recursive_statement> close_program
                 asList(Token.INIT, NonTerminal.RECURSIVE_STATEMENT, Token.CLOSE),
 //                <aurora> ::= î
-                singletonList(Token.EMPTY),
+                List.of(),
 //                <recursive_statement> ::= <statement> <recursive_statement>
                 asList(NonTerminal.STATEMENT, NonTerminal.RECURSIVE_STATEMENT),
 //                <recursive_statement> ::= î
-                singletonList(Token.EMPTY),
+                List.of(),
 //                <statement> ::= <write>
                 singletonList(NonTerminal.WRITE),
 //                <statement> ::= <read>
@@ -50,7 +52,7 @@ public class PopulateService {
 //                <else> ::= else <recursive_statement>
                 asList(Token.ELSE, NonTerminal.RECURSIVE_STATEMENT),
 //                <else> ::= î
-                singletonList(Token.EMPTY),
+                List.of(),
 //                <loop> ::= <while> endloop
                 asList(NonTerminal.WHILE, Token.END_LOOP),
 //                <while> ::= loop "(" <basic_expression> ")" <recursive_statement>
@@ -82,7 +84,7 @@ public class PopulateService {
 //                <basic_operator> ::= ">" <basic_expression>
                 asList(Symbol.GREATER_THAN, NonTerminal.BASIC_EXPRESSION),
 //                <basic_operator> ::= î
-                singletonList(Token.EMPTY),
+                List.of(),
 //                <string_expression> ::= string_literal
                 singletonList(Token.STRING),
 //                <any_expression> ::= <basic_expression>
@@ -115,6 +117,9 @@ public class PopulateService {
 
     public static void stack(Stack<Language> stack){
         stack.push(Token.FINAL);
-        stack.push(NonTerminal.INIT);
+        LogSyntactic.log("token " + stack.peek() + " was pushed to the stack.");
+        stack.push(NonTerminal.AURORA);
+        LogSyntactic.log("non terminal " + stack.peek() + " was pushed to the stack.");
+
     }
 }

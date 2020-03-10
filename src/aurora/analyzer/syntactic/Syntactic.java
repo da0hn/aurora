@@ -3,12 +3,17 @@ package aurora.analyzer.syntactic;
 import aurora.analyzer.lexical.utils.TokenContainer;
 import aurora.analyzer.lexical.utils.Tokens;
 import aurora.analyzer.syntactic.utils.PopulateService;
+import aurora.analyzer.syntactic.utils.SyntacticService;
 import aurora.lang.Language;
 import aurora.lang.NonTerminal;
 import aurora.lang.Terminal;
-import aurora.lang.Token;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Stack;
+
+import static aurora.analyzer.syntactic.log.LogSyntactic.error;
+import static aurora.analyzer.syntactic.log.LogSyntactic.log;
 
 /*
  * @project aurora
@@ -25,51 +30,48 @@ public class Syntactic {
         this.parseTable = PopulateService.parseTable();
         this.tokens = new LinkedList<>(Tokens.get());
         this.stack = new Stack<>();
-        PopulateService.stack(stack);
     }
 
-    public void analyze() {
+    public boolean analyze() {
+        System.out.println("--------------------------------------");
+        PopulateService.stack(stack);
         while(!stack.isEmpty()) {
-            var token = tokens.get(0).getToken();
-            var line = tokens.get(0).getLine();
-            var column = tokens.get(0).getColumn();
+            var token = tokens.getFirst().getToken();
+            var line = tokens.getFirst().getLine();
+            var column = tokens.getFirst().getColumn();
 
-            // TODO: log
+            log("token " + token.getName() + " was selected from tokens.");
 
             if(stack.peek() instanceof Terminal) {
                 if(stack.peek().getIndex() == token.getIndex()) {
-                    // TODO: log
+                    log("token " + token.getName() + " was erased from tokens.");
                     tokens.removeFirst();
-                    // TODO: log
+                    log("token " + token.getName() + " was poped of the stack.");
                     stack.pop();
                 }
                 else {
-                    throw new IllegalStateException("xesquedele");
+                    error(stack.peek(), token, line, column);
                 }
             }
             else {
                 var nonTerminal = stack.peek();
-
-                System.out.println(nonTerminal.getIndex());
-                System.out.println(token.getIndex());
-
                 var index = parseTable.get(nonTerminal.getIndex())
-                                        .get(token.getIndex());
-                if( index < 0) {
-                    throw new IllegalStateException("xesquedele");
-                }
-                var grammar = stackTable.get(index);
-                Collections.reverse(grammar);
-                // log
-                // log
+                        .get(token.getIndex());
 
+                if(index < 0) error(nonTerminal, token, line, column);
+
+                var grammar = stackTable.get(index);
+                log((stack.peek() instanceof NonTerminal ? "non terminal " : "token ")
+                            + stack.peek() + " was poped of the stack.");
                 stack.pop();
-                for(Language lang : grammar) {
-//                    if(!lang.getName().equals("î")){
-                        stack.push(lang);
-//                    }
+                for(Language lang : SyntacticService.reverseGrammar(grammar)) {
+                    log((stack.peek() instanceof NonTerminal ? "non terminal " : "token ") +
+                                stack.peek() + " was pushed to the stack.");
+                    stack.push(lang);
                 }
             }
         }
+        System.out.println("--------------------------------------");
+        return stack.isEmpty() && tokens.isEmpty();
     }
 }
