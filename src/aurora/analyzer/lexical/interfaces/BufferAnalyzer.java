@@ -1,6 +1,5 @@
 package aurora.analyzer.lexical.interfaces;
 
-import aurora.lang.Keyword;
 import aurora.lang.Symbol;
 import aurora.lang.Terminal;
 import aurora.lang.Token;

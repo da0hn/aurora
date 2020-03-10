@@ -1,13 +1,12 @@
 package aurora.analyzer.lexical.interfaces;
 
 import aurora.analyzer.lexical.Lexical.Controls;
-import aurora.lang.Keyword;
+import aurora.analyzer.lexical.log.LogLexical;
+import aurora.analyzer.lexical.utils.TokenContainer;
+import aurora.analyzer.lexical.utils.Tokens;
 import aurora.lang.Symbol;
 import aurora.lang.Terminal;
 import aurora.lang.Token;
-import aurora.analyzer.lexical.utils.Tokens;
-import aurora.analyzer.lexical.log.LogLexical;
-import aurora.analyzer.lexical.utils.TokenContainer;
 
 import java.util.List;
 import java.util.ListIterator;
