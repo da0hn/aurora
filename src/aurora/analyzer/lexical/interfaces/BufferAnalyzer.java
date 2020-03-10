@@ -25,7 +25,7 @@ public interface BufferAnalyzer extends Function<String, Optional<Terminal>> {
 
     // verifica se esta dentro do enumerado Keyword e instancia um Optional com IToken
     static BufferAnalyzer keyword() {
-        return buffer -> AnalyzerService.isKeyword(buffer) ? Optional.of(Keyword.toEnum(buffer)) : Optional.empty();
+        return buffer -> AnalyzerService.isKeyword(buffer) ? Optional.of(Token.toEnum(buffer)) : Optional.empty();
     }
     // verifica se e um identificador e instancia um Optional com IToken
     static BufferAnalyzer identifier() {

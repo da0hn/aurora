@@ -105,8 +105,7 @@ public interface AnalyzerService {
     }
 
     static boolean isKeyword(String buffer) {
-        return Keyword.getValues()
-                .contains(buffer);
+        return Token.getKeywords().contains(buffer);
     }
 
     static boolean isLetterOrDigit(String buffer) {
