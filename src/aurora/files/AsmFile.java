@@ -21,10 +21,11 @@ public class AsmFile {
                                        + "/"
                                        + getAsmName(extractAuroraName(path))
                                        + ".asm");
-            asmExists().and(deleteAsmFile())
-                    .test(asm);
-            System.out.println("O arquivo " + asm.getAbsoluteFile().getName() + " ja existe, " +
-                                       "um novo arquivo .asm sera criado");
+            boolean asmExists = asmExists().and(deleteAsmFile()).test(asm);
+            if(asmExists) {
+                System.out.println("O arquivo " + asm.getAbsoluteFile().getName() + " ja existe, " +
+                                           "um novo arquivo .asm sera criado");
+            }
             isAsmFileCreated(asm);
             return asm.toPath();
         }
