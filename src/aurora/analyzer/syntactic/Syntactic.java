@@ -40,13 +40,13 @@ public class Syntactic {
             var line = tokens.getFirst().getLine();
             var column = tokens.getFirst().getColumn();
 
-            log("token " + token.getName() + " was selected from tokens.");
+            log("token "+ '\'' + token.getName() + '\'' + " was selected from tokens.");
 
             if(stack.peek() instanceof Terminal) {
                 if(stack.peek().getIndex() == token.getIndex()) {
-                    log("token " + token.getName() + " was erased from tokens.");
+                    log("token " + '\'' + token.getName() + '\'' + " was erased from tokens.");
                     tokens.removeFirst();
-                    log("token " + token.getName() + " was poped of the stack.");
+                    log("token " + '\'' + token.getName() +  '\'' + " was poped of the stack.");
                     stack.pop();
                 }
                 else {
@@ -62,11 +62,11 @@ public class Syntactic {
 
                 var grammar = stackTable.get(index);
                 log((stack.peek() instanceof NonTerminal ? "non terminal " : "token ")
-                            + stack.peek() + " was poped of the stack.");
+                            +  '\'' + stack.peek() + '\'' + " was poped of the stack.");
                 stack.pop();
                 for(Language lang : SyntacticService.reverseGrammar(grammar)) {
                     log((stack.peek() instanceof NonTerminal ? "non terminal " : "token ") +
-                                stack.peek() + " was pushed to the stack.");
+                                + '\'' + stack.peek() + '\'' + " was pushed to the stack.");
                     stack.push(lang);
                 }
             }
