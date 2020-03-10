@@ -3,6 +3,7 @@ package aurora.analyzer.lexical;
 import aurora.analyzer.lexical.interfaces.AnalyzerService;
 import aurora.analyzer.lexical.log.LogLexical;
 import aurora.analyzer.lexical.utils.TokenContainer;
+import aurora.analyzer.lexical.utils.Tokens;
 import aurora.lang.Token;
 
 import java.util.Collections;
@@ -81,9 +82,11 @@ public class Lexical {
             resetColumn();
 
         }
-        LogLexical.add(new TokenContainer(Token.FINAL, "Lexical OK!",
+        var tk_final = new TokenContainer(Token.FINAL, "Lexical OK!",
                                           Controls.getLine(), Controls.getColumn()
-        ));
+        );
+        Tokens.add(tk_final);
+        LogLexical.add(tk_final);
         LogLexical.log();
     }
 
