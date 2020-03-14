@@ -6,6 +6,7 @@ import aurora.files.FileManager;
 import aurora.parser.Argument;
 import aurora.parser.PathContainer;
 
+import java.util.Arrays;
 import java.util.List;
 
 /*
@@ -19,7 +20,6 @@ public class Aurora {
 
         FileManager manager = new FileManager(data);
         List<String> code = manager.readLinesAuroraFile();
-
         var lex = new Lexical();
         lex.analyze(code);
 

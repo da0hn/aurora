@@ -13,7 +13,7 @@ aurora::init
     au::else
         au::write("O valor eh menor ou igual a 5");
     au::endif
-//
+
     au::write("O resultado de fatorial eh: ");
     au::write(fatorial);
     au::write("Fim do programa");

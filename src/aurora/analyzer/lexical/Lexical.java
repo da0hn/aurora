@@ -85,9 +85,9 @@ public class Lexical {
         var tk_final = new TokenContainer(Token.FINAL, "Lexical OK!",
                                           Controls.getLine(), Controls.getColumn()
         );
-        Tokens.add(tk_final);
         LogLexical.add(tk_final);
         LogLexical.log();
+        Tokens.add(tk_final);
     }
 
     private void analyzeLines(List<String> lines) {
