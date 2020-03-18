@@ -37,35 +37,43 @@ public class Syntactic {
             log("token " + "'" + token.getName() + "'" + " was selected from tokens.");
 
             if(stack.peek() instanceof Terminal) {
-                if(stack.peek().getIndex() == token.getIndex()) {
-                    log("token " + "'" + token.getName() + "'" + " was erased from tokens.");
-                    tokens.removeFirst();
-                    log("token " + "'" + token.getName() + "'" + " was poped of the stack.");
-                    stack.pop();
-                }
-                else {
-                    error(stack.peek(), token, line, column);
-                }
+                terminalOnPeek(token, line, column);
             }
             else {
-                var nonTerminal = stack.peek();
-                var index = parseTable().get(nonTerminal.getIndex())
-                    .get(token.getIndex());
-
-                if(index < 0) error(nonTerminal, token, line, column);
-
-                var grammar = stackTable().get(index);
-                log((stack.peek() instanceof NonTerminal ? "non terminal " : "token ")
-                        + "'" + stack.peek() + "'" + " was poped of the stack.");
-                stack.pop();
-                for(Language lang : SyntacticService.reverseGrammar(grammar)) {
-                    log((stack.peek() instanceof NonTerminal ? "non terminal " : "token ") +
-                            "'" + stack.peek() + "'" + " was pushed to the stack.");
-                    stack.push(lang);
-                }
+                nonTerminalOnPeek(token, line, column);
             }
         }
         log("Syntactic OK!");
         System.out.println("--------------------------------------");
+    }
+    
+    private void nonTerminalOnPeek(Terminal token, Integer line, Integer column) {
+        var nonTerminal = stack.peek();
+        var index = parseTable().get(nonTerminal.getIndex())
+            .get(token.getIndex());
+
+        if(index < 0) error(nonTerminal, token, line, column);
+
+        var grammar = stackTable().get(index);
+        log((stack.peek() instanceof NonTerminal ? "non terminal " : "token ")
+                + "'" + stack.peek() + "'" + " was poped of the stack.");
+        stack.pop();
+        SyntacticService.reverseGrammar(grammar).forEach(lang -> {
+            log((stack.peek() instanceof NonTerminal ? "non terminal " : "token ") +
+                    "'" + stack.peek() + "'" + " was pushed to the stack.");
+            stack.push(lang);
+        });
+    }
+
+    private void terminalOnPeek(Terminal token, Integer line, Integer column) {
+        if(stack.peek().getIndex() == token.getIndex()) {
+            log("token " + "'" + token.getName() + "'" + " was erased from tokens.");
+            tokens.removeFirst();
+            log("token " + "'" + token.getName() + "'" + " was poped of the stack.");
+            stack.pop();
+        }
+        else {
+            error(stack.peek(), token, line, column);
+        }
     }
 }
