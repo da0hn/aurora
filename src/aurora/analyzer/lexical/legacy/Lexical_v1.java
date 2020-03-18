@@ -1,11 +1,11 @@
 package aurora.analyzer.lexical.legacy;
 
-import aurora.lang.Terminal;
-import aurora.lang.Symbol;
-import aurora.lang.Token;
 import aurora.analyzer.lexical.interfaces.BufferAnalyzer;
 import aurora.analyzer.lexical.log.LogLexical;
 import aurora.analyzer.lexical.utils.TokenContainer;
+import aurora.lang.Symbol;
+import aurora.lang.Terminal;
+import aurora.lang.Token;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +22,9 @@ import static aurora.analyzer.lexical.interfaces.BufferAnalyzer.number;
  */
 class Lexical_v1 {
     /*
-    * primeira implementacao do analisador lexico,
-    * sera mantido como consulta de exemplo
-    * */
+     * primeira implementacao do analisador lexico,
+     * sera mantido como consulta de exemplo
+     * */
     private Integer line = 0;
     private Integer column = 1;
     private List<TokenContainer> tokens;
@@ -89,7 +89,7 @@ class Lexical_v1 {
         }
     }
 
-    private void analyzeQuote(String line,  AtomicInteger index) {
+    private void analyzeQuote(String line, AtomicInteger index) {
         StringBuilder buffer = new StringBuilder();
         buffer.append('"');
         Character curr;
@@ -108,9 +108,9 @@ class Lexical_v1 {
         this.column += buffer.length();
     }
 
-    private void analyzeBuffer(String buffer){
+    private void analyzeBuffer(String buffer) {
         Optional<Terminal> optToken = BufferAnalyzer.keyword().orElse(identifier())
-                .orElse(number()).apply(buffer);
+            .orElse(number()).apply(buffer);
 
         Consumer<Terminal> addAndLog = tk -> {
             var temp = new TokenContainer(tk, buffer, this.line, this.column);
@@ -118,7 +118,7 @@ class Lexical_v1 {
             LogLexical.add(temp);
         };
 
-        Runnable logError =  () -> LogLexical.error("the lexeme was not recognized", this.line, this.column);
+        Runnable logError = () -> LogLexical.error("the lexeme was not recognized", this.line, this.column);
 
         optToken.ifPresentOrElse(addAndLog, logError);
 

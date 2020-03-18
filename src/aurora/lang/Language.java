@@ -6,5 +6,6 @@ package aurora.lang;
  */
 public interface Language {
     String getName();
+
     int getIndex();
 }

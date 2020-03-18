@@ -29,7 +29,7 @@ public interface AnalyzerService {
          * a interface de marcacao IToken para ser inserido na lista logo em seguida
          * */
         Optional<Terminal> optToken = BufferAnalyzer.keyword().orElse(identifier())
-                .orElse(number()).orElse(symbol()).apply(buffer);
+            .orElse(number()).orElse(symbol()).apply(buffer);
         // insere no obj Tokens o obj do tipo IToken
         // e cria um log no console informando o usuario
         Consumer<Terminal> addAndLog = tk -> {
@@ -113,7 +113,7 @@ public interface AnalyzerService {
 
     static boolean isIdentifier(String buffer) {
         return !Character.isDigit(buffer.charAt(0))
-                && isLetterOrDigit(buffer);
+            && isLetterOrDigit(buffer);
     }
 
     static boolean isNumber(String buffer) {

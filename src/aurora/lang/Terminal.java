@@ -6,5 +6,6 @@ package aurora.lang;
  */
 public interface Terminal extends Language {
     String getName();
+
     int getIndex();
 }

@@ -1,8 +1,8 @@
 package aurora.analyzer.lexical.log;
 
 import aurora.analyzer.lexical.exception.LexicalException;
-import aurora.analyzer.lexical.utils.ErrorMessage;
 import aurora.analyzer.lexical.interfaces.LexicalObject;
+import aurora.analyzer.lexical.utils.ErrorMessage;
 import aurora.analyzer.lexical.utils.TokenContainer;
 import aurora.parser.Flag;
 
@@ -59,10 +59,10 @@ public class LogLexical {
         var err = new StringBuilder();
         err.append('\n');
         var extractedErrors = queueLog.stream()
-                .filter(obj -> obj instanceof ErrorMessage)
-                .collect(Collectors.toList());
+            .filter(obj -> obj instanceof ErrorMessage)
+            .collect(Collectors.toList());
         extractedErrors.forEach(obj -> {
-           err.append("\t").append(obj.print()).append("\n");
+            err.append("\t").append(obj.print()).append("\n");
         });
 
         throw new LexicalException(err.toString());

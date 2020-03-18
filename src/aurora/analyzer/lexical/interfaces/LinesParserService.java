@@ -11,21 +11,22 @@ import java.util.stream.Stream;
  */
 public interface LinesParserService extends UnaryOperator<List<String>> {
     /*
-    * recebe um delimitador e insere no formatador de regex
-    * o regex particiona a String de acordo com o delimitador,
-    * porem mantem o mesmo na String
-    * ao final da Stream e instanciada uma lista que recebe a String particionada*/
+     * recebe um delimitador e insere no formatador de regex
+     * o regex particiona a String de acordo com o delimitador,
+     * porem mantem o mesmo na String
+     * ao final da Stream e instanciada uma lista que recebe a String particionada*/
     static LinesParserService splitBy(String delimiter) {
 //        final String formatter = "((%1$s=>?)|(?=%1$s))";
         final String formatter = "((?<=%1$s)|(?=%1$s))";
         final String formattedDelimiter = String.format(formatter, delimiter);
         return line -> line.stream()
-                .map(str -> str.split(formattedDelimiter))
-                .flatMap(Stream::of)
-                .collect(Collectors.toList());
+            .map(str -> str.split(formattedDelimiter))
+            .flatMap(Stream::of)
+            .collect(Collectors.toList());
     }
+
     /*
-    * funciona como um encadeador de metodos*/
+     * funciona como um encadeador de metodos*/
     default LinesParserService andThen(LinesParserService other) {
         return line -> {
             List<String> otherResult = other.apply(line);

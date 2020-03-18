@@ -1,7 +1,5 @@
 package aurora.analyzer.lexical.utils;
 
-import aurora.analyzer.lexical.utils.TokenContainer;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,10 +18,11 @@ public class Tokens {
         tokens = new ArrayList<>();
     }
 
-    public static void add(TokenContainer tk){
+    public static void add(TokenContainer tk) {
         tokens.add(tk);
     }
-    public static List<TokenContainer> get(){
+
+    public static List<TokenContainer> get() {
         return tokens;
     }
 }

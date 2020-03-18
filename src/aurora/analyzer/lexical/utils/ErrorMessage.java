@@ -24,7 +24,7 @@ public class ErrorMessage implements LexicalObject {
 
     @Override
     public String print() {
-        return "Error at "+ errorPosition() +": " + msg;
+        return "Error at " + errorPosition() + ": " + msg;
     }
 
     public static boolean isError(String type) {

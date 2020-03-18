@@ -1,7 +1,7 @@
 package aurora.analyzer.lexical.utils;
 
-import aurora.lang.Terminal;
 import aurora.analyzer.lexical.interfaces.LexicalObject;
+import aurora.lang.Terminal;
 
 /*
  * @project aurora
@@ -14,7 +14,7 @@ public class TokenContainer implements LexicalObject {
     private Terminal token;
     private String lexeme;
 
-    public TokenContainer(Terminal token, String lexeme, Integer line, Integer column ) {
+    public TokenContainer(Terminal token, String lexeme, Integer line, Integer column) {
         this.line = line;
         this.column = column;
         this.token = token;
@@ -40,7 +40,7 @@ public class TokenContainer implements LexicalObject {
     @Override
     public String print() {
         return this.getToken() + " at [" + this.getLine()
-                                               + ", " + this.getColumn() + "]" +
-                                               ": '" + this.getLexeme() + '\'';
+            + ", " + this.getColumn() + "]" +
+            ": '" + this.getLexeme() + '\'';
     }
 }

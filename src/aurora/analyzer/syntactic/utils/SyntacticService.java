@@ -14,8 +14,8 @@ public class SyntacticService {
     public static List<Language> reverseGrammar(List<Language> grammar) {
         var reverse = new LinkedList<Language>();
         new LinkedList<>(grammar)
-                .descendingIterator()
-                .forEachRemaining(reverse::add);
+            .descendingIterator()
+            .forEachRemaining(reverse::add);
         return reverse;
     }
 }
