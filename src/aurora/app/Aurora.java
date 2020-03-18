@@ -4,6 +4,7 @@ import aurora.analyzer.lexical.Lexical;
 import aurora.analyzer.syntactic.Syntactic;
 import aurora.files.FileManager;
 import aurora.parser.Argument;
+import aurora.parser.PathContainer;
 
 /*
  * @project aurora

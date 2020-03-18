@@ -3,6 +3,7 @@ package aurora.analyzer.lexical.legacy;
 import aurora.analyzer.lexical.interfaces.BufferAnalyzer;
 import aurora.analyzer.lexical.log.LogLexical;
 import aurora.analyzer.lexical.utils.TokenContainer;
+import aurora.analyzer.lexical.utils.TokenContainer1;
 import aurora.lang.Symbol;
 import aurora.lang.Terminal;
 import aurora.lang.Token;
@@ -42,7 +43,7 @@ class Lexical_v1 {
             this.column = 1;
         }
         this.tokens.add(new TokenContainer(Token.FINAL, "$",
-                                           this.line, this.column
+                                            this.line, this.column
         ));
     }
 

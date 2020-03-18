@@ -1,6 +1,7 @@
 package aurora.analyzer.syntactic;
 
 import aurora.analyzer.lexical.utils.TokenContainer;
+import aurora.analyzer.lexical.utils.TokenContainer1;
 import aurora.analyzer.lexical.utils.Tokens;
 import aurora.analyzer.syntactic.utils.SyntacticService;
 import aurora.lang.Language;
@@ -30,9 +31,9 @@ public class Syntactic {
     public void analyze() {
         stack(stack);
         while(!stack.isEmpty()) {
-            var token = tokens.getFirst().getToken();
-            var line = tokens.getFirst().getLine();
-            var column = tokens.getFirst().getColumn();
+            var token = tokens.getFirst().token();
+            var line = tokens.getFirst().line();
+            var column = tokens.getFirst().column();
 
             log("token " + "'" + token.getName() + "'" + " was selected from tokens.");
 
@@ -46,7 +47,7 @@ public class Syntactic {
         log("Syntactic OK!");
         System.out.println("--------------------------------------");
     }
-    
+
     private void nonTerminalOnPeek(Terminal token, Integer line, Integer column) {
         var nonTerminal = stack.peek();
         var index = parseTable().get(nonTerminal.getIndex())

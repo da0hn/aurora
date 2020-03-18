@@ -3,6 +3,7 @@ package aurora.analyzer.lexical;
 import aurora.analyzer.lexical.interfaces.AnalyzerService;
 import aurora.analyzer.lexical.log.LogLexical;
 import aurora.analyzer.lexical.utils.TokenContainer;
+import aurora.analyzer.lexical.utils.TokenContainer1;
 import aurora.analyzer.lexical.utils.Tokens;
 import aurora.lang.Token;
 

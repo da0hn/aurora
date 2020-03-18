@@ -3,6 +3,7 @@ package aurora.analyzer.lexical.interfaces;
 import aurora.analyzer.lexical.Lexical.Controls;
 import aurora.analyzer.lexical.log.LogLexical;
 import aurora.analyzer.lexical.utils.TokenContainer;
+import aurora.analyzer.lexical.utils.TokenContainer1;
 import aurora.analyzer.lexical.utils.Tokens;
 import aurora.lang.Symbol;
 import aurora.lang.Terminal;
@@ -72,7 +73,7 @@ public interface AnalyzerService {
         }
         if(closeQuotes) {
             var tk = new TokenContainer(Token.STRING, buffer.toString(),
-                                        getLine(), getColumn()
+                                         getLine(), getColumn()
             );
             LogLexical.add(tk);
             Tokens.add(tk);

@@ -31,7 +31,7 @@ public class Argument {
 
         // caso nao seja encontrado o arquivo aurora o lança excecao e encerra a aplicacao
         auroraPath = Path.of(_au.orElseThrow(() -> new IllegalArgumentException("Não foi encontrado o arquivo " +
-                                                                                    "do tipo " + auroraExt)));
+                                                                                        "do tipo " + auroraExt)));
 
         // procura o arquivo passado por argumento,
         // caso o arquivo nao seja encontrado gera um .asm com o mesmo nome
@@ -52,17 +52,17 @@ public class Argument {
             System.out.println("--all");
             System.out.println("Ativando todas as flags");
             Stream.of(Flag.values())
-                .forEach(f -> f.setValue(true));
+                    .forEach(f -> f.setValue(true));
         }
         else {
             listArgs.stream()
-                // filtra as Strings dentro de listArgs checando se estao contidas dentro
-                // da lista E se comecam com '--' que sinaliza o inicio de uma flag
-                .filter(arg -> listArgs.contains(arg) && arg.startsWith("--"))
-                .forEach(arg -> {
-                    System.out.println("Flag ativa: " + arg);
-                    Flag.getFlag(arg).setValue(true);
-                });
+                    // filtra as Strings dentro de listArgs checando se estao contidas dentro
+                    // da lista E se comecam com '--' que sinaliza o inicio de uma flag
+                    .filter(arg -> listArgs.contains(arg) && arg.startsWith("--"))
+                    .forEach(arg -> {
+                        System.out.println("Flag ativa: " + arg);
+                        Flag.getFlag(arg).setValue(true);
+                    });
         }
         return listArgs;
     }
@@ -73,8 +73,8 @@ public class Argument {
 
     private static Optional<String> findFile(List<String> list, Predicate<String> constraint) {
         return list.stream()
-            .filter(constraint)     // executa o metodo de teste
-            .findFirst();           // recupera o primeiro resultado que é um Optional
+                .filter(constraint)     // executa o metodo de teste
+                .findFirst();           // recupera o primeiro resultado que é um Optional
     }
 
 }
