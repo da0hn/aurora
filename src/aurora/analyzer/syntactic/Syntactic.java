@@ -2,12 +2,12 @@ package aurora.analyzer.syntactic;
 
 import aurora.analyzer.lexical.utils.TokenContainer;
 import aurora.analyzer.lexical.utils.Tokens;
-import aurora.analyzer.syntactic.utils.SyntacticService;
 import aurora.lang.Language;
 import aurora.lang.NonTerminal;
 import aurora.lang.Terminal;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Stack;
 
 import static aurora.analyzer.syntactic.log.LogSyntactic.error;
@@ -58,7 +58,7 @@ public class Syntactic {
         log((stack.peek() instanceof NonTerminal ? "non terminal " : "token ")
                 + "'" + stack.peek() + "'" + " was poped of the stack.");
         stack.pop();
-        SyntacticService.reverseGrammar(grammar).forEach(lang -> {
+        reverseGrammar(grammar).forEach(lang -> {
             log((stack.peek() instanceof NonTerminal ? "non terminal " : "token ") +
                     "'" + stack.peek() + "'" + " was pushed to the stack.");
             stack.push(lang);
@@ -75,5 +75,12 @@ public class Syntactic {
         else {
             error(stack.peek(), token, line, column);
         }
+    }
+    private List<Language> reverseGrammar(List<Language> grammar) {
+        var reverse = new LinkedList<Language>();
+        new LinkedList<>(grammar)
+                .descendingIterator()
+                .forEachRemaining(reverse::add);
+        return reverse;
     }
 }
