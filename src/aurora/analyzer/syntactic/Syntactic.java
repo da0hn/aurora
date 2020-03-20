@@ -24,11 +24,11 @@ public class Syntactic {
 
     public Syntactic() {
         this.tokens = new LinkedList<>(Tokens.get());
-        this.stack = new Stack<>();
+        this.stack = initializeStack();
     }
 
     public void analyze() {
-        stack(stack);
+
         while(!stack.isEmpty()) {
             var token = tokens.getFirst().getToken();
             var line = tokens.getFirst().getLine();
