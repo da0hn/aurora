@@ -1,6 +1,7 @@
 package aurora.app;
 
 import aurora.analyzer.lexical.Lexical;
+import aurora.analyzer.semantic.Semantic;
 import aurora.analyzer.syntactic.Syntactic;
 import aurora.files.FileManager;
 import aurora.parser.Argument;
@@ -15,6 +16,7 @@ public class Aurora {
         new Lexical().analyze(new FileManager(Argument.parseArgs(args))
                                   .readLinesAuroraFile());
         new Syntactic().analyze();
+        new Semantic().analyze();
     }
 
 }
