@@ -29,7 +29,6 @@ public class Semantic {
         this.scopeStack = new Stack<>();
     }
 
-
     public void analyze() {
         var currentScope = 0;
 
@@ -80,14 +79,14 @@ public class Semantic {
                 beginScope(container);
             }
             else if(ELSE.equals(container.getToken())) {
-                endScope(container, stack -> stack.peek().increaseLevel());
+                endScope(container, () -> scopeStack.peek().increaseLevel());
                 beginScope(container);
             }
             else if(END_LOOP.equals(container.getToken()) || ENDIF.equals(container.getToken())) {
-                endScope(container, stack -> stack.peek().increaseLevel());
+                endScope(container, () -> this.scopeStack.peek().increaseLevel());
             }
             else if(CLOSE.equals(container.getToken())) {
-                endScope(container, stack -> {return;});
+                endScope(container, () -> {});
             }
         }
         table.forEach(System.out::println);
@@ -99,9 +98,9 @@ public class Semantic {
         log("begin scope " + scopeStack.peek().getLabel() + " " + container.print() + ".");
     }
 
-    private void endScope(TokenContainer container, Consumer<Stack<Scope>> action) {
+    private void endScope(TokenContainer container, Runnable action) {
         log("end scope " + scopeStack.peek().getLabel() + " " + container.print() + ".");
         scopeStack.pop();
-        action.accept(scopeStack);
+        action.run();
     }
 }
