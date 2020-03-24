@@ -17,7 +17,7 @@ public class NameMangling {
     private final String decoration;
     private final int line;
     private final int column;
-    private final Status status;
+    private Status status;
 
     public NameMangling(String declared, String decoration, int line, int column, Status status) {
         this.declared = declared;
@@ -45,6 +45,10 @@ public class NameMangling {
 
     public Status getStatus() {
         return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     @Override

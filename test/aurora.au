@@ -2,15 +2,15 @@
 // quarta-feira fevereiro 2020 (19/02/2020)
 aurora::init // _0
     au::var num;
-//    au::var fatorial;
+    au::var fatorial;
 //
 //    au::write("Entre com um numero : ");
 //    au::read(num);
 
     au::loop(num > 5) // _0_0
+        au::var fatorial;
         au::write("Realizando conta ((2 * 2) + (6/2)) + 12 e salvando no fatorial...");
         fatorial = ((2 * 2) + (6 / 2)) + 12;
-        au::var fatorial;
         au::if( num < 5 ) // _0_0_0
             au::var fatorial;
         au::else // _0_0_1
