@@ -28,7 +28,6 @@ public class Syntactic {
     }
 
     public void analyze() {
-
         while(!stack.isEmpty()) {
             var token = tokens.getFirst().getToken();
             var line = tokens.getFirst().getLine();
@@ -46,21 +45,21 @@ public class Syntactic {
         log("Syntactic OK!");
         System.out.println("--------------------------------------");
     }
-    
+
     private void nonTerminalOnPeek(Terminal token, Integer line, Integer column) {
         var nonTerminal = stack.peek();
         var index = parseTable().get(nonTerminal.getIndex())
-            .get(token.getIndex());
+                .get(token.getIndex());
 
         if(index < 0) error(nonTerminal, token, line, column);
 
-        var grammar = stackTable().get(index);
+        var grammar = commandSequenceTable().get(index);
         log((stack.peek() instanceof NonTerminal ? "non terminal " : "token ")
-                + "'" + stack.peek() + "'" + " was poped of the stack.");
+                    + "'" + stack.peek() + "'" + " was poped of the stack.");
         stack.pop();
         reverseGrammar(grammar).forEach(lang -> {
             log((stack.peek() instanceof NonTerminal ? "non terminal " : "token ") +
-                    "'" + stack.peek() + "'" + " was pushed to the stack.");
+                        "'" + stack.peek() + "'" + " was pushed to the stack.");
             stack.push(lang);
         });
     }
@@ -76,6 +75,7 @@ public class Syntactic {
             error(stack.peek(), token, line, column);
         }
     }
+
     private List<Language> reverseGrammar(List<Language> grammar) {
         var reverse = new LinkedList<Language>();
         new LinkedList<>(grammar)

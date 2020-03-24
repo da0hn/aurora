@@ -18,7 +18,7 @@ import static java.util.Collections.singletonList;
  */
 public class PopulateService {
 
-    public static List<List<Language>> stackTable() {
+    public static List<List<Language>> commandSequenceTable() {
         return asList(
 //                <aurora> ::= init_program <recursive_statement> close_program
             asList(Token.INIT, NonTerminal.RECURSIVE_STATEMENT, Token.CLOSE),
