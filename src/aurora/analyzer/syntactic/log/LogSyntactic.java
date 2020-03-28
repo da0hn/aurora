@@ -5,6 +5,8 @@ import aurora.lang.Language;
 import aurora.lang.Terminal;
 import aurora.parser.Flag;
 
+import static aurora.parser.Flag.SYNTACTIC;
+
 /*
  * @project aurora
  * @author Gabriel Honda on 09/03/2020
@@ -12,7 +14,7 @@ import aurora.parser.Flag;
 public class LogSyntactic {
 
     public static void log(String msg) {
-        if(Flag.SYNTACTIC.getValue()) {
+        if(SYNTACTIC.getValue()) {
             System.out.println(msg);
         }
     }
