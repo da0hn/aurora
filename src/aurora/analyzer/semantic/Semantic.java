@@ -44,10 +44,10 @@ public class Semantic {
             var container = tokens.get(index.get());
 
             if(VAR.equals(container.getToken())) {
-                declarationValidator(index);
+                declarationProcedure(index);
             }
             else if(IF.equals(container.getToken()) || LOOP.equals(container.getToken())) {
-                ifOrLoopValidator(index, container);
+                ifOrLoopProcedure(index, container);
             }
             else if(ELSE.equals(container.getToken())) {
                 closeScope(container, () -> scopeStack.peek().increaseLevel());
@@ -60,7 +60,7 @@ public class Semantic {
                 closeScope(container, () -> {});
             }
             else if(ID.equals(container.getToken())) {
-                varDeclaredValidator(index, container);
+                varDeclaredProcedure(index, container);
                 index.getAndIncrement();
                 if(EQUALS.equals(tokens.get(index.get()).getToken())) {
                     var id = scopeStack.peek().getLabel();
@@ -68,7 +68,7 @@ public class Semantic {
                     index.getAndIncrement();
                     StringBuilder basicExpression = new StringBuilder();
 
-                    expressionValidator(index, container, basicExpression);
+                    expressionProcedure(index, container, basicExpression);
 
                     label.ifPresentOrElse(obj -> {
                         if("0".equals(basicExpression.toString())) {
@@ -92,18 +92,18 @@ public class Semantic {
         table.forEach(System.out::println);
     }
 
-    private void expressionValidator(AtomicInteger index, TokenContainer container, StringBuilder basicExpression) {
+    private void expressionProcedure(AtomicInteger index, TokenContainer container, StringBuilder basicExpression) {
         while(!SEMICOLON.equals(tokens.get(index.get()).getToken())) {
             var expression = tokens.get(index.get()).getLexeme();
 
             if(AnalyzerService.isIdentifier(expression)) {
                 findNextScope(expression + scopeStack.peek().getLabel())
-                    .ifPresentOrElse(obj -> {
-                        basicExpression.append(ZERO.equals(obj.getStatus()) ? "0" : obj.getDeclared());
-                    }, () -> {
-                        var err = "identifier '" + tokens.get(index.get()) + "' was not declared.";
-                        error(err, container.getLine(), container.getColumn());
-                    });
+                        .ifPresentOrElse(obj -> {
+                            basicExpression.append(ZERO.equals(obj.getStatus()) ? "0" : obj.getDeclared());
+                        }, () -> {
+                            var err = "identifier '" + tokens.get(index.get()) + "' was not declared.";
+                            error(err, container.getLine(), container.getColumn());
+                        });
             }
             else {
                 basicExpression.append(expression);
@@ -112,7 +112,7 @@ public class Semantic {
         }
     }
 
-    private void declarationValidator(AtomicInteger index) {
+    private void declarationProcedure(AtomicInteger index) {
         var variable = tokens.get(index.get() + 1);
         var declared = variable.getLexeme();
         var decoration = declared + scopeStack.peek().getLabel();
@@ -121,8 +121,8 @@ public class Semantic {
         var column = variable.getColumn();
 
         boolean notDeclared = table.stream()
-            .map(NameMangling::getDecoration)
-            .noneMatch(decoration::equals);
+                .map(NameMangling::getDecoration)
+                .noneMatch(decoration::equals);
         if(notDeclared) {
             table.add(new NameMangling(declared, decoration, line, column, ZERO));
         }
@@ -132,14 +132,14 @@ public class Semantic {
         }
     }
 
-    private void ifOrLoopValidator(AtomicInteger index, TokenContainer container) {
+    private void ifOrLoopProcedure(AtomicInteger index, TokenContainer container) {
         while(!tokens.get(index.incrementAndGet()).getLexeme().equals(")")) {
-            varDeclaredValidator(index, container);
+            varDeclaredProcedure(index, container);
         }
         initScope(container);
     }
 
-    private void varDeclaredValidator(AtomicInteger index, TokenContainer container) {
+    private void varDeclaredProcedure(AtomicInteger index, TokenContainer container) {
         if(tokens.get(index.get()).getToken().equals(ID)) {
             final var level = scopeStack.peek().getLabel();
             final var decoration = tokens.get(index.get()).getLexeme() + level;
@@ -157,8 +157,8 @@ public class Semantic {
         var arr = new ArrayList<>(table);
         Collections.reverse(arr);
         return arr.stream()
-            .filter(n -> decoration.startsWith(n.getDecoration()))
-            .findFirst();
+                .filter(n -> decoration.startsWith(n.getDecoration()))
+                .findFirst();
     }
 
     private void initScope(TokenContainer container) {
