@@ -82,7 +82,7 @@ public class Lexical {
             resetColumn();
 
         }
-        var tk_final = new TokenContainer(Token.FINAL, "Lexical OK!",
+        var tk_final = new TokenContainer(Token.$, "Lexical OK!",
                                           Controls.getLine(), Controls.getColumn()
         );
         LogLexical.add(tk_final);

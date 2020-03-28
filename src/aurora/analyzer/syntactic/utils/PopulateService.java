@@ -116,7 +116,7 @@ public class PopulateService {
 
     public static Stack<Language> initializeStack() {
         var resource = new Stack<Language>();
-        resource.push(Token.FINAL);
+        resource.push(Token.$);
         LogSyntactic.log("token " + resource.peek() + " was pushed to the stack.");
         resource.push(NonTerminal.AURORA);
         LogSyntactic.log("non terminal " + resource.peek() + " was pushed to the stack.");
