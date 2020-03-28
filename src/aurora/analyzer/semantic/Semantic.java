@@ -67,23 +67,8 @@ public class Semantic {
                     Optional<NameMangling> label = findNextScope(container.getLexeme() + id);
                     index.getAndIncrement();
                     StringBuilder basicExpression = new StringBuilder();
-                    while(!SEMICOLON.equals(tokens.get(index.get()).getToken())) {
-                        var expression = tokens.get(index.get()).getLexeme();
 
-                        if(AnalyzerService.isIdentifier(expression)) {
-                            findNextScope(expression + id)
-                                .ifPresentOrElse(obj -> {
-                                    basicExpression.append(ZERO.equals(obj.getStatus()) ? "0" : obj.getDeclared());
-                                }, () -> {
-                                    var err = "identifier '" + tokens.get(index.get()) + "' was not declared.";
-                                    error(err, container.getLine(), container.getColumn());
-                                });
-                        }
-                        else {
-                            basicExpression.append(expression);
-                        }
-                        index.getAndIncrement();
-                    }
+                    expressionValidator(index, container, basicExpression);
 
                     label.ifPresentOrElse(obj -> {
                         if("0".equals(basicExpression.toString())) {
@@ -105,6 +90,26 @@ public class Semantic {
             index.getAndIncrement();
         }
         table.forEach(System.out::println);
+    }
+
+    private void expressionValidator(AtomicInteger index, TokenContainer container, StringBuilder basicExpression) {
+        while(!SEMICOLON.equals(tokens.get(index.get()).getToken())) {
+            var expression = tokens.get(index.get()).getLexeme();
+
+            if(AnalyzerService.isIdentifier(expression)) {
+                findNextScope(expression + scopeStack.peek().getLabel())
+                    .ifPresentOrElse(obj -> {
+                        basicExpression.append(ZERO.equals(obj.getStatus()) ? "0" : obj.getDeclared());
+                    }, () -> {
+                        var err = "identifier '" + tokens.get(index.get()) + "' was not declared.";
+                        error(err, container.getLine(), container.getColumn());
+                    });
+            }
+            else {
+                basicExpression.append(expression);
+            }
+            index.getAndIncrement();
+        }
     }
 
     private void declarationValidator(AtomicInteger index) {
