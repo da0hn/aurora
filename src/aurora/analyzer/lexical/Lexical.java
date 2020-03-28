@@ -98,26 +98,29 @@ public class Lexical {
         // seta o tamanho total da linha
         setLineLength(lines);
         var it = lines.listIterator();
+
         // itera a lista que representa uma linha do arquivo .au
         while(it.hasNext()) {
             var current = it.next();
             // teste se é comentario
-            if(current.equals("/") && it.next().equals("/")) {
-                return;
+            if(current.equals("/") && it.hasNext()) {
+                var next = it.next();
+                if(next.equals("/")) return;
+                it.previous();
             }
-            // testa se é uma linha em branco
-            else if(current.equals(" ")) {
+            // testa se é um espaço em branco
+            if(current.equals(" ")) {
                 incrementColumn();
+                continue;
             }
-            // testa se é um comentario
-            else if(current.equals("\"")) {
+            // testa se é uma string
+            if(current.equals("\"")) {
                 if(stringAnalyzer(it)) return;
+                continue;
             }
             // caso nao entre em nenhuma das classificacoes anteriores
             // provavelmente entra na classificacao de token
-            else {
-                AnalyzerService.tokenAnalyzer(current);
-            }
+            AnalyzerService.tokenAnalyzer(current);
         }
     }
 }
