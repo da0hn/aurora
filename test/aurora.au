@@ -1,33 +1,37 @@
-// Developed By Gabriel Honda
-// quarta-feira fevereiro 2020 (19/02/2020)
 aurora::init // _0
     au::var num;
     au::var fatorial;
-//
-//    au::write("Entre com um numero : ");
-//    au::read(num);
+
+    num = 3;
+    fatorial = 7;
 
     au::loop(num > 5) // _0_0
         au::var fatorial;
         au::write("Realizando conta ((2 * 2) + (6/2)) + 12 e salvando no fatorial...");
         fatorial = ((2 * 2) + (6 / 2)) + 12;
         au::if( num < 5 ) // _0_0_0
-            au::var fatorial;
+            au::var fatorial; // fatorial_0_0_0
+            fatorial = 100;
         au::else // _0_0_1
-                au::var teste;
-
+                au::var teste;  // _0_0_1
+                teste = 9;
                 au::if( num > 5) // _0_0_1_0
-                    au::var teste;
+                    au::var teste; // _0_0_1_0
+                    teste = 0;
                 au::endif // _0_0_1
 
                 au::if( num > 5) // _0_0_1_1
-                    au::var teste;
+                    au::var teste; // _0_0_1_1
+                    teste = 13;
                 au::endif // _0_0_1
-                au::var dale;
+
+                au::var dale;   // _0_0_1
+                dale = 5 / teste;
         au::endif // _0_0
 
         au::if ( num > 3) // _0_0_2
-            au::var fatorial;
+            au::var fatorial;   // _0_0_2
+            fatorial = 5/1;
         au::endif // _0_0
 
     au::endloop // _0
