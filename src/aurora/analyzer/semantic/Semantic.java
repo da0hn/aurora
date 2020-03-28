@@ -60,47 +60,47 @@ public class Semantic {
                 closeScope(container, () -> {});
             }
             else if(ID.equals(container.getToken())) {
-//                varDeclaredValidator(index, container);
-//                index.getAndIncrement();
-//                if(EQUALS.equals(tokens.get(index.get()).getToken())) {
-//                    var id = scopeStack.peek().getLabel();
-//                    Optional<NameMangling> label = findNextScope(container.getLexeme() + id);
-//                    index.getAndIncrement();
-//                    StringBuilder basicExpression = new StringBuilder();
-//                    while(!SEMICOLON.equals(tokens.get(index.get()).getToken())) {
-//                        var expression = tokens.get(index.get()).getLexeme();
-//
-//                        if(AnalyzerService.isIdentifier(expression)) {
-//                            findNextScope(expression + id)
-//                                .ifPresentOrElse(obj -> {
-//                                    basicExpression.append(ZERO.equals(obj.getStatus()) ? "0" : obj.getDeclared());
-//                                }, () -> {
-//                                    var err = "identifier '" + tokens.get(index.get()) + "' was not declared.";
-//                                    error(err, container.getLine(), container.getColumn());
-//                                });
-//                        }
-//                        else {
-//                            basicExpression.append(expression);
-//                        }
-//                        index.getAndIncrement();
-//                    }
-//
-//                    label.ifPresentOrElse(obj -> {
-//                        if("0".equals(basicExpression.toString())) {
-//                            obj.setStatus(ZERO);
-//                        }
-//                        else if(basicExpression.toString().contains("/0")) {
-//                            error("division by zero", container.getLine(), container.getColumn());
-//                        }
-//                        else {
-//                            obj.setStatus(NON_ZERO);
-//                        }
-//                        log("|\tassign: " + obj.getDecoration() + ", value: " + basicExpression);
-//                    }, () -> {
-//                        var err = "identifier '" + tokens.get(index.get()) + "' was not declared.";
-//                        error(err, container.getLine(), container.getColumn());
-//                    });
-//                }
+                varDeclaredValidator(index, container);
+                index.getAndIncrement();
+                if(EQUALS.equals(tokens.get(index.get()).getToken())) {
+                    var id = scopeStack.peek().getLabel();
+                    Optional<NameMangling> label = findNextScope(container.getLexeme() + id);
+                    index.getAndIncrement();
+                    StringBuilder basicExpression = new StringBuilder();
+                    while(!SEMICOLON.equals(tokens.get(index.get()).getToken())) {
+                        var expression = tokens.get(index.get()).getLexeme();
+
+                        if(AnalyzerService.isIdentifier(expression)) {
+                            findNextScope(expression + id)
+                                .ifPresentOrElse(obj -> {
+                                    basicExpression.append(ZERO.equals(obj.getStatus()) ? "0" : obj.getDeclared());
+                                }, () -> {
+                                    var err = "identifier '" + tokens.get(index.get()) + "' was not declared.";
+                                    error(err, container.getLine(), container.getColumn());
+                                });
+                        }
+                        else {
+                            basicExpression.append(expression);
+                        }
+                        index.getAndIncrement();
+                    }
+
+                    label.ifPresentOrElse(obj -> {
+                        if("0".equals(basicExpression.toString())) {
+                            obj.setStatus(ZERO);
+                        }
+                        else if(basicExpression.toString().contains("/0")) {
+                            error("division by zero", container.getLine(), container.getColumn());
+                        }
+                        else {
+                            obj.setStatus(NON_ZERO);
+                        }
+                        log("|\tassign: " + obj.getDecoration() + ", value: " + basicExpression);
+                    }, () -> {
+                        var err = "identifier '" + tokens.get(index.get()) + "' was not declared.";
+                        error(err, container.getLine(), container.getColumn());
+                    });
+                }
             }
             index.getAndIncrement();
         }
