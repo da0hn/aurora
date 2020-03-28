@@ -33,6 +33,10 @@ public class TokenContainer implements LexicalObject {
         return token;
     }
 
+    public void setLexeme(String lexeme) {
+        this.lexeme = lexeme;
+    }
+
     public String getLexeme() {
         return lexeme;
     }
@@ -42,5 +46,10 @@ public class TokenContainer implements LexicalObject {
         return this.getToken() + " at [" + this.getLine()
             + ", " + this.getColumn() + "]" +
             ": '" + this.getLexeme() + '\'';
+    }
+
+    @Override
+    public String toString() {
+        return print();
     }
 }

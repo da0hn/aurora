@@ -4,11 +4,13 @@ import aurora.analyzer.lexical.exception.LexicalException;
 import aurora.analyzer.lexical.interfaces.LexicalObject;
 import aurora.analyzer.lexical.utils.ErrorMessage;
 import aurora.analyzer.lexical.utils.TokenContainer;
-import aurora.parser.Flag;
 
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.stream.Collectors;
+
+import static aurora.parser.Flag.READABLE;
+import static aurora.parser.Flag.TOKENS;
 
 /*
  * @project aurora
@@ -30,7 +32,7 @@ public class LogLexical {
             foundError();
         }
 
-        if(Flag.TOKENS.getValue()) {
+        if(TOKENS.getValue()) {
             System.out.println("--------------------------------------");
             executeLog();
             System.out.println("--------------------------------------");
@@ -41,7 +43,7 @@ public class LogLexical {
         try {
             for(LexicalObject obj : queueLog) {
                 System.out.println(obj.print());
-                if(Flag.READABLE.getValue()) {
+                if(READABLE.getValue()) {
                     Thread.sleep(400);
                 }
             }

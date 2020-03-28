@@ -3,6 +3,9 @@ package aurora.analyzer.syntactic.log;
 import aurora.analyzer.syntactic.exception.SyntacticException;
 import aurora.lang.Language;
 import aurora.lang.Terminal;
+import aurora.parser.Flag;
+
+import static aurora.parser.Flag.SYNTACTIC;
 
 /*
  * @project aurora
@@ -11,7 +14,9 @@ import aurora.lang.Terminal;
 public class LogSyntactic {
 
     public static void log(String msg) {
-        System.out.println(msg);
+        if(SYNTACTIC.getValue()) {
+            System.out.println(msg);
+        }
     }
 
     public static void error(Language obj, Terminal token, int line, int column) {

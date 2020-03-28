@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
  */
 public enum Token implements Terminal {
 
-    FINAL(0, "$", null),
+    $(0, "$", null),
     ID(1, "id", null),
     EMPTY(2, "î", null),
     NUMBER(3, "number", null),

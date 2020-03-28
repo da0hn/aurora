@@ -41,7 +41,7 @@ class Lexical_v1 {
             analyzeLine(line);
             this.column = 1;
         }
-        this.tokens.add(new TokenContainer(Token.FINAL, "$",
+        this.tokens.add(new TokenContainer(Token.$, "$",
                                            this.line, this.column
         ));
     }

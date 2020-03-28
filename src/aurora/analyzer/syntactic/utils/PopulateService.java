@@ -18,7 +18,7 @@ import static java.util.Collections.singletonList;
  */
 public class PopulateService {
 
-    public static List<List<Language>> stackTable() {
+    public static List<List<Language>> commandSequenceTable() {
         return asList(
 //                <aurora> ::= init_program <recursive_statement> close_program
             asList(Token.INIT, NonTerminal.RECURSIVE_STATEMENT, Token.CLOSE),
@@ -114,11 +114,12 @@ public class PopulateService {
         );
     }
 
-    public static void stack(Stack<Language> stack) {
-        stack.push(Token.FINAL);
-        LogSyntactic.log("token " + stack.peek() + " was pushed to the stack.");
-        stack.push(NonTerminal.AURORA);
-        LogSyntactic.log("non terminal " + stack.peek() + " was pushed to the stack.");
-
+    public static Stack<Language> initializeStack() {
+        var resource = new Stack<Language>();
+        resource.push(Token.$);
+        LogSyntactic.log("token " + resource.peek() + " was pushed to the stack.");
+        resource.push(NonTerminal.AURORA);
+        LogSyntactic.log("non terminal " + resource.peek() + " was pushed to the stack.");
+        return resource;
     }
 }

@@ -72,8 +72,7 @@ public interface AnalyzerService {
         }
         if(closeQuotes) {
             var tk = new TokenContainer(Token.STRING, buffer.toString(),
-                                        getLine(), getColumn()
-            );
+                                        getLine(), getColumn());
             LogLexical.add(tk);
             Tokens.add(tk);
             incrementColumn(buffer.length());
@@ -89,14 +88,6 @@ public interface AnalyzerService {
 
     static boolean isLineEmpty(List<String> line) {
         return line.stream().allMatch(s -> s.isEmpty() && s.isBlank());
-    }
-
-    static boolean isCharToken(String buffer) {
-        return !isLetterOrDigit(buffer) && !buffer.equals(":");
-    }
-
-    static boolean isComment(String curr, String next) {
-        return curr.equals("/") && next.equals("/");
     }
 
     static boolean isSymbol(String buffer) {
