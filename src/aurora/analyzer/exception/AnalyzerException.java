@@ -5,7 +5,7 @@ package aurora.analyzer.exception;
  * @author Gabriel Honda on 08/03/2020
  */
 public class AnalyzerException extends RuntimeException {
-    public AnalyzerException(String message) {
-        super(message);
-    }
+	public AnalyzerException(String message) {
+		super(message);
+	}
 }

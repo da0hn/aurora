@@ -12,11 +12,11 @@ import aurora.parser.Argument;
  */
 public class Aurora {
 
-    public static void main(String[] args) {
-        new Lexical().analyze(new FileManager(Argument.parseArgs(args))
-                                  .readLinesAuroraFile());
-        new Syntactic().analyze();
-        new Semantic().analyze();
-    }
+	public static void main(String[] args) {
+		new Lexical().analyze(new FileManager(Argument.parseArgs(args))
+				                      .readLinesAuroraFile());
+		new Syntactic().analyze();
+		new Semantic().analyze();
+	}
 
 }

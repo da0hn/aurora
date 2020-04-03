@@ -11,69 +11,69 @@ import java.util.function.Predicate;
  */
 public class AsmFile {
 
-    /*
-     * caso o arquivo .asm não exista cria-se um novo
-     * na mesma pasta que o .au e com o mesmo nome
-     * */
-    public static Path create(Path path) {
-        try {
-            var asm = new File(getDir(path)
-                                   + "/"
-                                   + getAsmName(extractAuroraName(path))
-                                   + ".asm");
-            boolean asmExists = asmExists().and(deleteAsmFile()).test(asm);
-            if(asmExists) {
-                System.out.println("O arquivo " + asm.getAbsoluteFile().getName() + " ja existe, " +
-                                       "um novo arquivo .asm sera criado");
-            }
-            isAsmFileCreated(asm);
-            return asm.toPath();
-        }
-        catch(IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+	/*
+	 * caso o arquivo .asm não exista cria-se um novo
+	 * na mesma pasta que o .au e com o mesmo nome
+	 * */
+	public static Path create(Path path) {
+		try {
+			var asm = new File(getDir(path)
+					                   + "/"
+					                   + getAsmName(extractAuroraName(path))
+					                   + ".asm");
+			boolean asmExists = asmExists().and(deleteAsmFile()).test(asm);
+			if(asmExists) {
+				System.out.println("O arquivo " + asm.getAbsoluteFile().getName() + " ja existe, " +
+						                   "um novo arquivo .asm sera criado");
+			}
+			isAsmFileCreated(asm);
+			return asm.toPath();
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
-    private static void isAsmFileCreated(File asm) throws IOException {
-        boolean fileCreated = asm.createNewFile();
+	private static void isAsmFileCreated(File asm) throws IOException {
+		boolean fileCreated = asm.createNewFile();
 
-        if(fileCreated) {
-            System.out.println("Arquivo " + asm.getAbsoluteFile().getName() + " criado com sucesso");
-        }
-        else {
-            throw new IOException("O arquivo .asm nao foi criado.");
-        }
-    }
+		if(fileCreated) {
+			System.out.println("Arquivo " + asm.getAbsoluteFile().getName() + " criado com sucesso");
+		}
+		else {
+			throw new IOException("O arquivo .asm nao foi criado.");
+		}
+	}
 
-    private static Predicate<File> asmExists() {
-        return File::exists;
-    }
+	private static Predicate<File> asmExists() {
+		return File::exists;
+	}
 
-    private static Predicate<File> deleteAsmFile() {
-        return File::delete;
-    }
+	private static Predicate<File> deleteAsmFile() {
+		return File::delete;
+	}
 
-    private static String getAsmName(String inputName) {
-        // remove a extensao do arquivo para ser utilizado na criacao do .asm
-        return inputName.substring(0,                           // percorre do inicio da string
-                                   inputName.indexOf(".")
-        );     // ate a localizacao do ponto ( nao incluido )
+	private static String getAsmName(String inputName) {
+		// remove a extensao do arquivo para ser utilizado na criacao do .asm
+		return inputName.substring(0,                           // percorre do inicio da string
+		                           inputName.indexOf(".")
+		);     // ate a localizacao do ponto ( nao incluido )
 
-    }
+	}
 
-    private static String getDir(Path path) {
-        // obtem o caminho absoluto do arquivo ate o diretorio ignorando o arquivo
-        return path.toFile()
-            .getAbsoluteFile()
-            .getParent();
-    }
+	private static String getDir(Path path) {
+		// obtem o caminho absoluto do arquivo ate o diretorio ignorando o arquivo
+		return path.toFile()
+				.getAbsoluteFile()
+				.getParent();
+	}
 
-    private static String extractAuroraName(Path path) {
-        // obtem o caminho absoluto, porem so devolve o nome do arquivo com a extensao
-        return path.toFile()
-            .getAbsoluteFile()
-            .getName();
-    }
+	private static String extractAuroraName(Path path) {
+		// obtem o caminho absoluto, porem so devolve o nome do arquivo com a extensao
+		return path.toFile()
+				.getAbsoluteFile()
+				.getName();
+	}
 
 }

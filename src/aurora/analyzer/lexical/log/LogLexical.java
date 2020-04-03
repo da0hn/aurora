@@ -17,56 +17,56 @@ import static aurora.parser.Flag.TOKENS;
  * @author Gabriel Honda on 23/02/2020
  */
 public class LogLexical {
-    private static Queue<LexicalObject> queueLog;
+	private static Queue<LexicalObject> queueLog;
 
-    static {
-        queueLog = new LinkedList<>();
-    }
+	static {
+		queueLog = new LinkedList<>();
+	}
 
-    public static void add(TokenContainer tk) {
-        queueLog.add(tk);
-    }
+	public static void add(TokenContainer tk) {
+		queueLog.add(tk);
+	}
 
-    public static void log() {
-        if(queueLog.stream().anyMatch(t -> t instanceof ErrorMessage)) {
-            foundError();
-        }
+	public static void log() {
+		if(queueLog.stream().anyMatch(t -> t instanceof ErrorMessage)) {
+			foundError();
+		}
 
-        if(TOKENS.getValue()) {
-            System.out.println("--------------------------------------");
-            executeLog();
-            System.out.println("--------------------------------------");
-        }
-    }
+		if(TOKENS.getValue()) {
+			System.out.println("--------------------------------------");
+			executeLog();
+			System.out.println("--------------------------------------");
+		}
+	}
 
-    private static void executeLog() {
-        try {
-            for(LexicalObject obj : queueLog) {
-                System.out.println(obj.print());
-                if(READABLE.getValue()) {
-                    Thread.sleep(400);
-                }
-            }
-        }
-        catch(InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+	private static void executeLog() {
+		try {
+			for(LexicalObject obj : queueLog) {
+				System.out.println(obj.print());
+				if(READABLE.getValue()) {
+					Thread.sleep(400);
+				}
+			}
+		}
+		catch(InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 
-    public static void error(String err, int line, int column) {
-        queueLog.add(new ErrorMessage(err, line, column));
-    }
+	public static void error(String err, int line, int column) {
+		queueLog.add(new ErrorMessage(err, line, column));
+	}
 
-    private static void foundError() {
-        var err = new StringBuilder();
-        err.append('\n');
-        var extractedErrors = queueLog.stream()
-            .filter(obj -> obj instanceof ErrorMessage)
-            .collect(Collectors.toList());
-        extractedErrors.forEach(obj -> {
-            err.append("\t").append(obj.print()).append("\n");
-        });
+	private static void foundError() {
+		var err = new StringBuilder();
+		err.append('\n');
+		var extractedErrors = queueLog.stream()
+				.filter(obj -> obj instanceof ErrorMessage)
+				.collect(Collectors.toList());
+		extractedErrors.forEach(obj -> {
+			err.append("\t").append(obj.print()).append("\n");
+		});
 
-        throw new LexicalException(err.toString());
-    }
+		throw new LexicalException(err.toString());
+	}
 }

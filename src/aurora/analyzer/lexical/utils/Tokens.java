@@ -12,17 +12,17 @@ import java.util.List;
  * populada na classe Lexical
  * */
 public class Tokens {
-    private static List<TokenContainer> tokens;
+	private static List<TokenContainer> tokens;
 
-    static {
-        tokens = new ArrayList<>();
-    }
+	static {
+		tokens = new ArrayList<>();
+	}
 
-    public static void add(TokenContainer tk) {
-        tokens.add(tk);
-    }
+	public static void add(TokenContainer tk) {
+		tokens.add(tk);
+	}
 
-    public static List<TokenContainer> get() {
-        return tokens;
-    }
+	public static List<TokenContainer> get() {
+		return tokens;
+	}
 }

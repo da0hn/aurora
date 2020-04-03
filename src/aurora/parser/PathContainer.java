@@ -8,19 +8,19 @@ import java.nio.file.Path;
  */
 public class PathContainer {
 
-    private final Path aurora;
-    private final Path assembly;
+	private final Path aurora;
+	private final Path assembly;
 
-    public PathContainer(Path aurora, Path assembly) {
-        this.aurora = aurora;
-        this.assembly = assembly;
-    }
+	public PathContainer(Path aurora, Path assembly) {
+		this.aurora = aurora;
+		this.assembly = assembly;
+	}
 
-    public Path getAurora() {
-        return aurora;
-    }
+	public Path getAurora() {
+		return aurora;
+	}
 
-    public Path getAssembly() {
-        return assembly;
-    }
+	public Path getAssembly() {
+		return assembly;
+	}
 }

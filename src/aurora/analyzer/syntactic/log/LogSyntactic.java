@@ -13,19 +13,19 @@ import static aurora.parser.Flag.SYNTACTIC;
  */
 public class LogSyntactic {
 
-    public static void log(String msg) {
-        if(SYNTACTIC.getValue()) {
-            System.out.println(msg);
-        }
-    }
+	public static void log(String msg) {
+		if(SYNTACTIC.getValue()) {
+			System.out.println(msg);
+		}
+	}
 
-    public static void error(Language obj, Terminal token, int line, int column) {
-        var builder = new StringBuilder();
-        builder.append("at [").append(line).append(", ").append(column).append("]").append("\n");
-        builder.append("\t").append("'").append(obj.getName()).append("'").append(" was expected, but ")
-            .append("'").append(token.getName()).append("'").append(" was found.").append("\n");
-        builder.append("\t").append("compilation terminated\n");
-        throw new SyntacticException(builder.toString());
-    }
+	public static void error(Language obj, Terminal token, int line, int column) {
+		var builder = new StringBuilder();
+		builder.append("at [").append(line).append(", ").append(column).append("]").append("\n");
+		builder.append("\t").append("'").append(obj.getName()).append("'").append(" was expected, but ")
+				.append("'").append(token.getName()).append("'").append(" was found.").append("\n");
+		builder.append("\t").append("compilation terminated\n");
+		throw new SyntacticException(builder.toString());
+	}
 
 }

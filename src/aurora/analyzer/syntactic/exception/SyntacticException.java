@@ -7,7 +7,7 @@ import aurora.analyzer.exception.AnalyzerException;
  * @author Gabriel Honda on 09/03/2020
  */
 public class SyntacticException extends AnalyzerException {
-    public SyntacticException(String message) {
-        super(message);
-    }
+	public SyntacticException(String message) {
+		super(message);
+	}
 }
