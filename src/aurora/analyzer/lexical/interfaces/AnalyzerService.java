@@ -13,8 +13,12 @@ import java.util.ListIterator;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-import static aurora.analyzer.lexical.Lexical.Controls.*;
-import static aurora.analyzer.lexical.interfaces.BufferAnalyzer.*;
+import static aurora.analyzer.lexical.Lexical.Controls.getColumn;
+import static aurora.analyzer.lexical.Lexical.Controls.getLine;
+import static aurora.analyzer.lexical.Lexical.Controls.incrementColumn;
+import static aurora.analyzer.lexical.interfaces.BufferAnalyzer.identifier;
+import static aurora.analyzer.lexical.interfaces.BufferAnalyzer.number;
+import static aurora.analyzer.lexical.interfaces.BufferAnalyzer.symbol;
 
 /*
  * @project aurora

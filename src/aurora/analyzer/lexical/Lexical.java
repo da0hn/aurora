@@ -9,7 +9,10 @@ import aurora.lang.Token;
 import java.util.Collections;
 import java.util.List;
 
-import static aurora.analyzer.lexical.Lexical.Controls.*;
+import static aurora.analyzer.lexical.Lexical.Controls.incrementColumn;
+import static aurora.analyzer.lexical.Lexical.Controls.incrementLine;
+import static aurora.analyzer.lexical.Lexical.Controls.resetColumn;
+import static aurora.analyzer.lexical.Lexical.Controls.setLineLength;
 import static aurora.analyzer.lexical.interfaces.AnalyzerService.isLineEmpty;
 import static aurora.analyzer.lexical.interfaces.AnalyzerService.stringAnalyzer;
 import static aurora.analyzer.lexical.interfaces.LinesParserService.splitBy;

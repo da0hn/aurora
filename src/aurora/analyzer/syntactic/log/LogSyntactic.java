@@ -3,7 +3,6 @@ package aurora.analyzer.syntactic.log;
 import aurora.analyzer.syntactic.exception.SyntacticException;
 import aurora.lang.Language;
 import aurora.lang.Terminal;
-import aurora.parser.Flag;
 
 import static aurora.parser.Flag.SYNTACTIC;
 

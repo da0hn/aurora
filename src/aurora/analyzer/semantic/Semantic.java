@@ -6,7 +6,11 @@ import aurora.analyzer.lexical.utils.Tokens;
 import aurora.analyzer.semantic.utils.NameMangling;
 import aurora.analyzer.semantic.utils.Scope;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import java.util.Stack;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static aurora.analyzer.semantic.log.LogSemantic.error;

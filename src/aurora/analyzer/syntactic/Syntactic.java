@@ -5,7 +5,6 @@ import aurora.analyzer.lexical.utils.Tokens;
 import aurora.lang.Language;
 import aurora.lang.NonTerminal;
 import aurora.lang.Terminal;
-import aurora.lang.Token;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -14,7 +13,9 @@ import java.util.function.UnaryOperator;
 
 import static aurora.analyzer.syntactic.log.LogSyntactic.error;
 import static aurora.analyzer.syntactic.log.LogSyntactic.log;
-import static aurora.analyzer.syntactic.utils.PopulateService.*;
+import static aurora.analyzer.syntactic.utils.PopulateService.commandSequenceTable;
+import static aurora.analyzer.syntactic.utils.PopulateService.initializeStack;
+import static aurora.analyzer.syntactic.utils.PopulateService.parseTable;
 
 /*
  * @project aurora
