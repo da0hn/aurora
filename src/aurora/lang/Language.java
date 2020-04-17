@@ -5,7 +5,7 @@ package aurora.lang;
  * @author Gabriel Honda on 08/03/2020
  */
 public interface Language {
-	String getName();
+    String getName();
 
-	int getIndex();
+    int getIndex();
 }

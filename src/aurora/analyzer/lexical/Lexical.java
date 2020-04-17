@@ -22,108 +22,108 @@ import static aurora.analyzer.lexical.interfaces.LinesParserService.splitBy;
  * @author Gabriel Honda on 22/02/2020
  */
 public class Lexical {
-	/*
-	 * classe interna responsavel pelo controle das linhas,
-	 * colunas e tamanho da linha
-	 * */
-	public static class Controls {
-		private static Integer line = 1;
-		private static Integer column = 1;
-		private static Integer lineLength;
+    /*
+     * classe interna responsavel pelo controle das linhas,
+     * colunas e tamanho da linha
+     * */
+    public static class Controls {
+        private static Integer line = 1;
+        private static Integer column = 1;
+        private static Integer lineLength;
 
-		public static void setLineLength(List<String> line) {
-			// recebe a linha atual e soma os caracteres de cada String inserida
-			// na lista
-			lineLength = line.stream()
-					.mapToInt(String::length)
-					.sum();
-		}
+        public static void setLineLength(List<String> line) {
+            // recebe a linha atual e soma os caracteres de cada String inserida
+            // na lista
+            lineLength = line.stream()
+                    .mapToInt(String::length)
+                    .sum();
+        }
 
-		public static void incrementColumn() { column++;}
+        public static void incrementColumn() { column++;}
 
-		public static void incrementColumn(Integer column) {
-			Controls.column += column;
-		}
+        public static void incrementColumn(Integer column) {
+            Controls.column += column;
+        }
 
-		public static void incrementLine() { line++;}
+        public static void incrementLine() { line++;}
 
-		public static void resetColumn() { column = 1;}
+        public static void resetColumn() { column = 1;}
 
-		public static Integer getColumn() {
-			return column;
-		}
+        public static Integer getColumn() {
+            return column;
+        }
 
-		public static Integer getLine() {
-			return line;
-		}
+        public static Integer getLine() {
+            return line;
+        }
 
-		public static Integer getLineLength() {
-			return lineLength;
-		}
-	}
+        public static Integer getLineLength() {
+            return lineLength;
+        }
+    }
 
-	public void analyze(List<String> lines) {
-		// metodo splitBy() quebra a linha de acordo com o delimitador
-		// o delimitador é mantido na lista criada para analise
-		for(String line : lines) {
-			var parsedLines = splitBy("\\)")
-					.andThen(splitBy("\\("))
-					.andThen(splitBy("\\s"))
-					.andThen(splitBy(";"))
-					.andThen(splitBy("\""))
-					.andThen(splitBy(">"))
-					.andThen(splitBy("<"))
-					.andThen(splitBy("="))
-					.andThen(splitBy("\\+"))
-					.andThen(splitBy("\\-"))
-					.andThen(splitBy("\\*"))
-					.andThen(splitBy("/"))
-					.apply(Collections.singletonList(line));
+    public void analyze(List<String> lines) {
+        // metodo splitBy() quebra a linha de acordo com o delimitador
+        // o delimitador é mantido na lista criada para analise
+        for(String line : lines) {
+            var parsedLines = splitBy("\\)")
+                    .andThen(splitBy("\\("))
+                    .andThen(splitBy("\\s"))
+                    .andThen(splitBy(";"))
+                    .andThen(splitBy("\""))
+                    .andThen(splitBy(">"))
+                    .andThen(splitBy("<"))
+                    .andThen(splitBy("="))
+                    .andThen(splitBy("\\+"))
+                    .andThen(splitBy("\\-"))
+                    .andThen(splitBy("\\*"))
+                    .andThen(splitBy("/"))
+                    .apply(Collections.singletonList(line));
 //            System.out.println(parsedLines + " size -> " + parsedLines.size());
-			analyzeLines(parsedLines);
-			incrementLine();
-			resetColumn();
+            analyzeLines(parsedLines);
+            incrementLine();
+            resetColumn();
 
-		}
-		var tk_final = new TokenContainer(Token.$, "Lexical OK!",
-		                                  Controls.getLine(), Controls.getColumn()
-		);
-		LogLexical.add(tk_final);
-		LogLexical.log();
-		Tokens.add(tk_final);
-	}
+        }
+        var tk_final = new TokenContainer(Token.$, "Lexical OK!",
+                                          Controls.getLine(), Controls.getColumn()
+        );
+        LogLexical.add(tk_final);
+        LogLexical.log();
+        Tokens.add(tk_final);
+    }
 
-	private void analyzeLines(List<String> lines) {
-		// se a linha for considerada vazia sai do metodo
-		// uma linha e considerada vazia se possui apenas espaços em brancos
-		// ate o seu final
-		if(isLineEmpty(lines)) return;
-		// seta o tamanho total da linha
-		setLineLength(lines);
-		var it = lines.listIterator();
+    private void analyzeLines(List<String> lines) {
+        // se a linha for considerada vazia sai do metodo
+        // uma linha e considerada vazia se possui apenas espaços em brancos
+        // ate o seu final
+        if(isLineEmpty(lines)) return;
+        // seta o tamanho total da linha
+        setLineLength(lines);
+        var it = lines.listIterator();
 
-		// itera a lista que representa uma linha do arquivo .au
-		while(it.hasNext()) {
-			var current = it.next();
-			// teste se é comentario
-			if(current.equals("/") && it.hasNext()) {
-				var next = it.next();
-				if(next.equals("/")) return;
-				it.previous();
-			}
-			// testa se é um espaço em branco
-			if(current.equals(" ")) {
-				incrementColumn();
-				continue;
-			}
-			// testa se é uma string
-			if(current.equals("\"")) {
-				if(stringAnalyzer(it)) return;
-				continue;
-			}
-			// caso nao entre em nenhuma das classificacoes anteriores
-			// provavelmente entra na classificacao de token
-			AnalyzerService.tokenAnalyzer(current);
-		}
-	}
+        // itera a lista que representa uma linha do arquivo .au
+        while(it.hasNext()) {
+            var current = it.next();
+            // teste se é comentario
+            if(current.equals("/") && it.hasNext()) {
+                var next = it.next();
+                if(next.equals("/")) return;
+                it.previous();
+            }
+            // testa se é um espaço em branco
+            if(current.equals(" ")) {
+                incrementColumn();
+                continue;
+            }
+            // testa se é uma string
+            if(current.equals("\"")) {
+                if(stringAnalyzer(it)) return;
+                continue;
+            }
+            // caso nao entre em nenhuma das classificacoes anteriores
+            // provavelmente entra na classificacao de token
+            AnalyzerService.tokenAnalyzer(current);
+        }
+    }
 }

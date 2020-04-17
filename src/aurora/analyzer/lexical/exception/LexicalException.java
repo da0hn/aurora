@@ -8,8 +8,8 @@ import aurora.analyzer.exception.AnalyzerException;
  */
 public class LexicalException extends AnalyzerException {
 
-	public LexicalException(String message) {
-		super(message);
-	}
+    public LexicalException(String message) {
+        super(message);
+    }
 
 }

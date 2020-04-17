@@ -5,5 +5,5 @@ package aurora.analyzer.lexical.interfaces;
  * @author Gabriel Honda on 08/03/2020
  */
 public interface LexicalObject {
-	String print();
+    String print();
 }
