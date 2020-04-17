@@ -7,7 +7,7 @@ import aurora.analyzer.exception.AnalyzerException;
  * @author Gabriel Honda on 18/03/2020
  */
 public class SemanticException extends AnalyzerException {
-	public SemanticException(String message) {
-		super(message);
-	}
+    public SemanticException(String message) {
+        super(message);
+    }
 }
