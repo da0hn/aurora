@@ -3,7 +3,7 @@ package aurora.app;
 import aurora.analyzer.lexical.Lexical;
 import aurora.analyzer.semantic.Semantic;
 import aurora.analyzer.syntactic.Syntactic;
-import aurora.files.FileManager;
+import aurora.fs.FileManager;
 import aurora.parser.Argument;
 
 /*

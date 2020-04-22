@@ -1,4 +1,4 @@
-package aurora.files;
+package aurora.fs;
 
 import aurora.parser.PathContainer;
 
