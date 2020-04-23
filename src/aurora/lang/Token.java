@@ -63,14 +63,14 @@ public enum Token implements Terminal {
 
     public static List<String> getKeywords() {
         return Arrays.stream(Token.values())
-            .map(Token::getKeyword)
-            .filter(Objects::nonNull)
-            .collect(Collectors.toList());
+                .map(Token::getKeyword)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
     }
 
     public static List<String> getValues() {
         return Arrays.stream(Token.values())
-            .map(Token::getName)
-            .collect(Collectors.toList());
+                .map(Token::getName)
+                .collect(Collectors.toList());
     }
 }

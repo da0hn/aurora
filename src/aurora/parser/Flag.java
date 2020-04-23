@@ -43,8 +43,8 @@ public enum Flag {
     @Override
     public String toString() {
         return "Flag{" +
-            "arg='" + arg + '\'' +
-            ", value=" + value +
-            '}';
+                "arg='" + arg + '\'' +
+                ", value=" + value +
+                '}';
     }
 }

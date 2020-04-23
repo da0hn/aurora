@@ -61,8 +61,8 @@ public class LogLexical {
         var err = new StringBuilder();
         err.append('\n');
         var extractedErrors = queueLog.stream()
-            .filter(obj -> obj instanceof ErrorMessage)
-            .collect(Collectors.toList());
+                .filter(obj -> obj instanceof ErrorMessage)
+                .collect(Collectors.toList());
         extractedErrors.forEach(obj -> {
             err.append("\t").append(obj.print()).append("\n");
         });

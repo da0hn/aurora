@@ -14,7 +14,8 @@ public class LogSemantic {
     public static void log(String msg) {
         if(SEMANTIC.getValue()) System.out.println(msg);
     }
+
     public static void error(String err, int line, int column) {
-        throw new SemanticException(" at ["+line+", " + column +"]\n\t"+ err);
+        throw new SemanticException(" at [" + line + ", " + column + "]\n\t" + err);
     }
 }

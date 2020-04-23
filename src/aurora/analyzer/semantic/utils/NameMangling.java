@@ -1,7 +1,5 @@
 package aurora.analyzer.semantic.utils;
 
-import com.sun.jdi.Value;
-
 /*
  * @project aurora
  * @author Gabriel Honda on 18/03/2020

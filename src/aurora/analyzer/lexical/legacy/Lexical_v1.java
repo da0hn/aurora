@@ -110,7 +110,7 @@ class Lexical_v1 {
 
     private void analyzeBuffer(String buffer) {
         Optional<Terminal> optToken = BufferAnalyzer.keyword().orElse(identifier())
-            .orElse(number()).apply(buffer);
+                .orElse(number()).apply(buffer);
 
         Consumer<Terminal> addAndLog = tk -> {
             var temp = new TokenContainer(tk, buffer, this.line, this.column);

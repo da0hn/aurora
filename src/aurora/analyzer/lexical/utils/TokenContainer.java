@@ -44,8 +44,8 @@ public class TokenContainer implements LexicalObject {
     @Override
     public String print() {
         return this.getToken() + " at [" + this.getLine()
-            + ", " + this.getColumn() + "]" +
-            ": '" + this.getLexeme() + '\'';
+                + ", " + this.getColumn() + "]" +
+                ": '" + this.getLexeme() + '\'';
     }
 
     @Override

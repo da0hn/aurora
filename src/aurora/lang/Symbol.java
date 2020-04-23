@@ -50,7 +50,7 @@ public enum Symbol implements Terminal {
 
     public static List<String> getValues() {
         return Arrays.stream(Symbol.values())
-            .map(Symbol::getName)
-            .collect(Collectors.toList());
+                .map(Symbol::getName)
+                .collect(Collectors.toList());
     }
 }

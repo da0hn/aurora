@@ -30,19 +30,19 @@ public interface BufferAnalyzer extends Function<String, Optional<Terminal>> {
     // verifica se e um identificador e instancia um Optional com IToken
     static BufferAnalyzer identifier() {
         return buffer -> AnalyzerService.isIdentifier(buffer)
-            ? Optional.of(Token.ID) : Optional.empty();
+                ? Optional.of(Token.ID) : Optional.empty();
     }
 
     // verifica se e um numero e instancia um Optional com IToken
     static BufferAnalyzer number() {
         return buffer -> AnalyzerService.isNumber(buffer)
-            ? Optional.of(Token.NUMBER) : Optional.empty();
+                ? Optional.of(Token.NUMBER) : Optional.empty();
     }
 
     // verifica se e um simbolo e instancia um Optional com IToken
     static BufferAnalyzer symbol() {
         return buffer -> AnalyzerService.isSymbol(buffer)
-            ? Optional.of(Symbol.toEnum(buffer)) : Optional.empty();
+                ? Optional.of(Symbol.toEnum(buffer)) : Optional.empty();
     }
 
     //

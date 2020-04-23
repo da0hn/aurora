@@ -9,7 +9,10 @@ import aurora.lang.Token;
 import java.util.Collections;
 import java.util.List;
 
-import static aurora.analyzer.lexical.Lexical.Controls.*;
+import static aurora.analyzer.lexical.Lexical.Controls.incrementColumn;
+import static aurora.analyzer.lexical.Lexical.Controls.incrementLine;
+import static aurora.analyzer.lexical.Lexical.Controls.resetColumn;
+import static aurora.analyzer.lexical.Lexical.Controls.setLineLength;
 import static aurora.analyzer.lexical.interfaces.AnalyzerService.isLineEmpty;
 import static aurora.analyzer.lexical.interfaces.AnalyzerService.stringAnalyzer;
 import static aurora.analyzer.lexical.interfaces.LinesParserService.splitBy;
@@ -32,8 +35,8 @@ public class Lexical {
             // recebe a linha atual e soma os caracteres de cada String inserida
             // na lista
             lineLength = line.stream()
-                .mapToInt(String::length)
-                .sum();
+                    .mapToInt(String::length)
+                    .sum();
         }
 
         public static void incrementColumn() { column++;}
@@ -64,18 +67,18 @@ public class Lexical {
         // o delimitador é mantido na lista criada para analise
         for(String line : lines) {
             var parsedLines = splitBy("\\)")
-                .andThen(splitBy("\\("))
-                .andThen(splitBy("\\s"))
-                .andThen(splitBy(";"))
-                .andThen(splitBy("\""))
-                .andThen(splitBy(">"))
-                .andThen(splitBy("<"))
-                .andThen(splitBy("="))
-                .andThen(splitBy("\\+"))
-                .andThen(splitBy("\\-"))
-                .andThen(splitBy("\\*"))
-                .andThen(splitBy("/"))
-                .apply(Collections.singletonList(line));
+                    .andThen(splitBy("\\("))
+                    .andThen(splitBy("\\s"))
+                    .andThen(splitBy(";"))
+                    .andThen(splitBy("\""))
+                    .andThen(splitBy(">"))
+                    .andThen(splitBy("<"))
+                    .andThen(splitBy("="))
+                    .andThen(splitBy("\\+"))
+                    .andThen(splitBy("\\-"))
+                    .andThen(splitBy("\\*"))
+                    .andThen(splitBy("/"))
+                    .apply(Collections.singletonList(line));
 //            System.out.println(parsedLines + " size -> " + parsedLines.size());
             analyzeLines(parsedLines);
             incrementLine();

@@ -3,7 +3,6 @@ package aurora.analyzer.syntactic.log;
 import aurora.analyzer.syntactic.exception.SyntacticException;
 import aurora.lang.Language;
 import aurora.lang.Terminal;
-import aurora.parser.Flag;
 
 import static aurora.parser.Flag.SYNTACTIC;
 
@@ -23,7 +22,7 @@ public class LogSyntactic {
         var builder = new StringBuilder();
         builder.append("at [").append(line).append(", ").append(column).append("]").append("\n");
         builder.append("\t").append("'").append(obj.getName()).append("'").append(" was expected, but ")
-            .append("'").append(token.getName()).append("'").append(" was found.").append("\n");
+                .append("'").append(token.getName()).append("'").append(" was found.").append("\n");
         builder.append("\t").append("compilation terminated\n");
         throw new SyntacticException(builder.toString());
     }

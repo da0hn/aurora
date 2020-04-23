@@ -1,0 +1,37 @@
+begin scope _0.
+|	assign: num_0, value: 3
+|	assign: fatorial_0, value: 7
+begin scope _0_0 LOOP at [8, 5]: 'au::loop'.
+|	assign: fatorial_0_0, value: ((2*2)+(6/2))+12
+begin scope _0_0_0 IF at [12, 9]: 'au::if'.
+|	assign: fatorial_0_0_0, value: 100
+end scope _0_0_0 ELSE at [15, 9]: 'au::else'.
+begin scope _0_0_1 ELSE at [15, 9]: 'au::else'.
+|	assign: teste_0_0_1, value: 9
+begin scope _0_0_1_0 IF at [18, 17]: 'au::if'.
+|	assign: teste_0_0_1_0, value: 0
+end scope _0_0_1_0 ENDIF at [21, 17]: 'au::endif'.
+begin scope _0_0_1_1 IF at [23, 17]: 'au::if'.
+|	assign: teste_0_0_1_1, value: 13
+end scope _0_0_1_1 ENDIF at [26, 17]: 'au::endif'.
+|	assign: dale_0_0_1, value: 5/teste
+end scope _0_0_1 ENDIF at [30, 9]: 'au::endif'.
+begin scope _0_0_2 IF at [32, 9]: 'au::if'.
+|	assign: fatorial_0_0_2, value: 5/1
+end scope _0_0_2 ENDIF at [35, 9]: 'au::endif'.
+end scope _0_0 END_LOOP at [37, 5]: 'au::endloop'.
+begin scope _0_1 IF at [39, 5]: 'au::if'.
+end scope _0_1 ENDIF at [41, 5]: 'au::endif'.
+end scope _0 CLOSE at [42, 1]: 'aurora::close'.
+NameMangling{declared='num', decoration='num_0', line=2, column=13, status=NON_ZERO}
+NameMangling{declared='fatorial', decoration='fatorial_0', line=3, column=13, status=NON_ZERO}
+NameMangling{declared='fatorial', decoration='fatorial_0_0', line=9, column=17, status=NON_ZERO}
+NameMangling{declared='fatorial', decoration='fatorial_0_0_0', line=13, column=21, status=NON_ZERO}
+NameMangling{declared='teste', decoration='teste_0_0_1', line=16, column=25, status=NON_ZERO}
+NameMangling{declared='teste', decoration='teste_0_0_1_0', line=19, column=29, status=ZERO}
+NameMangling{declared='teste', decoration='teste_0_0_1_1', line=24, column=29, status=NON_ZERO}
+NameMangling{declared='dale', decoration='dale_0_0_1', line=28, column=25, status=NON_ZERO}
+NameMangling{declared='fatorial', decoration='fatorial_0_0_2', line=33, column=21, status=NON_ZERO}
+NameMangling{declared='num', decoration='num_0_1', line=40, column=17, status=ZERO}
+
+Process finished with exit code 0
