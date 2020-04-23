@@ -6,7 +6,7 @@ import java.nio.file.Path;
  * @project aurora
  * @author Gabriel Honda on 20/02/2020
  */
-public class PathContainer {
+public class PathContainer implements IPathContainer {
 
     private final Path aurora;
     private final Path assembly;
@@ -16,10 +16,12 @@ public class PathContainer {
         this.assembly = assembly;
     }
 
+    @Override
     public Path getAurora() {
         return aurora;
     }
 
+    @Override
     public Path getAssembly() {
         return assembly;
     }
