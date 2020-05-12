@@ -12,6 +12,7 @@ import java.util.function.Predicate;
  * @author Gabriel Honda on 22/04/2020
  */
 public interface IPathFactory {
+    // metodos default dependem da implementacao
     IAsmFileFactory getAsmFactory();
     String getAsmExtension();
     String getAuroraExtension();

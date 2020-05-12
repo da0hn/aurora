@@ -88,8 +88,12 @@ public class Lexical {
         var tk_final = new TokenContainer(Token.$, "Lexical OK!",
                                           Controls.getLine(), Controls.getColumn()
         );
+        // LogLexical utiliza uma fila para armazenar os logs,
+        // seu uso e necessario para manter a sincronizacao dos logs
         LogLexical.add(tk_final);
+        // print
         LogLexical.log();
+        // adiciona o simbolo '$' que sera utilizado nas outras etapas do compilador
         Tokens.add(tk_final);
     }
 
@@ -98,15 +102,24 @@ public class Lexical {
         // uma linha e considerada vazia se possui apenas espaços em brancos
         // ate o seu final
         if(isLineEmpty(lines)) return;
-        // seta o tamanho total da linha
+        // seta o tamanho total de caracteres da linha
         setLineLength(lines);
         var it = lines.listIterator();
 
         // itera a lista que representa uma linha do arquivo .au
         while(it.hasNext()) {
+            // ao iniciar o iterador ele começa uma posicao fora do array[0],
+            // e necessario chamar o metodo next() para move-lo para a posicao 0 (inicial)
             var current = it.next();
-            // teste se é comentario
+            // testa se é comentario
             if(current.equals("/") && it.hasNext()) {
+                // checagem necessaria, já que o simbolo de divisao é o mesmo de comentario
+                // para que o comentario seja reconhecido é necessario o seguinte algoritmo
+                // primeiro, checa-se se o caractere atual é '/' e se o próximo caracetere existe
+                // depois armazena o próximo caractere (nesse caso, 'it.next()' move o cursor do iterador para o
+                // proximo caractere) e checa se é '/', assim, pode-se ignorar a linha
+                // caso contrario, 'it.previous()' volta o cursor do iterador para o caractere atual
+                // esse rollback é necessario para não causar bugs ou pular caracteres em caso de divisão
                 var next = it.next();
                 if(next.equals("/")) return;
                 it.previous();
