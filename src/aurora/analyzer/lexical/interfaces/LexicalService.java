@@ -24,7 +24,7 @@ import static aurora.analyzer.lexical.interfaces.BufferAnalyzer.symbol;
  * @project aurora
  * @author Gabriel Honda on 01/03/2020
  */
-public interface AnalyzerService {
+public interface LexicalService {
 
     static void tokenAnalyzer(String buffer) {
         /*executa varios testes consecutivos utilizando o pattern composite

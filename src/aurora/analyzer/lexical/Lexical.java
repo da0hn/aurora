@@ -1,6 +1,7 @@
 package aurora.analyzer.lexical;
 
-import aurora.analyzer.lexical.interfaces.AnalyzerService;
+import aurora.analyzer.IAnalyzer;
+import aurora.analyzer.lexical.interfaces.LexicalService;
 import aurora.analyzer.lexical.log.LogLexical;
 import aurora.analyzer.lexical.utils.TokenContainer;
 import aurora.analyzer.lexical.utils.Tokens;
@@ -13,15 +14,15 @@ import static aurora.analyzer.lexical.Lexical.Controls.incrementColumn;
 import static aurora.analyzer.lexical.Lexical.Controls.incrementLine;
 import static aurora.analyzer.lexical.Lexical.Controls.resetColumn;
 import static aurora.analyzer.lexical.Lexical.Controls.setLineLength;
-import static aurora.analyzer.lexical.interfaces.AnalyzerService.isLineEmpty;
-import static aurora.analyzer.lexical.interfaces.AnalyzerService.stringAnalyzer;
+import static aurora.analyzer.lexical.interfaces.LexicalService.isLineEmpty;
+import static aurora.analyzer.lexical.interfaces.LexicalService.stringAnalyzer;
 import static aurora.analyzer.lexical.interfaces.LinesParserService.splitBy;
 
 /*
  * @project aurora
  * @author Gabriel Honda on 22/02/2020
  */
-public class Lexical {
+public class Lexical implements IAnalyzer {
     /*
      * classe interna responsavel pelo controle das linhas,
      * colunas e tamanho da linha
@@ -62,10 +63,17 @@ public class Lexical {
         }
     }
 
-    public void analyze(List<String> lines) {
+    private final List<String> auroraProgram;
+
+    public Lexical(List<String> auroraProgram) {
+        this.auroraProgram = auroraProgram;
+    }
+
+    @Override
+    public void analyze() {
         // metodo splitBy() quebra a linha de acordo com o delimitador
         // o delimitador é mantido na lista criada para analise
-        for(String line : lines) {
+        for(String line : auroraProgram) {
             var parsedLines = splitBy("\\)")
                     .andThen(splitBy("\\("))
                     .andThen(splitBy("\\s"))
@@ -136,7 +144,7 @@ public class Lexical {
             }
             // caso nao entre em nenhuma das classificacoes anteriores
             // provavelmente entra na classificacao de token
-            AnalyzerService.tokenAnalyzer(current);
+            LexicalService.tokenAnalyzer(current);
         }
     }
 }

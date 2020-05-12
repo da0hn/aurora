@@ -1,6 +1,7 @@
 package aurora.analyzer.semantic;
 
-import aurora.analyzer.lexical.interfaces.AnalyzerService;
+import aurora.analyzer.IAnalyzer;
+import aurora.analyzer.lexical.interfaces.LexicalService;
 import aurora.analyzer.lexical.utils.TokenContainer;
 import aurora.analyzer.lexical.utils.Tokens;
 import aurora.analyzer.semantic.utils.NameMangling;
@@ -25,7 +26,7 @@ import static aurora.lang.Token.*;
  * @project aurora
  * @author Gabriel Honda on 21/02/2020
  */
-public class Semantic {
+public class Semantic implements IAnalyzer {
 
     private final List<TokenContainer> tokens;
     private final List<NameMangling> table;
@@ -37,6 +38,7 @@ public class Semantic {
         this.scopeStack = new Stack<>();
     }
 
+    @Override
     public void analyze() {
         var index = new AtomicInteger(0);
         scopeStack.push(new Scope("_0"));
@@ -100,7 +102,7 @@ public class Semantic {
         while(!SEMICOLON.equals(tokens.get(index.get()).getToken())) {
             var expression = tokens.get(index.get()).getLexeme();
 
-            if(AnalyzerService.isIdentifier(expression)) {
+            if(LexicalService.isIdentifier(expression)) {
                 findNextScope(expression + scopeStack.peek().getLabel())
                         .ifPresentOrElse(obj -> {
                             basicExpression.append(ZERO.equals(obj.getStatus()) ? "0" : obj.getDeclared());
