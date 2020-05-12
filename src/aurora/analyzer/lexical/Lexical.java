@@ -5,6 +5,7 @@ import aurora.analyzer.lexical.interfaces.LexicalService;
 import aurora.analyzer.lexical.log.LogLexical;
 import aurora.analyzer.lexical.utils.TokenContainer;
 import aurora.analyzer.lexical.utils.Tokens;
+import aurora.analyzer.utils.PredicateService;
 import aurora.lang.Token;
 
 import java.util.Collections;
@@ -14,7 +15,6 @@ import static aurora.analyzer.lexical.Lexical.Controls.incrementColumn;
 import static aurora.analyzer.lexical.Lexical.Controls.incrementLine;
 import static aurora.analyzer.lexical.Lexical.Controls.resetColumn;
 import static aurora.analyzer.lexical.Lexical.Controls.setLineLength;
-import static aurora.analyzer.lexical.interfaces.LexicalService.isLineEmpty;
 import static aurora.analyzer.lexical.interfaces.LexicalService.stringAnalyzer;
 import static aurora.analyzer.lexical.interfaces.LinesParserService.splitBy;
 
@@ -109,7 +109,7 @@ public class Lexical implements IAnalyzer {
         // se a linha for considerada vazia sai do metodo
         // uma linha e considerada vazia se possui apenas espaços em brancos
         // ate o seu final
-        if(isLineEmpty(lines)) return;
+        if(PredicateService.isLineEmpty(lines)) return;
         // seta o tamanho total de caracteres da linha
         setLineLength(lines);
         var it = lines.listIterator();

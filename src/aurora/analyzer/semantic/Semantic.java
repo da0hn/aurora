@@ -1,11 +1,11 @@
 package aurora.analyzer.semantic;
 
 import aurora.analyzer.IAnalyzer;
-import aurora.analyzer.lexical.interfaces.LexicalService;
 import aurora.analyzer.lexical.utils.TokenContainer;
 import aurora.analyzer.lexical.utils.Tokens;
 import aurora.analyzer.semantic.utils.NameMangling;
 import aurora.analyzer.semantic.utils.Scope;
+import aurora.analyzer.utils.PredicateService;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -102,7 +102,7 @@ public class Semantic implements IAnalyzer {
         while(!SEMICOLON.equals(tokens.get(index.get()).getToken())) {
             var expression = tokens.get(index.get()).getLexeme();
 
-            if(LexicalService.isIdentifier(expression)) {
+            if(PredicateService.isIdentifier(expression)) {
                 findNextScope(expression + scopeStack.peek().getLabel())
                         .ifPresentOrElse(obj -> {
                             basicExpression.append(ZERO.equals(obj.getStatus()) ? "0" : obj.getDeclared());

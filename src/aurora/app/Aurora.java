@@ -23,7 +23,7 @@ public class Aurora {
                                                               new AuroraFileManager());
         List<String> code =  argumentService.analyze(args);
 
-        new Lexical().analyze(code);
+        new Lexical(code).analyze();
         new Syntactic().analyze();
         new Semantic().analyze();
     }
