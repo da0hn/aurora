@@ -90,7 +90,8 @@ public class Semantic implements IAnalyzer {
             }
             index.getAndIncrement();
         }
-        table.forEach(System.out::println);
+//        table.forEach(System.out::println);
+        System.out.println("Semantic OK");
     }
 
     private void identifierProcedure(AtomicInteger index, TokenContainer container) {

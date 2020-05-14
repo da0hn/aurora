@@ -1,8 +1,11 @@
 // Developed By Gabriel Honda
 // quarta-feira fevereiro 2020 (19/02/2020)
 aurora::init
-    au::var num;
-    au::var fatorial;
+    au::var num;    // _0
+    au::var fatorial;   // _0
+
+    num = 1;
+    fatorial = 2;
 
     au::write("Entre com um numero: ");
     au::read(num);

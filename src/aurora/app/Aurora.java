@@ -18,6 +18,7 @@ import java.util.List;
 public class Aurora {
 
     public static void main(String... args) {
+        // TODO: 14/05/2020 Implementar fuzz teste no nucleo do compilador passando uma flag
         ArgumentService argumentService = new ArgumentService(new FlagManager(),
                                                               new PathFactory(new AsmFileFactory()),
                                                               new AuroraFileManager());
