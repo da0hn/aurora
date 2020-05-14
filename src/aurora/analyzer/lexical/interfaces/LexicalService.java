@@ -4,6 +4,7 @@ import aurora.analyzer.lexical.Lexical.Controls;
 import aurora.analyzer.lexical.log.LogLexical;
 import aurora.analyzer.lexical.utils.TokenContainer;
 import aurora.analyzer.lexical.utils.Tokens;
+import aurora.analyzer.utils.PredicateService;
 import aurora.lang.Symbol;
 import aurora.lang.Terminal;
 import aurora.lang.Token;
@@ -24,7 +25,7 @@ import static aurora.analyzer.lexical.interfaces.BufferAnalyzer.symbol;
  * @project aurora
  * @author Gabriel Honda on 01/03/2020
  */
-public interface AnalyzerService {
+public interface LexicalService{
 
     static void tokenAnalyzer(String buffer) {
         /*executa varios testes consecutivos utilizando o pattern composite
@@ -91,28 +92,11 @@ public interface AnalyzerService {
         return false;
     }
 
-    static boolean isLineEmpty(List<String> line) {
-        return line.stream().allMatch(s -> s.isEmpty() && s.isBlank());
-    }
-
     static boolean isSymbol(String buffer) {
         return Symbol.getValues().contains(buffer);
     }
 
     static boolean isKeyword(String buffer) {
         return Token.getKeywords().contains(buffer);
-    }
-
-    static boolean isLetterOrDigit(String buffer) {
-        return buffer.chars().allMatch(Character::isLetterOrDigit);
-    }
-
-    static boolean isIdentifier(String buffer) {
-        return !Character.isDigit(buffer.charAt(0))
-                && isLetterOrDigit(buffer);
-    }
-
-    static boolean isNumber(String buffer) {
-        return buffer.chars().allMatch(Character::isDigit);
     }
 }

@@ -1,11 +1,9 @@
 package aurora.parser;
 
-import aurora.fs.IAsmFileFactory;
 import aurora.fs.IFileManager;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 /*
  * @project aurora
@@ -26,13 +24,17 @@ public class ArgumentService {
 
     public List<String> analyze(String[] args) {
         List<String> argumentList = Arrays.asList(args);
+        // ativa as flags passadas na compilacao da aurora
         flagManager.activateFlags(argumentList);
 
+        // gera um container que guarda o caminho do arquivo .au e do arquivo .asm
         this.container = pathFactory.create(argumentList);
 
+        // retorna uma lista de string com o conteudo do arquivo .au
         return fileManager.readAuroraFile(getPathContainer());
     }
 
+    // expoe o container gerado para os outros pacotes
     public IPathContainer getPathContainer() {
         if( this.container == null ) {
             throw new IllegalStateException("O container de arquivos não foi criado");

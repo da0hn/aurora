@@ -1,5 +1,6 @@
 package aurora.analyzer.lexical.interfaces;
 
+import aurora.analyzer.utils.PredicateService;
 import aurora.lang.Symbol;
 import aurora.lang.Terminal;
 import aurora.lang.Token;
@@ -24,24 +25,24 @@ public interface BufferAnalyzer extends Function<String, Optional<Terminal>> {
 
     // verifica se esta dentro do enumerado Keyword e instancia um Optional com IToken
     static BufferAnalyzer keyword() {
-        return buffer -> AnalyzerService.isKeyword(buffer) ? Optional.of(Token.toEnum(buffer)) : Optional.empty();
+        return buffer -> LexicalService.isKeyword(buffer) ? Optional.of(Token.toEnum(buffer)) : Optional.empty();
     }
 
     // verifica se e um identificador e instancia um Optional com IToken
     static BufferAnalyzer identifier() {
-        return buffer -> AnalyzerService.isIdentifier(buffer)
+        return buffer -> PredicateService.isIdentifier(buffer)
                 ? Optional.of(Token.ID) : Optional.empty();
     }
 
     // verifica se e um numero e instancia um Optional com IToken
     static BufferAnalyzer number() {
-        return buffer -> AnalyzerService.isNumber(buffer)
+        return buffer -> PredicateService.isNumber(buffer)
                 ? Optional.of(Token.NUMBER) : Optional.empty();
     }
 
     // verifica se e um simbolo e instancia um Optional com IToken
     static BufferAnalyzer symbol() {
-        return buffer -> AnalyzerService.isSymbol(buffer)
+        return buffer -> LexicalService.isSymbol(buffer)
                 ? Optional.of(Symbol.toEnum(buffer)) : Optional.empty();
     }
 

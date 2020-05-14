@@ -5,7 +5,6 @@ import aurora.analyzer.semantic.Semantic;
 import aurora.analyzer.syntactic.Syntactic;
 import aurora.fs.AsmFileFactory;
 import aurora.fs.AuroraFileManager;
-import aurora.fs.IFileManager;
 import aurora.parser.ArgumentService;
 import aurora.parser.FlagManager;
 import aurora.parser.PathFactory;
@@ -24,7 +23,7 @@ public class Aurora {
                                                               new AuroraFileManager());
         List<String> code =  argumentService.analyze(args);
 
-        new Lexical().analyze(code);
+        new Lexical(code).analyze();
         new Syntactic().analyze();
         new Semantic().analyze();
     }

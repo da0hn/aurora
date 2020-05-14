@@ -1,9 +1,11 @@
 package aurora.analyzer.lexical;
 
-import aurora.analyzer.lexical.interfaces.AnalyzerService;
+import aurora.analyzer.IAnalyzer;
+import aurora.analyzer.lexical.interfaces.LexicalService;
 import aurora.analyzer.lexical.log.LogLexical;
 import aurora.analyzer.lexical.utils.TokenContainer;
 import aurora.analyzer.lexical.utils.Tokens;
+import aurora.analyzer.utils.PredicateService;
 import aurora.lang.Token;
 
 import java.util.Collections;
@@ -13,15 +15,14 @@ import static aurora.analyzer.lexical.Lexical.Controls.incrementColumn;
 import static aurora.analyzer.lexical.Lexical.Controls.incrementLine;
 import static aurora.analyzer.lexical.Lexical.Controls.resetColumn;
 import static aurora.analyzer.lexical.Lexical.Controls.setLineLength;
-import static aurora.analyzer.lexical.interfaces.AnalyzerService.isLineEmpty;
-import static aurora.analyzer.lexical.interfaces.AnalyzerService.stringAnalyzer;
+import static aurora.analyzer.lexical.interfaces.LexicalService.stringAnalyzer;
 import static aurora.analyzer.lexical.interfaces.LinesParserService.splitBy;
 
 /*
  * @project aurora
  * @author Gabriel Honda on 22/02/2020
  */
-public class Lexical {
+public class Lexical implements IAnalyzer {
     /*
      * classe interna responsavel pelo controle das linhas,
      * colunas e tamanho da linha
@@ -62,10 +63,17 @@ public class Lexical {
         }
     }
 
-    public void analyze(List<String> lines) {
+    private final List<String> auroraProgram;
+
+    public Lexical(List<String> auroraProgram) {
+        this.auroraProgram = auroraProgram;
+    }
+
+    @Override
+    public void analyze() {
         // metodo splitBy() quebra a linha de acordo com o delimitador
         // o delimitador é mantido na lista criada para analise
-        for(String line : lines) {
+        for(String line : auroraProgram) {
             var parsedLines = splitBy("\\)")
                     .andThen(splitBy("\\("))
                     .andThen(splitBy("\\s"))
@@ -88,8 +96,12 @@ public class Lexical {
         var tk_final = new TokenContainer(Token.$, "Lexical OK!",
                                           Controls.getLine(), Controls.getColumn()
         );
+        // LogLexical utiliza uma fila para armazenar os logs,
+        // seu uso e necessario para manter a sincronizacao dos logs
         LogLexical.add(tk_final);
+        // print
         LogLexical.log();
+        // adiciona o simbolo '$' que sera utilizado nas outras etapas do compilador
         Tokens.add(tk_final);
     }
 
@@ -97,16 +109,25 @@ public class Lexical {
         // se a linha for considerada vazia sai do metodo
         // uma linha e considerada vazia se possui apenas espaços em brancos
         // ate o seu final
-        if(isLineEmpty(lines)) return;
-        // seta o tamanho total da linha
+        if(PredicateService.isLineEmpty(lines)) return;
+        // seta o tamanho total de caracteres da linha
         setLineLength(lines);
         var it = lines.listIterator();
 
         // itera a lista que representa uma linha do arquivo .au
         while(it.hasNext()) {
+            // ao iniciar o iterador ele começa uma posicao fora do array[0],
+            // e necessario chamar o metodo next() para move-lo para a posicao 0 (inicial)
             var current = it.next();
-            // teste se é comentario
+            // testa se é comentario
             if(current.equals("/") && it.hasNext()) {
+                // checagem necessaria, já que o simbolo de divisao é o mesmo de comentario
+                // para que o comentario seja reconhecido é necessario o seguinte algoritmo
+                // primeiro, checa-se se o caractere atual é '/' e se o próximo caracetere existe
+                // depois armazena o próximo caractere (nesse caso, 'it.next()' move o cursor do iterador para o
+                // proximo caractere) e checa se é '/', assim, pode-se ignorar a linha
+                // caso contrario, 'it.previous()' volta o cursor do iterador para o caractere atual
+                // esse rollback é necessario para não causar bugs ou pular caracteres em caso de divisão
                 var next = it.next();
                 if(next.equals("/")) return;
                 it.previous();
@@ -123,7 +144,7 @@ public class Lexical {
             }
             // caso nao entre em nenhuma das classificacoes anteriores
             // provavelmente entra na classificacao de token
-            AnalyzerService.tokenAnalyzer(current);
+            LexicalService.tokenAnalyzer(current);
         }
     }
 }

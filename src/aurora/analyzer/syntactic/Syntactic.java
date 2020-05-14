@@ -1,5 +1,6 @@
 package aurora.analyzer.syntactic;
 
+import aurora.analyzer.IAnalyzer;
 import aurora.analyzer.lexical.utils.TokenContainer;
 import aurora.analyzer.lexical.utils.Tokens;
 import aurora.lang.Language;
@@ -21,7 +22,7 @@ import static aurora.analyzer.syntactic.utils.PopulateService.parseTable;
  * @project aurora
  * @author Gabriel Honda on 22/02/2020
  */
-public class Syntactic {
+public class Syntactic implements IAnalyzer {
 
     /* A lista é composta por objetos de TokenConteiner que possuem internamente um Terminal
      * na hierarquia um Terminal pode ser um Symbol ou um Token
@@ -38,6 +39,7 @@ public class Syntactic {
         this.stack = initializeStack();
     }
 
+    @Override
     public void analyze() {
         /* Percorre a pilha e a fila comparando os objetos no topo/primeiro da fila de ambos
          * depois analisa a instancia e executa o método correspondente
