@@ -76,7 +76,7 @@ public class Lexical implements IAnalyzer {
         for(String line : auroraProgram) {
             var parsedLines = splitBy("\\)")
                     .andThen(splitBy("\\("))
-                    .andThen(splitBy("\\s"))
+                    .andThen(splitBy("\\s"))    // espaço
                     .andThen(splitBy(";"))
                     .andThen(splitBy("\""))
                     .andThen(splitBy(">"))

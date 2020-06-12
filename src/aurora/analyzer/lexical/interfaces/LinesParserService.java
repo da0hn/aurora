@@ -15,6 +15,7 @@ public interface LinesParserService extends UnaryOperator<List<String>> {
      * o regex particiona a String de acordo com o delimitador,
      * porem mantem o mesmo na String
      * ao final da Stream e instanciada uma lista que recebe a String particionada
+     * Combinator Pattern
      * */
     static LinesParserService splitBy(String delimiter) {
 //        final String formatter = "((%1$s=>?)|(?=%1$s))";
