@@ -18,6 +18,10 @@ public class Tokens {
         tokens = new ArrayList<>();
     }
 
+    public static void reset() {
+        tokens = new ArrayList<>();
+    }
+
     public static void add(TokenContainer tk) {
         tokens.add(tk);
     }

@@ -67,8 +67,9 @@ public class Syntactic implements IAnalyzer {
                 });
             }
         }
-        log("Syntactic OK!");
-        System.out.println("--------------------------------------");
+//        log("Syntactic OK!");
+        System.out.println("Syntactic OK");
+//        System.out.println("--------------------------------------");
     }
 
     private void nonTerminalOnPeek(Terminal token, Integer line, Integer column, UnaryOperator<List<Language>> reverse) {

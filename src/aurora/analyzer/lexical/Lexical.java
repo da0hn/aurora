@@ -76,7 +76,7 @@ public class Lexical implements IAnalyzer {
         for(String line : auroraProgram) {
             var parsedLines = splitBy("\\)")
                     .andThen(splitBy("\\("))
-                    .andThen(splitBy("\\s"))
+                    .andThen(splitBy("\\s"))    // espaço
                     .andThen(splitBy(";"))
                     .andThen(splitBy("\""))
                     .andThen(splitBy(">"))
@@ -103,6 +103,7 @@ public class Lexical implements IAnalyzer {
         LogLexical.log();
         // adiciona o simbolo '$' que sera utilizado nas outras etapas do compilador
         Tokens.add(tk_final);
+        System.out.println("Lexical OK");
     }
 
     private void analyzeLines(List<String> lines) {

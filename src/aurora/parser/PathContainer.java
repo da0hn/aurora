@@ -8,8 +8,8 @@ import java.nio.file.Path;
  */
 public class PathContainer implements IPathContainer {
 
-    private final Path aurora;
-    private final Path assembly;
+    private Path aurora;
+    private Path assembly;
 
     public PathContainer(Path aurora, Path assembly) {
         this.aurora = aurora;
