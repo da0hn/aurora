@@ -1,9 +1,10 @@
 # Aurora Lang Compiler
-
+Aplicação desenvolvida durante a disciplina de Compiladores do curso de Engenharia da Computação no
+Instituto Federal de Ciências e Tecnologia
 ## Funcionalidades implementadas
 - [x] Léxico
-- [x] Semantico
 - [X] Sintático
+- [x] Semantico
 - [ ] Código intermediário
 - [ ] Código final
 
