@@ -12,12 +12,12 @@ import java.util.stream.Collectors;
 import static aurora.parser.Flag.READABLE;
 import static aurora.parser.Flag.TOKENS;
 
-/*
+/**
  * @project aurora
  * @author Gabriel Honda on 23/02/2020
  */
 public class LogLexical {
-    private static Queue<LexicalObject> queueLog;
+    private final static Queue<LexicalObject> queueLog;
 
     static {
         queueLog = new LinkedList<>();
@@ -32,18 +32,22 @@ public class LogLexical {
             foundError();
         }
 
-        if(TOKENS.getValue()) {
-            System.out.println("--------------------------------------");
+        if(TOKENS.isActive()) {
+            System.out.println("=".repeat(125));
             executeLog();
-            System.out.println("--------------------------------------");
+            System.out.println("=".repeat(125));
         }
     }
 
     private static void executeLog() {
         try {
+            var separator = "|";
+            System.out.println(String.format("%6s  %3s  %12s%9s\t%10s", "i:j", separator,
+                    "TOKENS", separator, "LEXEME"));
+            System.out.println("=".repeat(125));
             for(LexicalObject obj : queueLog) {
                 System.out.println(obj.print());
-                if(READABLE.getValue()) {
+                if(READABLE.isActive()) {
                     Thread.sleep(400);
                 }
             }

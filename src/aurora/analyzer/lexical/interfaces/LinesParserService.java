@@ -28,7 +28,8 @@ public interface LinesParserService extends UnaryOperator<List<String>> {
     }
 
     /*
-     * funciona como um encadeador de metodos*/
+     * funciona como um encadeador de metodos
+     * */
     default LinesParserService andThen(LinesParserService other) {
         return line -> {
             List<String> otherResult = other.apply(line);

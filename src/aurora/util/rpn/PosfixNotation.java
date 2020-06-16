@@ -12,7 +12,7 @@ import static java.util.Arrays.asList;
  */
 public class PosfixNotation {
 
-    private class Counter {
+    private static class Counter {
         private int count;
 
         public Counter() {

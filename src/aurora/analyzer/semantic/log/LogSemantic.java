@@ -12,7 +12,7 @@ import static aurora.parser.Flag.SEMANTIC;
 public class LogSemantic {
 
     public static void log(String msg) {
-        if(SEMANTIC.getValue()) System.out.println(msg);
+        if(SEMANTIC.isActive()) System.out.println(msg);
     }
 
     public static void error(String err, int line, int column) {

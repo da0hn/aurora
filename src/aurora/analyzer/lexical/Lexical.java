@@ -8,6 +8,7 @@ import aurora.analyzer.lexical.utils.Tokens;
 import aurora.analyzer.utils.PredicateService;
 import aurora.lang.Token;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -33,8 +34,8 @@ public class Lexical implements IAnalyzer {
         private static Integer lineLength;
 
         public static void setLineLength(List<String> line) {
-            // recebe a linha atual e soma os caracteres de cada String inserida
-            // na lista
+            // recebe a linha atual e soma os caracteres
+            // de cada String inserida na lista
             lineLength = line.stream()
                     .mapToInt(String::length)
                     .sum();
@@ -77,6 +78,7 @@ public class Lexical implements IAnalyzer {
             var parsedLines = splitBy("\\)")
                     .andThen(splitBy("\\("))
                     .andThen(splitBy("\\s"))    // espaço
+                    .andThen(splitBy("\\t"))
                     .andThen(splitBy(";"))
                     .andThen(splitBy("\""))
                     .andThen(splitBy(">"))
@@ -93,7 +95,7 @@ public class Lexical implements IAnalyzer {
             resetColumn();
 
         }
-        var tk_final = new TokenContainer(Token.$, "Lexical OK!",
+        var tk_final = new TokenContainer(Token.$, "$",
                                           Controls.getLine(), Controls.getColumn()
         );
         // LogLexical utiliza uma fila para armazenar os logs,
@@ -134,7 +136,7 @@ public class Lexical implements IAnalyzer {
                 it.previous();
             }
             // testa se é um espaço em branco
-            if(current.equals(" ")) {
+            if(current.equals(" ") || current.equals("\t")) {
                 incrementColumn();
                 continue;
             }

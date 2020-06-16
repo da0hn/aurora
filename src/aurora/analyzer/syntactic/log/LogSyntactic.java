@@ -13,7 +13,7 @@ import static aurora.parser.Flag.SYNTACTIC;
 public class LogSyntactic {
 
     public static void log(String msg) {
-        if(SYNTACTIC.getValue()) {
+        if(SYNTACTIC.isActive()) {
             System.out.println(msg);
         }
     }

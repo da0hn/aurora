@@ -1,5 +1,7 @@
 package aurora.fs;
 
+import aurora.log.Logger;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -23,8 +25,10 @@ public class AsmFileFactory implements IAsmFileFactory {
                                        + ".asm");
             boolean asmExists = asmExists().and(deleteAsmFile()).test(asm);
             if(asmExists) {
-                System.out.println("O arquivo " + asm.getAbsoluteFile().getName() + " ja existe, " +
+                Logger.log("O arquivo " + asm.getAbsoluteFile().getName() + " ja existe, " +
                                            "um novo arquivo .asm sera criado");
+            } else {
+                Logger.log("Criado arquivo " + asm.getAbsoluteFile().getName());
             }
             isAsmFileCreated(asm);
             return asm.toPath();
@@ -39,7 +43,7 @@ public class AsmFileFactory implements IAsmFileFactory {
         boolean fileCreated = asm.createNewFile();
 
         if(fileCreated) {
-            System.out.println("Arquivo " + asm.getAbsoluteFile().getName() + " criado com sucesso");
+            Logger.log("Arquivo " + asm.getAbsoluteFile().getName() + " criado com sucesso");
         }
         else {
             throw new IOException("O arquivo .asm nao foi criado.");

@@ -45,7 +45,7 @@ public class Semantic implements IAnalyzer {
     @Override
     public void analyze() {
         // a utilizacao do AtomicInteger e necessaria para a passagem de referencia do valor inteiro
-        // alem disso, possui metodos
+        // alem disso, possui metodos de auxiliares para incremento
         var index = new AtomicInteger(0);
         // escopo inicial (aurora::init/aurora::close)
         scopeStack.push(new Scope("_0"));
@@ -176,6 +176,7 @@ public class Semantic implements IAnalyzer {
         if(notDeclared) {
             // como a variavel não foi declarada ela é inserida na table
             table.add(new NameMangling(declared, decoration, line, column, ZERO));
+            log("The identifier "+ decoration + " has been declared");
         }
         else {
             var err = "identifier '" + variable.getLexeme() + "' was already declared.";

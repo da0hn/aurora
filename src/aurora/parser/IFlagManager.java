@@ -1,6 +1,10 @@
 package aurora.parser;
 
+import aurora.log.Logger;
+
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /*
@@ -14,20 +18,24 @@ public interface IFlagManager {
         // em outras classes
         if(argumentList.contains("--all")) {
             // ativa todas as flags
-            System.out.println("--all");
-            System.out.println("Ativando todas as flags");
+            Logger.log("Flag '--all' localizada");
+            Logger.log("Ativando todas as flags");
             Stream.of(Flag.values())
-                    .forEach(f -> f.setValue(true));
+                    .forEach(Flag::activate);
         }
         else {
             argumentList.stream()
                     // filtra as Strings dentro de listArgs checando se estao contidas dentro
                     // da lista E se comecam com '--' que sinaliza o inicio de uma flag
                     .filter(arg -> argumentList.contains(arg) && arg.startsWith("--"))
-                    .forEach(arg -> {
-                        System.out.println("Flag ativa: " + arg);
-                        Flag.getFlag(arg).setValue(true);
-                    });
+                    .forEach(arg -> Flag.getFlag(arg).activate());
+            final var builder = new StringBuilder();
+            Arrays.stream(Flag.values())
+                    .filter(Flag::isActive)
+                    .collect(Collectors.toList())
+                    .forEach(f -> builder.append("\n|\t")
+                            .append(f.getName()));
+            Logger.log("Flag ativa: " + builder.toString());
         }
     }
 }

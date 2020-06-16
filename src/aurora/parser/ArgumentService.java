@@ -1,6 +1,7 @@
 package aurora.parser;
 
 import aurora.fs.IFileManager;
+import aurora.log.Logger;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,6 +30,9 @@ public class ArgumentService {
 
         // gera um container que guarda o caminho do arquivo .au e do arquivo .asm
         this.container = pathFactory.create(argumentList);
+
+        var fileName = getPathContainer().getAurora().getFileName();
+        Logger.log(String.format("Iniciando análise do arquivo %s", fileName));
 
         // retorna uma lista de string com o conteudo do arquivo .au
         return fileManager.readAuroraFile(getPathContainer());

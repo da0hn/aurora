@@ -1,0 +1,22 @@
+// Soma de dois numeros
+aurora::init
+    au::var valorUm;
+    au::var valorDois;
+
+    valorUm = 3;
+    valorDois = 3;
+
+    au::write("Insira o primeiro valor: ");
+//    au::read(valorUm);
+
+    au::write("Insira o segundo valor: ");
+//    au::read(valorDois);
+
+    au::var soma;
+
+    soma = valorUm + valorDois;
+
+    au::write("Valor da soma: ");
+    au::write(soma);
+
+aurora::close

@@ -1,6 +1,9 @@
 @echo off
 setlocal enabledelayedexpansion
 
+set "src_dir=%cd%"
+cd %AURORA_PATH%
+
 rem utf-8
 chcp 65001>nul
 set args=%*
@@ -16,7 +19,7 @@ for /f "tokens=*" %%f in ('dir /b /s *.java') do (
 javac %java_files% -d ./compiled/
 
 rem set parent_folder=%cd%
-set test_folder=%cd%\test
+rem set test_folder=%cd%\test
 
 cd compiled
 

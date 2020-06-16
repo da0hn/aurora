@@ -3,9 +3,9 @@ package aurora.analyzer.lexical.utils;
 import aurora.analyzer.lexical.interfaces.LexicalObject;
 import aurora.lang.Terminal;
 
-/*
- * @project aurora
+/**
  * @author Gabriel Honda on 23/02/2020
+ * @project aurora
  */
 public class TokenContainer implements LexicalObject {
 
@@ -43,9 +43,10 @@ public class TokenContainer implements LexicalObject {
 
     @Override
     public String print() {
-        return this.getToken() + " at [" + this.getLine()
-                + ", " + this.getColumn() + "]" +
-                ": '" + this.getLexeme() + '\'';
+        var separator = "|";
+        return String.format(" %3d:%3d %2s  %-17s%4s\t%-20s\t", this.getLine(),
+                this.getColumn(), separator, this.getToken(), separator,this.getLexeme()
+        );
     }
 
     @Override

@@ -17,25 +17,33 @@ public enum Flag {
     READABLE(false, "--readable"),
     FINAL_CODE(false, "--final-code");
 
-    private String arg;
+    private String name;
     private boolean value;
 
-    Flag(boolean value, String arg) {
+    Flag(boolean value, String name) {
         this.value = value;
-        this.arg = arg;
+        this.name = name;
     }
 
-    public void setValue(boolean value) {
+    private void setValue(boolean value) {
         this.value = value;
     }
 
-    public boolean getValue() {
+    public void activate() {
+        setValue(true);
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public boolean isActive() {
         return this.value;
     }
 
     public static Flag getFlag(String arg) {
         for(Flag flag : Flag.values()) {
-            if(flag.arg.equals(arg)) return flag;
+            if(flag.name.equals(arg)) return flag;
         }
         throw new IllegalStateException("A flag " + arg + " não foi reconhecida.");
     }
@@ -43,7 +51,7 @@ public enum Flag {
     @Override
     public String toString() {
         return "Flag{" +
-                "arg='" + arg + '\'' +
+                "arg='" + name + '\'' +
                 ", value=" + value +
                 '}';
     }
