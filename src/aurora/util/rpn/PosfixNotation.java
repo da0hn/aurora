@@ -7,7 +7,7 @@ import java.util.Stack;
 import static java.util.Arrays.asList;
 
 /*
- * @project linguagemDeProgramacaoDois
+ * @project aurora
  * @author Gabriel Honda on 17/04/2020
  */
 public class PosfixNotation {

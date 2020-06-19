@@ -16,14 +16,14 @@ for /f "tokens=*" %%f in ('dir /b /s *.java') do (
     set java_files=%%f !java_files!
 )
 
-javac %java_files% -d ./compiled/
+javac --enable-preview -source 14 %java_files% -d ./compiled/
 
 rem set parent_folder=%cd%
 rem set test_folder=%cd%\test
 
 cd compiled
 
-java aurora.app.Aurora %*
+java --enable-preview aurora.app.Aurora %*
 
 endlocal
 exit /b /0
