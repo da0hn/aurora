@@ -8,7 +8,6 @@ import aurora.analyzer.lexical.utils.Tokens;
 import aurora.analyzer.utils.PredicateService;
 import aurora.lang.Token;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 

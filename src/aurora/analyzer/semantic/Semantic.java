@@ -49,8 +49,7 @@ public class Semantic implements IAnalyzer {
         var index = new AtomicInteger(0);
         // escopo inicial (aurora::init/aurora::close)
         scopeStack.push(new Scope("_0"));
-
-        log("begin scope " + scopeStack.peek().getLabel() + ".");
+        log("begin scope " + scopeStack.peek().getLabel() + " " + tokens.get(0).print() +  ".");
 
         // percorre a lista de tokens utilizando o index como indice
         while(index.get() < tokens.size()) {

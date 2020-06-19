@@ -43,10 +43,9 @@ public class TokenContainer implements LexicalObject {
 
     @Override
     public String print() {
-        var separator = "|";
-        return String.format(" %3d:%3d %2s  %-17s%4s\t%-20s\t", this.getLine(),
-                this.getColumn(), separator, this.getToken(), separator,this.getLexeme()
-        );
+        return this.getToken() + " at [" + this.getLine()
+                + ", " + this.getColumn() + "]" +
+                ": '" + this.getLexeme() + '\'';
     }
 
     @Override

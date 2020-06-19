@@ -46,7 +46,7 @@ public class LogLexical {
                     "TOKENS", separator, "LEXEME"));
             System.out.println("=".repeat(125));
             for(LexicalObject obj : queueLog) {
-                System.out.println(obj.print());
+                System.out.println(print((TokenContainer)obj));
                 if(READABLE.isActive()) {
                     Thread.sleep(400);
                 }
@@ -72,5 +72,12 @@ public class LogLexical {
         });
 
         throw new LexicalException(err.toString());
+    }
+
+    private static String print(TokenContainer obj) {
+        var separator = "|";
+        return String.format(" %3d:%3d %2s  %-17s%4s\t%-20s\t", obj.getLine(),
+                obj.getColumn(), separator, obj.getToken(), separator,obj.getLexeme()
+        );
     }
 }
