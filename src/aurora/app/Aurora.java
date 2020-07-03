@@ -8,6 +8,7 @@ import aurora.fs.AuroraFileManager;
 import aurora.parser.ArgumentService;
 import aurora.parser.FlagManager;
 import aurora.parser.PathFactory;
+import aurora.synthesis.IntermediateCode;
 
 import java.util.List;
 
@@ -26,6 +27,8 @@ public class Aurora {
 
         new Lexical(code).analyze();
         new Syntactic().analyze();
-        new Semantic().analyze();
+        var semantic = new Semantic();
+        semantic.analyze();
+        new IntermediateCode(semantic.getTable(), semantic.getTokens()).build();
     }
 }

@@ -1,22 +1,13 @@
 // Soma de dois numeros
 aurora::init
-    au::var valorUm;
-    au::var valorDois;
+    au::var variavel;
 
-    valorUm = 3;
-    valorDois = 3;
+    //variavel = variavel + 123 - 311/912039 + variavel;
 
-    au::write("Insira o primeiro valor: ");
-//    au::read(valorUm);
-
-    au::write("Insira o segundo valor: ");
-//    au::read(valorDois);
-
-    au::var soma;
-
-    soma = valorUm + valorDois;
-
-    au::write("Valor da soma: ");
-    au::write(soma);
+    au::if( variavel < 1 )
+    au::else
+        au::loop( variavel < 3)
+        au::endloop
+    au::endif
 
 aurora::close

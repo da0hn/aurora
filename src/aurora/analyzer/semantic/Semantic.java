@@ -42,6 +42,14 @@ public class Semantic implements IAnalyzer {
         this.scopeStack = new Stack<>();
     }
 
+    public List<NameMangling> getTable() {
+        return table;
+    }
+
+    public List<TokenContainer> getTokens() {
+        return tokens;
+    }
+
     @Override
     public void analyze() {
         // a utilizacao do AtomicInteger e necessaria para a passagem de referencia do valor inteiro
@@ -49,7 +57,7 @@ public class Semantic implements IAnalyzer {
         var index = new AtomicInteger(0);
         // escopo inicial (aurora::init/aurora::close)
         scopeStack.push(new Scope("_0"));
-        log("begin scope " + scopeStack.peek().getLabel() + " " + tokens.get(0).print() +  ".");
+        log("begin scope " + scopeStack.peek().getLabel() + " " + tokens.get(0).print() + ".");
 
         // percorre a lista de tokens utilizando o index como indice
         while(index.get() < tokens.size()) {
@@ -126,7 +134,8 @@ public class Semantic implements IAnalyzer {
         }
     }
 
-    private void expressionProcedure(AtomicInteger index, TokenContainer container, StringBuilder basicExpression) {
+    private void expressionProcedure(AtomicInteger index, TokenContainer container,
+            StringBuilder basicExpression) {
         // percorre enquanto não encontrar ';'
         // builda a expressão com o valor de cada variavel
         // que estiver contida nela
@@ -137,15 +146,18 @@ public class Semantic implements IAnalyzer {
             var value = tokens.get(index.get()).getLexeme();
 
             if(PredicateService.isIdentifier(value)) {
-                findPreviousScope(value + scopeStack.peek().getLabel())
-                        .ifPresentOrElse(obj -> {
-                            // adiciona o valor da variavel no builder
-                            // no lugar do nome dela
-                            basicExpression.append(ZERO.equals(obj.getStatus()) ? "0" : obj.getDeclared());
-                        }, () -> {
-                            var err = "identifier '" + tokens.get(index.get()) + "' was not declared.";
-                            error(err, container.getLine(), container.getColumn());
-                        });
+                Optional<NameMangling> obj =
+                        findPreviousScope(value + scopeStack.peek().getLabel());
+                obj.ifPresentOrElse(var -> {
+                    // adiciona o valor da variavel no builder
+                    // no lugar do nome dela
+                    basicExpression.append(ZERO.equals(var.getStatus()) ? "0" :
+                            var.getDeclared());
+                    tokens.get(index.get()).setLexeme(var.getDecoration());
+                }, () -> {
+                    var err = "identifier '" + tokens.get(index.get()) + "' was not declared.";
+                    error(err, container.getLine(), container.getColumn());
+                });
             }
             else {
                 // se não for uma variavel, é um numero adiciona na expressao do mesmo jeito
@@ -175,7 +187,7 @@ public class Semantic implements IAnalyzer {
         if(notDeclared) {
             // como a variavel não foi declarada ela é inserida na table
             table.add(new NameMangling(declared, decoration, line, column, ZERO));
-            log("The identifier "+ decoration + " has been declared");
+            log("The identifier " + decoration + " has been declared");
         }
         else {
             var err = "identifier '" + variable.getLexeme() + "' was already declared.";
