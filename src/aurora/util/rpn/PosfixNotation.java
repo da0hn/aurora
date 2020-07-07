@@ -1,15 +1,11 @@
 package aurora.util.rpn;
 
-import aurora.analyzer.utils.PredicateService;
-
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
-import java.util.stream.Stream;
 
-import static aurora.analyzer.lexical.interfaces.LinesParserService.splitBy;
+import static aurora.core.analyzer.lexical.interfaces.LinesParserService.splitBy;
 import static java.util.Arrays.asList;
 
 /*
