@@ -1,5 +1,6 @@
 package aurora.core.analyzer.lexical;
 
+import aurora.core.analyzer.IAnalyzer;
 import aurora.core.analyzer.lexical.interfaces.LexicalService;
 import aurora.core.analyzer.lexical.log.LogLexical;
 import aurora.core.analyzer.lexical.utils.TokenContainer;
@@ -20,7 +21,7 @@ import static aurora.core.analyzer.lexical.interfaces.LinesParserService.splitBy
  * @project aurora
  * @author Gabriel Honda on 22/02/2020
  */
-public class Lexical {
+public class Lexical implements IAnalyzer {
     /*
      * classe interna responsavel pelo controle das linhas,
      * colunas e tamanho da linha
@@ -67,7 +68,8 @@ public class Lexical {
         this.auroraProgram = auroraProgram;
     }
 
-    public Lexical analyze(List<TokenContainer> tokens) {
+    @Override
+    public void analyze(List<TokenContainer> tokens) {
         // metodo splitBy() quebra a linha de acordo com o delimitador
         // o delimitador é mantido na lista criada para analise
         for(String line : auroraProgram) {
@@ -101,7 +103,6 @@ public class Lexical {
         LogLexical.log();
         // adiciona o simbolo '$' que sera utilizado nas outras etapas do compilador
         tokens.add(tk_final);
-        return this;
     }
 
     private void analyzeLines(List<TokenContainer> tokens, List<String> lines) {

@@ -1,5 +1,6 @@
 package aurora.core.analyzer.semantic;
 
+import aurora.core.analyzer.IAnalyzer;
 import aurora.core.analyzer.lexical.utils.TokenContainer;
 import aurora.core.analyzer.semantic.utils.NameMangling;
 import aurora.core.analyzer.semantic.utils.Scope;
@@ -25,7 +26,7 @@ import static aurora.core.lang.Token.*;
  * @project aurora
  * @author Gabriel Honda on 21/02/2020
  */
-public class Semantic {
+public class Semantic implements IAnalyzer {
 
     // lista que possui os escopos do programa
     private final Stack<Scope> scopeStack;
@@ -39,6 +40,7 @@ public class Semantic {
         return semanticData;
     }
 
+    @Override
     public void analyze(List<TokenContainer> generatedTokens) {
         // cria uma copia da lista de tokens que ira ser alterada durante a analise
         List<TokenContainer> tokens = new ArrayList<>(generatedTokens);
