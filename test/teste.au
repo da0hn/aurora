@@ -1,0 +1,13 @@
+// Soma de dois numeros
+aurora::init
+    au::var variavel;
+
+    //variavel = variavel + 123 - 311/912039 + variavel;
+
+    au::if( variavel < 1 )
+    au::else
+        au::loop( variavel < 3)
+        au::endloop
+    au::endif
+
+aurora::close

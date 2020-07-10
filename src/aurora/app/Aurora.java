@@ -1,15 +1,12 @@
 package aurora.app;
 
-import aurora.analyzer.lexical.Lexical;
-import aurora.analyzer.semantic.Semantic;
-import aurora.analyzer.syntactic.Syntactic;
-import aurora.fs.AsmFileFactory;
-import aurora.fs.AuroraFileManager;
-import aurora.parser.ArgumentService;
-import aurora.parser.FlagManager;
-import aurora.parser.PathFactory;
-
-import java.util.List;
+import aurora.core.analyzer.factory.AnalyzerFactory;
+import aurora.core.synthesis.IntermediateCode;
+import aurora.util.fs.AuroraFileManager;
+import aurora.util.fs.factory.AsmFileFactory;
+import aurora.util.fs.factory.PathFactory;
+import aurora.util.parser.ArgumentService;
+import aurora.util.parser.FlagManager;
 
 /*
  * @project aurora
@@ -19,13 +16,16 @@ public class Aurora {
 
     public static void main(String... args) {
         // TODO: 14/05/2020 Implementar fuzz teste no nucleo do compilador passando uma flag
-        ArgumentService argumentService = new ArgumentService(new FlagManager(),
-                                                              new PathFactory(new AsmFileFactory()),
-                                                              new AuroraFileManager());
-        List<String> code =  argumentService.analyze(args);
-
-        new Lexical(code).analyze();
-        new Syntactic().analyze();
-        new Semantic().analyze();
+        var argumentService = new ArgumentService(new FlagManager(),
+                new PathFactory(new AsmFileFactory()),
+                new AuroraFileManager()
+        );
+        var code = argumentService.analyze(args);
+        var data = new AnalyzerFactory(code)
+                .initializeLexicalAnalysis()
+                .initializeSyntacticAnalysis()
+                .initializeSemanticAnalysis()
+                .getGeneratedData();
+        new IntermediateCode(data).build();
     }
 }

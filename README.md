@@ -18,6 +18,13 @@ Executar jar
 java -jar aurora --[flags] ${CAMINHO_DO_ARQUIVO}
 ```
 
+## Para compilar um arquivo .au em qualquer pasta do windows:
+
+* Coloque o arquivo run_aurora.bat no path do sistema
+```bash
+run_aurora --[flags] %cd%{NOME_DO_ARQUIVO}
+```
+
 ## flags:
 > Flags ativam separadamente as funcionalidades do compilador
 * --tokens
