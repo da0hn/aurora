@@ -101,7 +101,6 @@ public class Lexical {
         LogLexical.log();
         // adiciona o simbolo '$' que sera utilizado nas outras etapas do compilador
         tokens.add(tk_final);
-        System.out.println("Lexical OK");
         return this;
     }
 

@@ -94,7 +94,6 @@ public class Semantic {
             index.getAndIncrement();
         }
 //        table.forEach(System.out::println);
-        System.out.println("Semantic OK");
     }
 
     private void identifierProcedure(List<TokenContainer> tokens, List<NameMangling> table,

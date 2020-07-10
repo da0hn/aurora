@@ -64,9 +64,6 @@ public class Syntactic {
                 });
             }
         }
-//        log("Syntactic OK!");
-        System.out.println("Syntactic OK");
-//        System.out.println("--------------------------------------");
     }
 
     private void nonTerminalOnPeek(Terminal token, Integer line,
