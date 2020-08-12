@@ -9,7 +9,7 @@ aurora::init // _0
         au::var fatorial;
         au::write("Realizando conta ((2 * 2) + (6/2)) + 12 e salvando no fatorial...");
         fatorial = ( (2 *2) +(6/ 2))+ 12;
-        au::if( num < 1) // _0_0_0 | num_0 >= 1
+        au::if(num < 7) // _0_0_0 | num_0 >= 1
             au::var fatorial; // fatorial_0_0_0
             fatorial =100 + fatorial;
         au::else // _0_0_1
