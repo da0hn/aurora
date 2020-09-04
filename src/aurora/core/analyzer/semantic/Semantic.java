@@ -14,6 +14,7 @@ import java.util.Optional;
 import java.util.Stack;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static aurora.util.Color.*;
 import static aurora.core.analyzer.semantic.log.LogSemantic.error;
 import static aurora.core.analyzer.semantic.log.LogSemantic.log;
 import static aurora.core.analyzer.semantic.utils.NameMangling.Status.NON_ZERO;
@@ -55,7 +56,8 @@ public class Semantic implements IAnalyzer {
 
         // escopo inicial (aurora::init/aurora::close)
         scopeStack.push(new Scope("_0"));
-        log("begin scope " + scopeStack.peek().getLabel() + " " + tokens.get(0).print() + ".");
+        log(GREEN + "begin scope " + scopeStack.peek().getLabel() + " " + tokens.get(0).print() +
+                    "." + RESET);
 
         // percorre a lista de tokens utilizando o index como indice
         while(index.get() < tokens.size()) {
@@ -125,7 +127,7 @@ public class Semantic implements IAnalyzer {
                 else {
                     obj.setStatus(NON_ZERO);
                 }
-                log("|\tassign: " + obj.getDecoration() + ", value: " + basicExpression);
+                log(PURPLE + "|\tassign: " + obj.getDecoration() + ", value: " + basicExpression + RESET);
             }, () -> {
                 var err = "identifier '" + tokens.get(index.get()) + "' was not declared.";
                 error(err, container.getLine(), container.getColumn());
@@ -189,7 +191,7 @@ public class Semantic implements IAnalyzer {
         if(notDeclared) {
             // como a variavel não foi declarada ela é inserida na table
             table.add(new NameMangling(declared, decoration, line, column, ZERO));
-            log("The identifier " + decoration + " has been declared");
+            log(CYAN + "The identifier " + decoration + " has been declared" + RESET);
         }
         else {
             var err = "identifier '" + variable.getLexeme() + "' was already declared.";
@@ -250,11 +252,11 @@ public class Semantic implements IAnalyzer {
         var label = scopeStack.peek().getLabel() + "_" + scopeStack.peek().getLevel();
         // insere o novo escopo na pilha
         scopeStack.push(new Scope(label));
-        log("begin scope " + scopeStack.peek().getLabel() + " " + container.print() + ".");
+        log(GREEN + "begin scope " + scopeStack.peek().getLabel() + " " + container.print() + "." + RESET);
     }
 
     private void closeScope(TokenContainer container, Runnable action) {
-        log("end scope " + scopeStack.peek().getLabel() + " " + container.print() + ".");
+        log(YELLOW + "end scope " + scopeStack.peek().getLabel() + " " + container.print() + "." + RESET);
         // retira o escopo da pilha
         scopeStack.pop();
         // executa o procedimento
