@@ -22,7 +22,7 @@ end scope _0_0_2 ENDIF at [35, 9]: 'au::endif'.
 end scope _0_0 END_LOOP at [37, 5]: 'au::endloop'.
 begin scope _0_1 IF at [39, 5]: 'au::if'.
 end scope _0_1 ENDIF at [41, 5]: 'au::endif'.
-end scope _0 CLOSE at [42, 1]: 'aurora::close'.
+end scope _0 CLOSE at [42, 1]: 'orgaurora::close'.
 NameMangling{declared='num', decoration='num_0', line=2, column=13, status=NON_ZERO}
 NameMangling{declared='fatorial', decoration='fatorial_0', line=3, column=13, status=NON_ZERO}
 NameMangling{declared='fatorial', decoration='fatorial_0_0', line=9, column=17, status=NON_ZERO}

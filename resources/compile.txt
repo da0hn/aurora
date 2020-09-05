@@ -5,7 +5,7 @@ javac aurora/parser/*.java -d ./../test/out/
 javac aurora/app/*.java -d ./../test/out/
 
 cd src, precisa estar dentro da pasta src para rodar
-javac aurora/parser/argument/*.java aurora/parser/*.java aurora/app/*.java -d ./../compiled/
+javac aurora/parser/argument/*.java org.aurora/parser/*.java org.aurora/app/*.java -d ./../compiled/
 
-precisa estar uma pasta antes da /aurora para compilar
-java aurora.app.Aurora --tokens --syntactic  /../test/aurora.au /../test/assembly.asm
+precisa estar uma pasta antes da /org/aurora para compilar
+java org.aurora.app.Aurora --tokens --syntactic  /../test/aurora.au /../test/assembly.asm

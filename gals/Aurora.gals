@@ -69,10 +69,10 @@ var      	= keyword : "au::var"
 
 #Grammar
 <aurora>          ::= init_program <recursive_statement> close_program
-|                         î
+|                         ï¿½
 ;
 <recursive_statement> ::= <statement> <recursive_statement>
-|                         î
+|                         ï¿½
 ;
 <statement>           ::= <write>
 |                         <read>
@@ -90,7 +90,7 @@ var      	= keyword : "au::var"
 <if>                  ::= if "(" <basic_expression> ")" <recursive_statement>
 ;
 <else>                ::= else <recursive_statement>
-|                         î
+|                         ï¿½
 ;
 <loop>                ::= <while> endloop
 ;
@@ -112,7 +112,7 @@ var      	= keyword : "au::var"
 |                         "/" <basic_expression>
 |                         "<" <basic_expression>
 |                         ">" <basic_expression>
-|                         î
+|                         ï¿½
 ;
 <string_expression>   ::= string_literal
 ;
