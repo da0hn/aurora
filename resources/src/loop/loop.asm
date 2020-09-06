@@ -2,9 +2,9 @@ section .data
     fmtin: db "%d", 0x0
     fmtout: db "%d", 0xA, 0x0
 
-    str_0: db "Entre com um valor: ", 0x10, 0x0
-    str_1: db "Olar", 0x10, 0x0
-    str_2: db "Fim do programa", 0x10, 0x0
+    str_0: db "Entre com um valor: ", 0xA, 0x0
+    str_1: db "Olar", 0xA, 0x0
+    str_2: db "Fim do programa", 0xA, 0x0
 
 section .bss
     num_0: resd 1
@@ -40,6 +40,7 @@ _L1:
     push dword fmtout
     call printf
     add esp, 8
+
     mov eax, [num_0]
     mov ebx, 1
     sub eax, ebx

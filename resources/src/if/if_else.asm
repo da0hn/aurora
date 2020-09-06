@@ -2,10 +2,10 @@ section .data
     fmtin: db "%d", 0x0
     fmtout: db "%d", 0xA, 0x0
 
-    str_0: db "Entre com um numero: ", 0x10, 0x0
-    str_1: db "O Valor eh maior que 2: ", 0x10, 0x0
-    str_2: db "O valor eh menor  ou igual a 2", 0x10, 0x0
-    str_3: db "Fim do programa", 0x10, 0x0
+    str_0: db "Entre com um numero: ", 0xA, 0x0
+    str_1: db "O Valor eh maior que 2: ", 0xA, 0x0
+    str_2: db "O valor eh menor  ou igual a 2", 0xA, 0x0
+    str_3: db "Fim do programa", 0xA, 0x0
 
 section .bss
     num_0: resd 1
@@ -41,6 +41,7 @@ main:
     push dword fmtout
     call printf
     add esp, 8
+
     jmp _L2
 _L1:
     push dword str_2

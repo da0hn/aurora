@@ -247,6 +247,7 @@ public class FinalCode {
                         push dword fmtout
                         call printf
                         add esp, 8
+                        
                     """.formatted(obj);
         }
         else {
@@ -259,7 +260,7 @@ public class FinalCode {
                     """.formatted(str);
             var constDeclaration =
                     """
-                        %s: db %s, 0x10, 0x0
+                        %s: db %s, 0xA, 0x0
                     """.formatted(str, obj);
             this.dataSection += constDeclaration;
             count++;

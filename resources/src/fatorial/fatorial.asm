@@ -2,8 +2,8 @@ section .data
     fmtin: db "%d", 0x0
     fmtout: db "%d", 0xA, 0x0
 
-    str_0: db "Escreva um numero: ", 0x10, 0x0
-    str_1: db "Fatorial: ", 0x10, 0x0
+    str_0: db "Escreva um numero: ", 0xA, 0x0
+    str_1: db "Fatorial: ", 0xA, 0x0
 
 section .bss
     numero_0: resd 1
@@ -52,6 +52,7 @@ _L2:
     push dword fmtout
     call printf
     add esp, 8
+
     mov esp, ebp
     pop ebp
     ret

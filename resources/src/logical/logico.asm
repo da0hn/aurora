@@ -2,9 +2,9 @@ section .data
     fmtin: db "%d", 0x0
     fmtout: db "%d", 0xA, 0x0
 
-    str_0: db "Entre com um numero inteiro para ser testado: ", 0x10, 0x0
-    str_1: db "O valor inserido eh maior do que 7", 0x10, 0x0
-    str_2: db "O valor inserido eh menor que 7", 0x10, 0x0
+    str_0: db "Entre com um numero inteiro para ser testado: ", 0xA, 0x0
+    str_1: db "O valor inserido eh maior do que 7", 0xA, 0x0
+    str_2: db "O valor inserido eh menor que 7", 0xA, 0x0
 
 section .bss
     num_0: resd 1

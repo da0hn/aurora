@@ -2,11 +2,11 @@ section .data
     fmtin: db "%d", 0x0
     fmtout: db "%d", 0xA, 0x0
 
-    str_0: db "Entre com um numero: ", 0x10, 0x0
-    str_1: db "Realizando conta ((2 * 2) + (6/2)) + 12 e salvando no fatorial...", 0x10, 0x0
-    str_2: db "O valor eh menor ou igual a 5", 0x10, 0x0
-    str_3: db "O resultado de fatorial eh: ", 0x10, 0x0
-    str_4: db "Fim do programa", 0x10, 0x0
+    str_0: db "Entre com um numero: ", 0xA, 0x0
+    str_1: db "Realizando conta ((2 * 2) + (6/2)) + 12 e salvando no fatorial...", 0xA, 0x0
+    str_2: db "O valor eh menor ou igual a 5", 0xA, 0x0
+    str_3: db "O resultado de fatorial eh: ", 0xA, 0x0
+    str_4: db "Fim do programa", 0xA, 0x0
 
 section .bss
     num_0: resd 1
@@ -73,6 +73,7 @@ _L2:
     push dword fmtout
     call printf
     add esp, 8
+
     push dword str_4
     call printf
     add esp, 4
