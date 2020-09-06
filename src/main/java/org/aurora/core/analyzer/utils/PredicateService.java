@@ -20,6 +20,12 @@ public interface PredicateService {
                 && isLetterOrDigit(buffer);
     }
 
+    static boolean isDecoratedIdentifier(String buffer) {
+        if(!buffer.contains("_")) return false;
+        var temp = buffer.substring(0, buffer.indexOf("_"));
+        return isIdentifier(temp);
+    }
+
     static boolean isNumber(String buffer) {
         return buffer.chars().allMatch(Character::isDigit);
     }

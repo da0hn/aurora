@@ -24,7 +24,13 @@ public class AuroraFileManager implements IFileManager {
         return lines;
     }
 
-    // TODO: Implementar escrita do arquivo .asm
     @Override
-    public void writeDataOnAsmFile() {}
+    public void writeDataOnAsmFile(String asmCode, IPathContainer container) {
+        try(var buffer = Files.newBufferedWriter(container.getAssembly())) {
+            buffer.write(asmCode);
+        }
+        catch(IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

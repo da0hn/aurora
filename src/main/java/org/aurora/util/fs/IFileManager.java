@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public interface IFileManager {
 
     List<String> readAuroraFile(IPathContainer container);
-    void writeDataOnAsmFile();
+    void writeDataOnAsmFile(String asmCode, IPathContainer container);
 
     default List<String> read(String path) {
         List<String> lines = null;

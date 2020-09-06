@@ -21,6 +21,7 @@ public class ArgumentService {
         this.flagManager = flagManager;
         this.pathFactory = pathFactory;
         this.fileManager = fileManager;
+
     }
 
     public List<String> analyze(String[] args) {

@@ -2,6 +2,7 @@
   <dictionary name="daohn">
     <words>
       <w>main:</w>
+      <w>scanf</w>
     </words>
   </dictionary>
 </component>

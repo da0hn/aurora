@@ -6,7 +6,7 @@ aurora::init
     au::write("Entre com um valor: ");
     au::read(num);
 
-    au::loop (num > 0)
+    au::loop (num < 0)
         au::write("Olar");
         au::write(num);
         num = num - 1;

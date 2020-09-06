@@ -1,12 +1,11 @@
 package org.aurora.app;
 
 import org.aurora.core.analyzer.factory.AnalyzerFactory;
-import org.aurora.core.synthesis.IntermediateCode;
+import org.aurora.core.synthesis.SynthesisFactory;
 import org.aurora.util.fs.AuroraFileManager;
 import org.aurora.util.fs.factory.AsmFileFactory;
 import org.aurora.util.fs.factory.PathFactory;
 import org.aurora.util.parser.ArgumentService;
-import org.aurora.util.parser.Flag;
 import org.aurora.util.parser.FlagManager;
 
 /*
@@ -26,7 +25,11 @@ public class Aurora {
                 .initializeSyntacticAnalysis()
                 .initializeSemanticAnalysis()
                 .getGeneratedData();
-        var finalCode = new IntermediateCode(data).build();
 
+        var synthesisFactory = new SynthesisFactory(new AuroraFileManager(),
+                                                    argumentService.getPathContainer(),
+                                                    data
+        );
+        synthesisFactory.initateSynthesis();
     }
 }

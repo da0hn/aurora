@@ -12,8 +12,8 @@ import java.util.Stack;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import static org.aurora.core.lang.Token.*;
 import static java.util.Arrays.asList;
+import static org.aurora.core.lang.Token.*;
 
 /**
  * @author Gabriel Honda on 19/06/2020
@@ -22,18 +22,28 @@ import static java.util.Arrays.asList;
 public class IntermediateCode {
 
     // representa o código fonte (fila)
-    private LinkedList<String> code;
+    private LinkedList<String>   code;
     private List<TokenContainer> tokens;
-    private List<NameMangling> variables;
-    private Stack<String> labelStack;
-    private int labelCount;
-    private int varCount;
+    private List<NameMangling>   variables;
+    private Stack<String>        labelStack;
+    private int                  labelCount;
+    private int                  varCount;
+
+    public IntermediateCode() {
+        this.code       = new LinkedList<>();
+        this.labelStack = new Stack<>();
+    }
 
     public IntermediateCode(SemanticData data) {
-        this.variables = data.table();
-        this.code = new LinkedList<>();
+        this.variables  = data.table();
+        this.code       = new LinkedList<>();
         this.labelStack = new Stack<>();
-        this.tokens = data.tokens();
+        this.tokens     = data.tokens();
+    }
+
+    public void extractSemanticData(SemanticData data) {
+        this.variables = data.table();
+        this.tokens    = data.tokens();
     }
 
     public List<String> build() {
@@ -120,7 +130,7 @@ public class IntermediateCode {
                 appendCode("\n");
             }
             else if(VAR.equals(token)) {
-                while(!tokens.get(++i).getLexeme().equals(";"));
+                while(!tokens.get(++i).getLexeme().equals(";")) ;
             }
             else if(ID.equals(token)) {
                 command = tokens.get(i++).getLexeme();
@@ -134,7 +144,7 @@ public class IntermediateCode {
                     var arr = threeAddressCode(postfix);
 
                     for(int j = 0; j < arr.size() - 1; j++) {
-                        appendCode("_t" + ((varCount++) % 2) + " = " + arr.get(j) + "\n");
+                        appendCode("_t" + ((varCount++) % 2) + " = " + arr.get(j));
                     }
                     appendCode(command + arr.get(arr.size() - 1));
                 }
