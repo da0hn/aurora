@@ -15,24 +15,26 @@ aurora::init
 
     au::loop(contador < numeroNotas)
         au::var aux;
-        au::var numeroNotas;
 
         au::write("Insira a nota:");
         au::read(aux);
-
-        au::write("Insira a nota:");
-        au::read(numeroNotas);
 
         acumulador = acumulador + aux;
         contador = contador + 1;
     au::endloop
 
     au::var media;
-    media = (0 * 0) + (acumulador/numeroNotas);
+    media = acumulador / numeroNotas;
 
     au::write("----------------------------");
     au::write("Sua média é");
     au::write(media);
     au::write("----------------------------");
+
+    au::if(media > 5)
+        au::write("Você foi aprovado");
+    au::else
+        au::write("Você foi reprovado");
+    au::endif
 
 aurora::close

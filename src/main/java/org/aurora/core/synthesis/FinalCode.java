@@ -147,7 +147,11 @@ public class FinalCode {
             this.textSection += tab + "mov ebx, " + third + "\n";
 
             this.textSection += switch(operation) {
-                case "mul", "div" -> tab + operation + " ebx\n";
+                case "mul" -> tab + operation + " ebx\n";
+                case "div" -> """
+                                  xor edx, edx
+                                  %s ebx
+                              """.formatted(operation);
                 default -> tab + operation + " eax, ebx\n";
             };
 
