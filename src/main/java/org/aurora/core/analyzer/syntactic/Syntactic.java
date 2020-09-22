@@ -69,8 +69,8 @@ public class Syntactic implements IAnalyzer {
     }
 
     private void nonTerminalOnPeek(Terminal token, Integer line,
-            Integer column,
-            UnaryOperator<List<Language>> reverse) {
+                                   Integer column,
+                                   UnaryOperator<List<Language>> reverse) {
         // Recupera um NonTerminal da pilha
         var nonTerminal = stack.peek();
         /* Usa o indice do nonTerminal combinado com o do token (Terminal) na matriz de indices
@@ -85,19 +85,19 @@ public class Syntactic implements IAnalyzer {
         // Uma lista com a sequencia de comandos
         var grammar = commandSequenceTable().get(index);
         log((stack.peek() instanceof NonTerminal ? "non terminal " : "token ")
-                + "'" + stack.peek() + "'" + " was poped of the stack.");
+                    + "'" + stack.peek() + "'" + " was poped of the stack.");
         // Retira o NonTerminal anterior que gerou a nova sequencia de comandos
         stack.pop();
         // Aplica o UnaryOperator que inverte a lista
         reverse.apply(grammar).forEach(lang -> {
             log((stack.peek() instanceof NonTerminal ? "non terminal " : "token ") +
-                    "'" + stack.peek() + "'" + " was pushed to the stack.");
+                        "'" + stack.peek() + "'" + " was pushed to the stack.");
             stack.push(lang);
         });
     }
 
     private void terminalOnPeek(LinkedList<TokenContainer> tokens, Terminal token, Integer line,
-            Integer column) {
+                                Integer column) {
         /* A igualdade entre dois objetos do tipo Terminal é definida por seu index
          * Se o indice for igual são removidos ambos objetos do topo da pila / primeiro da fila
          */

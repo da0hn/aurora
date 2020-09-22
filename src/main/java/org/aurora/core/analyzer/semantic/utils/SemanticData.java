@@ -9,5 +9,6 @@ import java.util.List;
  * @project org.aurora
  */
 public record SemanticData(List<TokenContainer> tokens,
-                           List<NameMangling> table) {
+                           List<NameMangling> table
+) {
 }

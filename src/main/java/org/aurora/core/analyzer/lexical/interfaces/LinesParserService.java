@@ -18,7 +18,7 @@ public interface LinesParserService extends UnaryOperator<List<String>> {
      * Combinator Pattern
      * */
     static LinesParserService splitBy(String delimiter) {
-//        final String formatter = "((%1$s=>?)|(?=%1$s))";
+        //        final String formatter = "((%1$s=>?)|(?=%1$s))";
         final String formatter = "((?<=%1$s)|(?=%1$s))";
         final String formattedDelimiter = String.format(formatter, delimiter);
         return line -> line.stream()

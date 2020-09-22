@@ -27,20 +27,20 @@ public enum NonTerminal implements Language {
     LOGICAL_OPERATOR(18, "logical_operator");
 
     private String name;
-    private int index;
+    private int    index;
 
     NonTerminal(int index, String name) {
-        this.name = name;
+        this.name  = name;
         this.index = index;
-    }
-
-    @Override
-    public int getIndex() {
-        return index;
     }
 
     @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public int getIndex() {
+        return index;
     }
 }

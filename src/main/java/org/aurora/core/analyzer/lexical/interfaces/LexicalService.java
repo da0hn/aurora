@@ -43,7 +43,7 @@ public interface LexicalService {
         // caso o lexema nao seja reconhecido cria um log no
         // console informando o erro, a linha e a coluna
         Runnable logError = () -> LogLexical.error("the lexeme was not recognized: " + buffer,
-                Controls.getLine(), Controls.getColumn()
+                                                   Controls.getLine(), Controls.getColumn()
         );
         /*
          * optToken e do tipo Optional para evitar erros com NullPointerException
@@ -86,7 +86,7 @@ public interface LexicalService {
         }
         else {
             LogLexical.error("missing closing quotes",
-                    getLine(), getColumn()
+                             getLine(), getColumn()
             );
             return true;
         }

@@ -25,14 +25,14 @@ class Lexical_v1 {
      * primeira implementacao do analisador lexico,
      * sera mantido como consulta de exemplo
      * */
-    private Integer line = 0;
-    private Integer column = 1;
+    private Integer              line   = 0;
+    private Integer              column = 1;
     private List<TokenContainer> tokens;
-    private LogLexical log;
+    private LogLexical           log;
 
     public Lexical_v1(LogLexical log) {
         this.tokens = new ArrayList<>();
-        this.log = log;
+        this.log    = log;
     }
 
     public void analyze(List<String> code) {
@@ -118,7 +118,9 @@ class Lexical_v1 {
             LogLexical.add(temp);
         };
 
-        Runnable logError = () -> LogLexical.error("the lexeme was not recognized", this.line, this.column);
+        Runnable logError = () -> LogLexical.error("the lexeme was not recognized", this.line,
+                                                   this.column
+        );
 
         optToken.ifPresentOrElse(addAndLog, logError);
 

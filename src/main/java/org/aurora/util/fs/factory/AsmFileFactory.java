@@ -26,8 +26,9 @@ public class AsmFileFactory implements IAsmFileFactory {
             boolean asmExists = asmExists().and(deleteAsmFile()).test(asm);
             if(asmExists) {
                 Logger.log("O arquivo " + asm.getAbsoluteFile().getName() + " ja existe, " +
-                                           "um novo arquivo .asm sera criado");
-            } else {
+                                   "um novo arquivo .asm sera criado");
+            }
+            else {
                 Logger.log("Criado arquivo " + asm.getAbsoluteFile().getName());
             }
             isAsmFileCreated(asm);

@@ -22,46 +22,6 @@ import static org.aurora.core.analyzer.lexical.interfaces.LinesParserService.spl
  * @author Gabriel Honda on 22/02/2020
  */
 public class Lexical implements IAnalyzer {
-    /*
-     * classe interna responsavel pelo controle das linhas,
-     * colunas e tamanho da linha
-     * */
-    public static class Controls {
-        private static Integer line = 1;
-        private static Integer column = 1;
-        private static Integer lineLength;
-
-        public static void setLineLength(List<String> line) {
-            // recebe a linha atual e soma os caracteres
-            // de cada String inserida na lista
-            lineLength = line.stream()
-                    .mapToInt(String::length)
-                    .sum();
-        }
-
-        public static void incrementColumn() { column++;}
-
-        public static void incrementColumn(Integer column) {
-            Controls.column += column;
-        }
-
-        public static void incrementLine() { line++;}
-
-        public static void resetColumn() { column = 1;}
-
-        public static Integer getColumn() {
-            return column;
-        }
-
-        public static Integer getLine() {
-            return line;
-        }
-
-        public static Integer getLineLength() {
-            return lineLength;
-        }
-    }
-
     private List<String> auroraProgram;
 
     public Lexical(List<String> auroraProgram) {
@@ -87,7 +47,7 @@ public class Lexical implements IAnalyzer {
                     .andThen(splitBy("\\*"))
                     .andThen(splitBy("/"))
                     .apply(Collections.singletonList(line));
-//            System.out.println(parsedLines + " size -> " + parsedLines.size());
+            //            System.out.println(parsedLines + " size -> " + parsedLines.size());
             analyzeLines(tokens, parsedLines);
             incrementLine();
             resetColumn();
@@ -145,6 +105,52 @@ public class Lexical implements IAnalyzer {
             // caso nao entre em nenhuma das classificacoes anteriores
             // provavelmente entra na classificacao de token
             LexicalService.tokenAnalyzer(tokens, current);
+        }
+    }
+
+    /*
+     * classe interna responsavel pelo controle das linhas,
+     * colunas e tamanho da linha
+     * */
+    public static class Controls {
+        private static Integer line   = 1;
+        private static Integer column = 1;
+        private static Integer lineLength;
+
+        public static void incrementColumn() {
+            column++;
+        }
+
+        public static void incrementColumn(Integer column) {
+            Controls.column += column;
+        }
+
+        public static void incrementLine() {
+            line++;
+        }
+
+        public static void resetColumn() {
+            column = 1;
+        }
+
+        public static Integer getColumn() {
+            return column;
+        }
+
+        public static Integer getLine() {
+            return line;
+        }
+
+        public static Integer getLineLength() {
+            return lineLength;
+        }
+
+        public static void setLineLength(List<String> line) {
+            // recebe a linha atual e soma os caracteres
+            // de cada String inserida na lista
+            lineLength = line.stream()
+                    .mapToInt(String::length)
+                    .sum();
         }
     }
 }

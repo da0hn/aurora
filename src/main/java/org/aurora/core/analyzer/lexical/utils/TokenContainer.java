@@ -9,15 +9,15 @@ import org.aurora.core.lang.Terminal;
  */
 public class TokenContainer implements LexicalObject {
 
-    private Integer line;
-    private Integer column;
+    private Integer  line;
+    private Integer  column;
     private Terminal token;
-    private String lexeme;
+    private String   lexeme;
 
     public TokenContainer(Terminal token, String lexeme, Integer line, Integer column) {
-        this.line = line;
+        this.line   = line;
         this.column = column;
-        this.token = token;
+        this.token  = token;
         this.lexeme = lexeme;
     }
 
@@ -33,12 +33,12 @@ public class TokenContainer implements LexicalObject {
         return token;
     }
 
-    public void setLexeme(String lexeme) {
-        this.lexeme = lexeme;
-    }
-
     public String getLexeme() {
         return lexeme;
+    }
+
+    public void setLexeme(String lexeme) {
+        this.lexeme = lexeme;
     }
 
     @Override

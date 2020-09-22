@@ -13,8 +13,8 @@ import static org.aurora.util.parser.Flag.READABLE;
 import static org.aurora.util.parser.Flag.TOKENS;
 
 /**
- * @project org.aurora
  * @author Gabriel Honda on 23/02/2020
+ * @project org.aurora
  */
 public class LogLexical {
     private final static Queue<LexicalObject> queueLog;
@@ -43,10 +43,11 @@ public class LogLexical {
         try {
             var separator = "|";
             System.out.printf("%6s  %3s  %12s%9s\t%10s%n", "i:j", separator,
-                              "TOKENS", separator, "LEXEME");
+                              "TOKENS", separator, "LEXEME"
+            );
             System.out.println("=".repeat(125));
             for(LexicalObject obj : queueLog) {
-                System.out.println(print((TokenContainer)obj));
+                System.out.println(print((TokenContainer) obj));
                 if(READABLE.isActive()) {
                     Thread.sleep(400);
                 }
@@ -66,7 +67,7 @@ public class LogLexical {
         err.append('\n');
         var extractedErrors = queueLog.stream()
                 .filter(ErrorMessage.class::isInstance)
-//                .filter(obj -> obj instanceof ErrorMessage)
+                //                .filter(obj -> obj instanceof ErrorMessage)
                 .collect(Collectors.toList());
         extractedErrors.forEach(obj -> {
             err.append("\t").append(obj.print()).append("\n");
@@ -78,7 +79,7 @@ public class LogLexical {
     private static String print(TokenContainer obj) {
         var separator = "|";
         return String.format(" %3d:%3d %2s  %-17s%4s\t%-20s\t", obj.getLine(),
-                obj.getColumn(), separator, obj.getToken(), separator,obj.getLexeme()
+                             obj.getColumn(), separator, obj.getToken(), separator, obj.getLexeme()
         );
     }
 }

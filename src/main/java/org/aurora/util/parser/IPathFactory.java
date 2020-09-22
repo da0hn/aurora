@@ -22,11 +22,14 @@ public interface IPathFactory {
 
         // assume-se que um arquivo org.aurora deve-se ter a extensao .au,
         // procura dentro da lista uma string que termina com .au
-        Optional<String> _au = findFileOnArgumentList(argumentList, arg -> arg.endsWith(getAuroraExtension()));
+        Optional<String> _au = findFileOnArgumentList(argumentList,
+                                                      arg -> arg.endsWith(getAuroraExtension())
+        );
 
         // caso nao seja encontrado o arquivo org.aurora o lança excecao e encerra a aplicacao
-        auroraPath = Path.of(_au.orElseThrow(() -> new IllegalArgumentException("Não foi encontrado o arquivo " +
-                                                                                        "do tipo " + getAuroraExtension())));
+        auroraPath = Path.of(
+                _au.orElseThrow(() -> new IllegalArgumentException("Não foi encontrado o arquivo " +
+                                                                           "do tipo " + getAuroraExtension())));
 
         // procura o arquivo passado por argumento,
         // caso o arquivo nao seja encontrado gera um .asm com o mesmo nome
@@ -41,14 +44,17 @@ public interface IPathFactory {
 
     default Path processAsmPath(Path auroraPath, List<String> argumentList) {
         // busca o argumento que possui a extensao .asm
-        Optional<String> filePath = findFileOnArgumentList(argumentList, arg -> arg.endsWith(getAsmExtension()));
+        Optional<String> filePath = findFileOnArgumentList(argumentList,
+                                                           arg -> arg.endsWith(getAsmExtension())
+        );
         // se a extensao nao existir cria-se um arquivo com o nome do
         // arquivo org.aurora e a extensao .asm e retorna como Path
         // caso contrario, retorna o caminho do arquivo .asm como objeto Path
         return filePath.isEmpty() ? getAsmFactory().create(auroraPath) : Path.of(filePath.get());
     }
 
-    default Optional<String> findFileOnArgumentList(List<String> argumentList, Predicate<String> extensionPredicate) {
+    default Optional<String> findFileOnArgumentList(List<String> argumentList,
+                                                    Predicate<String> extensionPredicate) {
         return argumentList.stream()
                 .filter(extensionPredicate)     // executa o metodo que testa a extensao
                 .findFirst();                   // recupera o primeiro resultado que é um Optional

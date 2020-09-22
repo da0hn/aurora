@@ -10,7 +10,13 @@ public class PathFactory implements IPathFactory {
 
     private final IAsmFileFactory asmFactory;
 
-    public PathFactory(IAsmFileFactory asmFactory) {this.asmFactory = asmFactory;}
+    public PathFactory(IAsmFileFactory asmFactory) {
+        this.asmFactory = asmFactory;
+    }
+
+    @Override public IAsmFileFactory getAsmFactory() {
+        return this.asmFactory;
+    }
 
     @Override
     public String getAsmExtension() {
@@ -20,9 +26,5 @@ public class PathFactory implements IPathFactory {
     @Override
     public String getAuroraExtension() {
         return ".au";
-    }
-
-    @Override public IAsmFileFactory getAsmFactory() {
-        return this.asmFactory;
     }
 }

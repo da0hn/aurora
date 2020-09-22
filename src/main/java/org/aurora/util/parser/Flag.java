@@ -17,12 +17,19 @@ public enum Flag {
     READABLE(false, "--readable"),
     FINAL_CODE(false, "--final-code");
 
-    private String name;
+    private String  name;
     private boolean value;
 
     Flag(boolean value, String name) {
         this.value = value;
-        this.name = name;
+        this.name  = name;
+    }
+
+    public static Flag getFlag(String arg) {
+        for(Flag flag : Flag.values()) {
+            if(flag.name.equals(arg)) return flag;
+        }
+        throw new IllegalStateException("A flag " + arg + " não foi reconhecida.");
     }
 
     private void setValue(boolean value) {
@@ -39,13 +46,6 @@ public enum Flag {
 
     public boolean isActive() {
         return this.value;
-    }
-
-    public static Flag getFlag(String arg) {
-        for(Flag flag : Flag.values()) {
-            if(flag.name.equals(arg)) return flag;
-        }
-        throw new IllegalStateException("A flag " + arg + " não foi reconhecida.");
     }
 
     @Override

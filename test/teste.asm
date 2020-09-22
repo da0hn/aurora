@@ -16,13 +16,14 @@ main:
     push ebp
     mov ebp, esp
 
-    push foo
+    push foo_0
     push dword fmtin
     call scanf
     add esp, 8
 
     mov eax, 3
     mov ebx, [foo_0]
+    xor edx, edx
     div ebx
     mov [bar_0], eax
     mov esp, ebp

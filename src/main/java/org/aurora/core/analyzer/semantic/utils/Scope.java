@@ -6,7 +6,7 @@ package org.aurora.core.analyzer.semantic.utils;
  */
 public class Scope {
     private String label;
-    private int level;
+    private int    level;
 
     public Scope(String label) {
         this.label = label;

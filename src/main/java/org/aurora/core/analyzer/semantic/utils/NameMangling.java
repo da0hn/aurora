@@ -6,23 +6,17 @@ package org.aurora.core.analyzer.semantic.utils;
  */
 public class NameMangling {
 
-    public enum Status {
-        ZERO,
-        NON_ZERO
-    }
-
     private final String declared;
     private final String decoration;
-    private final int line;
-    private final int column;
-    private Status status;
-
+    private final int    line;
+    private final int    column;
+    private       Status status;
     public NameMangling(String declared, String decoration, int line, int column, Status status) {
-        this.declared = declared;
+        this.declared   = declared;
         this.decoration = decoration;
-        this.line = line;
-        this.column = column;
-        this.status = status;
+        this.line       = line;
+        this.column     = column;
+        this.status     = status;
     }
 
     public String getDeclared() {
@@ -58,5 +52,10 @@ public class NameMangling {
                 ", column=" + column +
                 ", status=" + status +
                 '}';
+    }
+
+    public enum Status {
+        ZERO,
+        NON_ZERO
     }
 }

@@ -5,8 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
-import static org.aurora.core.analyzer.lexical.interfaces.LinesParserService.splitBy;
 import static java.util.Arrays.asList;
+import static org.aurora.core.analyzer.lexical.interfaces.LinesParserService.splitBy;
 
 /*
  * @project org.aurora
@@ -40,7 +40,7 @@ public class PostfixNotation {
         var it = parsedExpression.listIterator();
         String popped;
 
-        while( it.hasNext() ) {
+        while(it.hasNext()) {
             var curr = it.next();
 
             if(curr.chars().allMatch(Character::isWhitespace)) {
@@ -48,17 +48,20 @@ public class PostfixNotation {
             }
             else if(!isOperator(curr)) {
                 result.addLast(curr);
-            } else if(curr.equals(")")) {
-                    while (!(popped = operators.pop()).equals("("))
-                        result.addLast(popped);
-            } else {
-                while (!operators.isEmpty() && !curr.equals("(") && precedence(operators.peek()) >= precedence(curr))
-                   result.addLast(operators.pop());
+            }
+            else if(curr.equals(")")) {
+                while(!(popped = operators.pop()).equals("("))
+                    result.addLast(popped);
+            }
+            else {
+                while(!operators.isEmpty() && !curr.equals("(") && precedence(
+                        operators.peek()) >= precedence(curr))
+                    result.addLast(operators.pop());
                 operators.push(curr);
             }
         }
 
-        while (!operators.isEmpty())
+        while(!operators.isEmpty())
             result.addLast(operators.pop());
 
         return result;

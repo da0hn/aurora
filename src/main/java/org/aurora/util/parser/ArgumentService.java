@@ -1,7 +1,7 @@
 package org.aurora.util.parser;
 
-import org.aurora.util.fs.IFileManager;
 import org.aurora.core.log.Logger;
+import org.aurora.util.fs.IFileManager;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,12 +12,13 @@ import java.util.List;
  */
 public class ArgumentService {
 
-    private final IFlagManager flagManager;
-    private final IPathFactory pathFactory;
-    private final IFileManager fileManager;
-    private IPathContainer container;
+    private final IFlagManager   flagManager;
+    private final IPathFactory   pathFactory;
+    private final IFileManager   fileManager;
+    private       IPathContainer container;
 
-    public ArgumentService(IFlagManager flagManager, IPathFactory pathFactory, IFileManager fileManager) {
+    public ArgumentService(IFlagManager flagManager, IPathFactory pathFactory,
+                           IFileManager fileManager) {
         this.flagManager = flagManager;
         this.pathFactory = pathFactory;
         this.fileManager = fileManager;
@@ -41,7 +42,7 @@ public class ArgumentService {
 
     // expoe o container gerado para os outros pacotes
     public IPathContainer getPathContainer() {
-        if( this.container == null ) {
+        if(this.container == null) {
             throw new IllegalStateException("O container de arquivos não foi criado");
         }
         return this.container;

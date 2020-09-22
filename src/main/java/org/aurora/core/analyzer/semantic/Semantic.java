@@ -14,7 +14,6 @@ import java.util.Optional;
 import java.util.Stack;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static org.aurora.util.Color.*;
 import static org.aurora.core.analyzer.semantic.log.LogSemantic.error;
 import static org.aurora.core.analyzer.semantic.log.LogSemantic.log;
 import static org.aurora.core.analyzer.semantic.utils.NameMangling.Status.NON_ZERO;
@@ -22,6 +21,7 @@ import static org.aurora.core.analyzer.semantic.utils.NameMangling.Status.ZERO;
 import static org.aurora.core.lang.Symbol.EQUALS;
 import static org.aurora.core.lang.Symbol.SEMICOLON;
 import static org.aurora.core.lang.Token.*;
+import static org.aurora.util.Color.*;
 
 /*
  * @project org.aurora
@@ -31,7 +31,7 @@ public class Semantic implements IAnalyzer {
 
     // lista que possui os escopos do programa
     private final Stack<Scope> scopeStack;
-    private SemanticData semanticData;
+    private       SemanticData semanticData;
 
     public Semantic() {
         this.scopeStack = new Stack<>();
@@ -96,7 +96,9 @@ public class Semantic implements IAnalyzer {
                 var readValue = tokens.get(index.addAndGet(2));
                 if(ID.equals(readValue.getToken())) {
                     var id = scopeStack.peek().getLabel();
-                    Optional<NameMangling> label = findPreviousScope(table, readValue.getLexeme() + id);
+                    Optional<NameMangling> label = findPreviousScope(table,
+                                                                     readValue.getLexeme() + id
+                    );
                     label.ifPresent(obj -> {
                         obj.setStatus(NON_ZERO);
                         tokens.get(index.get()).setLexeme(obj.getDecoration());
@@ -108,12 +110,12 @@ public class Semantic implements IAnalyzer {
             }
             index.getAndIncrement();
         }
-        table.forEach(System.out::println);
+//        table.forEach(System.out::println);
     }
 
     private void identifierProcedure(List<TokenContainer> tokens, List<NameMangling> table,
-            AtomicInteger index,
-            TokenContainer container) {
+                                     AtomicInteger index,
+                                     TokenContainer container) {
         // checa se a variavel foi declarada
         varDeclaredProcedure(tokens, table, index, container);
         index.getAndIncrement();
@@ -147,9 +149,9 @@ public class Semantic implements IAnalyzer {
     }
 
     private void expressionProcedure(List<TokenContainer> tokens,
-            List<NameMangling> table, AtomicInteger index,
-            TokenContainer container,
-            StringBuffer basicExpression) {
+                                     List<NameMangling> table, AtomicInteger index,
+                                     TokenContainer container,
+                                     StringBuffer basicExpression) {
         // percorre enquanto não encontrar ';'
         // builda a expressão com o valor de cada variavel
         // que estiver contida nela
@@ -166,7 +168,7 @@ public class Semantic implements IAnalyzer {
                     // adiciona o valor da variavel no builder
                     // no lugar do nome dela
                     basicExpression.append(ZERO.equals(var.getStatus()) ? "0" :
-                            var.getDeclared());
+                                                   var.getDeclared());
                     tokens.get(index.get()).setLexeme(var.getDecoration());
                 }, () -> {
                     var err = "identifier '" + tokens.get(index.get()) + "' was not declared.";
@@ -182,7 +184,7 @@ public class Semantic implements IAnalyzer {
     }
 
     private void declarationProcedure(List<TokenContainer> tokens, List<NameMangling> table,
-            AtomicInteger index) {
+                                      AtomicInteger index) {
         // acessa a variavel e armazena
         var variable = tokens.get(index.get() + 1);
 
@@ -212,8 +214,8 @@ public class Semantic implements IAnalyzer {
     }
 
     private void ifOrLoopProcedure(List<TokenContainer> tokens, List<NameMangling> table,
-            AtomicInteger index,
-            TokenContainer container) {
+                                   AtomicInteger index,
+                                   TokenContainer container) {
         // percorre a lista de tokens até encontrar o fim do if/for
         while(!tokens.get(index.incrementAndGet()).getLexeme().equals(")")) {
             // checa se a variavel foi declarada
@@ -224,8 +226,8 @@ public class Semantic implements IAnalyzer {
     }
 
     private void varDeclaredProcedure(List<TokenContainer> tokens, List<NameMangling> table,
-            AtomicInteger index,
-            TokenContainer container) {
+                                      AtomicInteger index,
+                                      TokenContainer container) {
         // se for uma variavel
         if(tokens.get(index.get()).getToken().equals(ID)) {
             // gera uma decoracao para a variavel encontrada

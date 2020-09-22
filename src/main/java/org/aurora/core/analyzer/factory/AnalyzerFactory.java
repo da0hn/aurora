@@ -16,16 +16,16 @@ import java.util.List;
  */
 public class AnalyzerFactory {
 
-    private final Lexical lex;
-    private final Syntactic syn;
-    private final Semantic sem;
-    private ArrayList<TokenContainer> tokens;
+    private final Lexical                   lex;
+    private final Syntactic                 syn;
+    private final Semantic                  sem;
+    private       ArrayList<TokenContainer> tokens;
 
     public AnalyzerFactory(List<String> code) {
         this.tokens = new ArrayList<>();
-        this.lex = new Lexical(code);
-        this.syn = new Syntactic();
-        this.sem = new Semantic();
+        this.lex    = new Lexical(code);
+        this.syn    = new Syntactic();
+        this.sem    = new Semantic();
     }
 
     public AnalyzerFactory initializeAllAnalysis() {

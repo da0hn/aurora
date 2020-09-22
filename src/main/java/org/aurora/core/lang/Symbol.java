@@ -22,21 +22,11 @@ public enum Symbol implements Terminal {
     GREATER_THAN(24, ">");
 
     private final String symbol;
-    private int index;
+    private       int    index;
 
     Symbol(int index, String symbol) {
-        this.index = index;
+        this.index  = index;
         this.symbol = symbol;
-    }
-
-    @Override
-    public String getName() {
-        return symbol;
-    }
-
-    @Override
-    public int getIndex() {
-        return index;
     }
 
     public static Symbol toEnum(String str) {
@@ -52,5 +42,15 @@ public enum Symbol implements Terminal {
         return Arrays.stream(Symbol.values())
                 .map(Symbol::getName)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public String getName() {
+        return symbol;
+    }
+
+    @Override
+    public int getIndex() {
+        return index;
     }
 }

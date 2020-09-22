@@ -12,7 +12,7 @@ public class PathContainer implements IPathContainer {
     private Path assembly;
 
     public PathContainer(Path aurora, Path assembly) {
-        this.aurora = aurora;
+        this.aurora   = aurora;
         this.assembly = assembly;
     }
 

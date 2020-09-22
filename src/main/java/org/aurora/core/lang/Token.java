@@ -28,28 +28,14 @@ public enum Token implements Terminal {
     READ(13, "read", "au::read"),
     VAR(14, "var", "au::var");
 
-    private String token;
     private final String keyword;
-    private int index;
+    private       String token;
+    private       int    index;
 
     Token(int index, String token, String keyword) {
-        this.token = token;
-        this.index = index;
+        this.token   = token;
+        this.index   = index;
         this.keyword = keyword;
-    }
-
-    private String getKeyword() {
-        return this.keyword;
-    }
-
-    @Override
-    public String getName() {
-        return token;
-    }
-
-    @Override
-    public int getIndex() {
-        return index;
     }
 
     public static Token toEnum(String str) {
@@ -72,5 +58,19 @@ public enum Token implements Terminal {
         return Arrays.stream(Token.values())
                 .map(Token::getName)
                 .collect(Collectors.toList());
+    }
+
+    private String getKeyword() {
+        return this.keyword;
+    }
+
+    @Override
+    public String getName() {
+        return token;
+    }
+
+    @Override
+    public int getIndex() {
+        return index;
     }
 }
