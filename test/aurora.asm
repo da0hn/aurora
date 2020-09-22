@@ -29,10 +29,20 @@ main:
     mov [num_0], eax
     mov eax, 7
     mov [fatorial_0], eax
+    push fatorial_0
+    push dword fmtin
+    call scanf
+    add esp, 8
+
 _L1:
     mov eax, [num_0]
     cmp eax, 5
     jle _L2
+
+    push fatorial_0_0
+    push dword fmtin
+    call scanf
+    add esp, 8
 
     push dword str_0
     call printf
@@ -58,6 +68,11 @@ _L1:
     cmp eax, 7
     jge _L3
 
+    push fatorial_0_0_0
+    push dword fmtin
+    call scanf
+    add esp, 8
+
     mov eax, 100
     mov ebx, [fatorial_0_0_0]
     add eax, ebx
@@ -79,6 +94,11 @@ _L5:
 
     mov eax, 13
     mov [teste_0_0_1_1], eax
+    push fatorial_0_0_0
+    push dword fmtin
+    call scanf
+    add esp, 8
+
 _L6:
     mov eax, 5
     mov ebx, [teste_0_0_1_1]
@@ -98,6 +118,11 @@ _L4:
     mov ebx, 1
     div ebx
     mov [fatorial_0_0_2], eax
+    push fatorial_0_0_2
+    push dword fmtin
+    call scanf
+    add esp, 8
+
 _L7:
     jmp _L1
 _L2:

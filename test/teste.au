@@ -1,18 +1,11 @@
-// Soma de dois numeros
+// Developed By daohn
+// terça-feira setembro 2020 (22/09/2020)
+// Program teste
 aurora::init
-    au::var variavel;
-    au::var constante;
+    au::var foo;
 
-    constante = 3;
+    au::read(foo);
 
-    variavel = 2 + 3 * constante;
-
-    au::if( variavel < 1 )
-        au::write("Variavel menor que 1");
-    au::else
-        au::if( variavel > 3)
-            au::write("Variavel maior que 3");
-        au::endif
-    au::endif
-
+    au::var bar;
+    bar = 3/foo;
 aurora::close

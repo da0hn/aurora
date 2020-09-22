@@ -92,20 +92,23 @@ public class Semantic implements IAnalyzer {
                 // fecha o escopo principal
                 closeScope(container, () -> {});
             }
-            else if(ID.equals(container.getToken())) {
-                identifierProcedure(tokens, table, index, container);
-            }
             else if(READ.equals(container.getToken())) {
                 var readValue = tokens.get(index.addAndGet(2));
                 if(ID.equals(readValue.getToken())) {
                     var id = scopeStack.peek().getLabel();
                     Optional<NameMangling> label = findPreviousScope(table, readValue.getLexeme() + id);
-                    label.ifPresent(obj -> obj.setStatus(NON_ZERO));
+                    label.ifPresent(obj -> {
+                        obj.setStatus(NON_ZERO);
+                        tokens.get(index.get()).setLexeme(obj.getDecoration());
+                    });
                 }
+            }
+            else if(ID.equals(container.getToken())) {
+                identifierProcedure(tokens, table, index, container);
             }
             index.getAndIncrement();
         }
-//        table.forEach(System.out::println);
+        table.forEach(System.out::println);
     }
 
     private void identifierProcedure(List<TokenContainer> tokens, List<NameMangling> table,
