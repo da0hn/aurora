@@ -11,11 +11,11 @@
 10 -,"<write> ::= write ""("" <any_expression> "")"" "";"""
 11 -,"<read> ::= read ""("" id "")"" "";"""
 12 -,<conditional> ::= <if> <else> endif
-13 -,"<if> ::= if ""("" <basic_expression> "")"" <recursive_statement>"
+13 -,"<if> ::= if ""("" <logical_expression> "")"" <recursive_statement>"
 14 -,<else> ::= else <recursive_statement>
 15 -,<else> ::= î
 16 -,<loop> ::= <while> endloop
-17 -,"<while> ::= loop ""("" <basic_expression> "")"" <recursive_statement>"
+17 -,"<while> ::= loop ""("" <logical_expression> "")"" <recursive_statement>"
 18 -,"<declaration> ::= var id "";"""
 19 -,"<assignment> ::= id ""="" <basic_expression> "";"""
 20 -,<basic_expression> ::= id <basic_operator>
@@ -27,9 +27,12 @@
 26 -,"<basic_operator> ::= ""-"" <basic_expression>"
 27 -,"<basic_operator> ::= ""*"" <basic_expression>"
 28 -,"<basic_operator> ::= ""/"" <basic_expression>"
-29 -,"<basic_operator> ::= ""<"" <basic_expression>"
-30 -,"<basic_operator> ::= "">"" <basic_expression>"
-31 -,<basic_operator> ::= î
-32 -,<string_expression> ::= string_literal
+29 -,<basic_operator> ::= î
+30 -,<string_expression> ::= string_literal
+31 -,<id_or_number> ::= id
+32 -,<id_or_number> ::= number
 33 -,<any_expression> ::= <basic_expression>
 34 -,<any_expression> ::= <string_expression>
+35 -,"<logical_operator> ::= ""<"""
+36 -,"<logical_operator> ::= "">"""
+37 -,<logical_expression> ::= <id_or_number> <logical_operator> <id_or_number>

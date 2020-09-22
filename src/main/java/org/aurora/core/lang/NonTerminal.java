@@ -21,7 +21,10 @@ public enum NonTerminal implements Language {
     BASIC_EXPRESSION(12, "basic_expression"),
     BASIC_OPERATOR(13, "basic_operator"),
     STRING_EXPRESSION(14, "string_expression"),
-    ANY_EXPRESSION(15, "any_expression");
+    ANY_EXPRESSION(15, "any_expression"),
+    LOGICAL_EXPRESSION(16, "logical_expression"),
+    ID_OR_NUMBER(17, "id_or_number"),
+    LOGICAL_OPERATOR(18, "logical_operator");
 
     private String name;
     private int index;
