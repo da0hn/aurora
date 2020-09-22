@@ -139,9 +139,10 @@ public class FinalCode {
                         default -> null;
                     }
             );
-            var operation =
-                    opt.orElseThrow(() -> new SynthesisException(
-                            "Ill-formed expression " + Arrays.toString(expr)));
+            var operation = opt.orElseThrow(() ->
+                                                    new SynthesisException(
+                                                            "Ill-formed expression " + Arrays.toString(
+                                                                    expr)));
             this.textSection += tab + "mov eax, " + second + "\n";
             this.textSection += tab + "mov ebx, " + third + "\n";
 

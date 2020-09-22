@@ -1,0 +1,66 @@
+// Developed By daohn
+// terça-feira setembro 2020 (22/09/2020)
+// Program sorting
+aurora::init
+    // receba 3 inteiros e print na ordem do menor para o maior
+    // em seguida, printe do valor menor até o maior
+    // exemplo, 10, 2, 5
+    // print 2 -> 5 -> 10 e depois printar de 2 até 10
+
+    au::var a;
+    au::var b;
+    au::var c;
+
+    au::write("Escreva o primeiro número:");
+    au::read(a);
+
+    au::write("Escreva o segundo número:");
+    au::read(b);
+
+    au::write("Escreva o terceiro número:");
+    au::read(c);
+
+    // a = 3, b = 2, c = 1
+    // a > b -> aux = a, a = b, b = aux
+    // a > c -> aux = a, a = c, c = aux
+    // b > c -> aux = b, b = c, c = aux
+    au::var aux;
+
+    au::if(a > b)
+        aux = a;
+        a = b;
+        b = aux;
+    au::endif
+
+    au::if(a > c)
+            aux = a;
+            a = c;
+            c = aux;
+    au::endif
+
+    au::if(b > c)
+            aux = b;
+            b = c;
+            c = aux;
+    au::endif
+
+    au::write("--------------------------------");
+    au::write("Inteiros do menor para o maior");
+    au::write(a);
+    au::write(b);
+    au::write(c);
+    au::write("--------------------------------");
+
+    aux = a;
+    au::var limite;
+
+    limite = c + 1;
+
+    au::loop(aux < limite)
+        au::write("Valor: ");
+        au::write(aux);
+        aux = aux + 1;
+    au::endloop
+
+    au::write("FIM DO PROGRAMA");
+aurora::close
