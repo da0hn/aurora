@@ -3,7 +3,6 @@ package org.aurora.core.synthesis;
 import org.javatuples.Triplet;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -43,14 +42,15 @@ public class FinalCode {
                     fmtout: db "%d", 0xA, 0x0
                           
                 """;
-        this.textSection = """
-                           section .text
-                               global main
-                               extern printf
-                               extern scanf
-                                                      
-                           main:
-                           """;
+        this.textSection =
+                """
+                section .text
+                    global main
+                    extern printf
+                    extern scanf
+                                           
+                main:
+                """;
         this.initProgram =
                 """
                     push ebp
@@ -63,14 +63,6 @@ public class FinalCode {
                     pop ebp
                     ret
                 """;
-    }
-
-
-    public static void main(String[] args) {
-        var finalCode = new FinalCode(Collections.emptyList());
-        System.out.print(finalCode.initProgram);
-        System.out.print(finalCode.endProgram);
-        System.out.println(finalCode.parseCondition("num_0 <= 5"));
     }
 
     public void setPseudoAsm(List<String> pseudoAsm) {
@@ -182,10 +174,6 @@ public class FinalCode {
                     %s: resd 1
                 """.formatted(obj);
         this.bssSection += var;
-    }
-
-    private void createLoop(Iterator<String> it) {
-
     }
 
     private void createIF(Iterator<String> it) {

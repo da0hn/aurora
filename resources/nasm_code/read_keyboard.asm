@@ -11,8 +11,8 @@ section .text                               ;code segment
     global _start
 
 _start:                                     ;user prompt
-    mov eax, 4                              ; sys_write
-    mov ebx, 1                              ; int
+    mov eax, 4                              ;sys_write
+    mov ebx, 1                              ;int
     mov ecx, userMsg                        ;print 'please enter a number: '
     mov edx, lenUserMsg                     ;length
     int 80h                                 ;call the relevant interrupt

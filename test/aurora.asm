@@ -2,7 +2,7 @@ section .data
     fmtin: db "%d", 0x0
     fmtout: db "%d", 0xA, 0x0
 
-    str_0: db "Realizando conta ((2 * 2) + (6/2)) + 12 e salvando no fatorial...", 0x10, 0x0
+    str_0: db "Realizando conta ((2 * 2) + (6/2)) + 12 e salvando no fatorial...", 0xA, 0x0
 
 section .bss
     num_0: resd 1
