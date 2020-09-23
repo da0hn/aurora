@@ -4,9 +4,9 @@ Instituto Federal de Ciências e Tecnologia
 ## Funcionalidades implementadas
 - [x] Léxico
 - [X] Sintático
-- [x] Semantico
-- [ ] Código intermediário
-- [ ] Código final
+- [x] Semântico
+- [x] Código intermediário
+- [x] Código final
 
 Compilar no windows via .bat
 ```bash
