@@ -3,6 +3,7 @@
     <output-path>$PROJECT_DIR$/out/artifacts/aurora_jar</output-path>
     <root id="archive" name="aurora.jar">
       <element id="module-output" name="aurora" />
+      <element id="library" level="project" name="Maven: org.javatuples:javatuples:1.2" />
     </root>
   </artifact>
 </component>

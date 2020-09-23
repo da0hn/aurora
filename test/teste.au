@@ -1,13 +1,11 @@
-// Soma de dois numeros
+// Developed By daohn
+// terça-feira setembro 2020 (22/09/2020)
+// Program teste
 aurora::init
-    au::var variavel;
+    au::var foo;
 
-    //variavel = variavel + 123 - 311/912039 + variavel;
+    au::read(foo);
 
-    au::if( variavel < 1 )
-    au::else
-        au::loop( variavel < 3)
-        au::endloop
-    au::endif
-
+    au::var bar;
+    bar = 3/foo;
 aurora::close

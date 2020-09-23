@@ -66,13 +66,15 @@ var      	= keyword : "au::var"
 <basic_operator>
 <string_expression>
 <any_expression>
-
+<logical_expression>
+<id_or_number>
+<logical_operator>
 #Grammar
 <aurora>          ::= init_program <recursive_statement> close_program
-|                         î
+|                         Ã®
 ;
 <recursive_statement> ::= <statement> <recursive_statement>
-|                         î
+|                        Ã®
 ;
 <statement>           ::= <write>
 |                         <read>
@@ -87,14 +89,14 @@ var      	= keyword : "au::var"
 ;
 <conditional>         ::= <if> <else> endif
 ;
-<if>                  ::= if "(" <basic_expression> ")" <recursive_statement>
+<if>                  ::= if "(" <logical_expression> ")" <recursive_statement>
 ;
 <else>                ::= else <recursive_statement>
-|                         î
+|                         Ã®
 ;
 <loop>                ::= <while> endloop
 ;
-<while>               ::= loop "(" <basic_expression> ")" <recursive_statement>
+<while>               ::= loop "(" <logical_expression> ")" <recursive_statement>
 ;
 <declaration>         ::= var id ";"
 ;
@@ -110,13 +112,16 @@ var      	= keyword : "au::var"
 |                         "-" <basic_expression>
 |                         "*" <basic_expression>
 |                         "/" <basic_expression>
-|                         "<" <basic_expression>
-|                         ">" <basic_expression>
-|                         î
+//|                         "<" <basic_expression>
+//|                         ">" <basic_expression>
+|                         Ã®
 ;
 <string_expression>   ::= string_literal
 ;
-<any_expression>      ::= <basic_expression>
+<id_or_number>           ::= id | number;
+<any_expression>        ::= <basic_expression>
 |                         <string_expression>
 ;
+<logical_operator>       ::=  "<" | ">";
+<logical_expression>   ::=  <id_or_number> <logical_operator> <id_or_number>;
 

@@ -1,0 +1,40 @@
+// Developed By daohn
+// terça-feira setembro 2020 (22/09/2020)
+// Program notas
+
+// O usuário deverá inserir 1 inteiro que será o número de notas
+// receber as N notas e realizar a média aritmética
+// printar se é o aluno está ou não aprovado média 6
+aurora::init
+    au::var numeroNotas;
+    au::write("Insira o número de notas:");
+    au::read(numeroNotas);
+
+    au::var acumulador;
+    au::var contador;
+
+    au::loop(contador < numeroNotas)
+        au::var aux;
+
+        au::write("Insira a nota:");
+        au::read(aux);
+
+        acumulador = acumulador + aux;
+        contador = contador + 1;
+    au::endloop
+
+    au::var media;
+    media = acumulador / numeroNotas;
+
+    au::write("----------------------------");
+    au::write("Sua média é");
+    au::write(media);
+    au::write("----------------------------");
+
+    au::if(media > 5)
+        au::write("Você foi aprovado");
+    au::else
+        au::write("Você foi reprovado");
+    au::endif
+
+aurora::close

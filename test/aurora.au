@@ -5,12 +5,16 @@ aurora::init // _0
     num = 3;
     fatorial = 7;
 
+    au::read(fatorial);
+
     au::loop(num> 5) // _0_0
         au::var fatorial;
+        au::read(fatorial);
         au::write("Realizando conta ((2 * 2) + (6/2)) + 12 e salvando no fatorial...");
         fatorial = ( (2 *2) +(6/ 2))+ 12;
         au::if(num < 7) // _0_0_0 | num_0 >= 1
             au::var fatorial; // fatorial_0_0_0
+            au::read(fatorial);
             fatorial =100 + fatorial;
         au::else // _0_0_1
                 au::var teste;  // _0_0_1
@@ -23,6 +27,7 @@ aurora::init // _0
                 au::if( fatorial > 3) // _0_0_1_1 | fatorial_0_0_0 <= 3
                     au::var teste; // _0_0_1_1
                     teste = 13;
+                    au::read(fatorial);
                 au::endif // _0_0_1
 
                 au::var dale;   // _0_0_1
@@ -33,6 +38,7 @@ aurora::init // _0
         au::if ( num > 4) // _0_0_2 | num_0 <= 4
             au::var fatorial;   // _0_0_2
             fatorial = 5/1;
+            au::read(fatorial);
         au::endif // _0_0
 
     au::endloop // _0
