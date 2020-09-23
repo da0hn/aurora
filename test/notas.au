@@ -7,7 +7,7 @@
 // printar se é o aluno está ou não aprovado média 6
 aurora::init
     au::var numeroNotas;
-    au::write("Insira o número de notas: ");
+    au::write("Insira o número de notas:");
     au::read(numeroNotas);
 
     au::var acumulador;

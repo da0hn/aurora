@@ -2,6 +2,8 @@ package org.aurora.core.synthesis;
 
 import org.javatuples.Triplet;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -17,48 +19,85 @@ import static org.aurora.core.analyzer.utils.PredicateService.isDecoratedIdentif
  */
 public class FinalCode {
 
+    private final int          lengthLine = 80;
+    private final String       headerProgram;
     private final String       initProgram;
     private final String       endProgram;
-    private final String       tab   = " ".repeat(4);
+    private final String       tab        = " ".repeat(4);
     private       List<String> pseudoAsm;
     private       String       textSection;
     private       String       dataSection;
     private       String       bssSection;
-    private       Integer      count = 0;
+    private       Integer      count      = 0;
 
     public FinalCode() {
         this(null);
     }
 
     public FinalCode(List<String> pseudoAsm) {
-        this.pseudoAsm   = pseudoAsm;
-        this.bssSection  = """
-                           section .bss
-                           """;
-        this.dataSection =
+        var fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        var data = "; | Data : %s%s%s".formatted(
+                fmt.format(LocalDateTime.now()),
+                " ".repeat(22),
+                "|"
+        );
+        this.pseudoAsm     = pseudoAsm;
+        this.headerProgram = """
+                             ; +-------------------------------------------------+
+                             ; | Assembly gerado utilizando Aurora Compiler v1.0 |
+                             ; | Autor: Gabriel Honda                            |
+                             %s
+                             ; +-------------------------------------------------+
+                                                          
+                             """.formatted(data);
+        this.bssSection    =
                 """
-                section .data
-                    fmtin: db "%d", 0x0
-                    fmtout: db "%d", 0xA, 0x0
+                section .bss%s%s
+                """.formatted(" ".repeat(lengthLine - 12),
+                              "; Inicio da seção de variáveis"
+                );
+        this.dataSection   =
+                """
+                section .data%s%s
+                    fmtin: db "%s", 0x0%s%s
+                    fmtout: db "%s", 0xA, 0x0%s%s
                           
-                """;
-        this.textSection =
+                """.formatted(
+                        " ".repeat(lengthLine - 13),
+                        "; Inicio da seção de constantes",
+                        "%d",
+                        " ".repeat(lengthLine - 23),
+                        "; Formatador de input",
+                        "%d",
+                        " ".repeat(lengthLine - 29),
+                        "; Formatador de output"
+                );
+        this.textSection   =
                 """
-                section .text
-                    global main
-                    extern printf
-                    extern scanf
-                                           
+                section .text%s%s
+                    global main%s%s
+                    extern printf%s%s
+                    extern scanf%s%s
+                    
                 main:
-                """;
-        this.initProgram =
+                """.formatted(" ".repeat(lengthLine-13),
+                              "; Inicio da seção do código",
+                              " ".repeat(lengthLine-15),
+                              "; Declaração do main",
+                              " ".repeat(lengthLine-17),
+                              "; Importação do printf",
+                              " ".repeat(lengthLine-16),
+                              "; Importação do scanf");
+        this.initProgram   =
                 """
+                    ; Preparação da pilha
                     push ebp
                     mov ebp, esp
                     
                 """;
-        this.endProgram  =
+        this.endProgram    =
                 """
+                    ; Término do programa
                     mov esp, ebp
                     pop ebp
                     ret
@@ -106,7 +145,7 @@ public class FinalCode {
         this.dataSection += "\n";
         this.textSection += this.endProgram;
 
-        return dataSection + bssSection + textSection;
+        return headerProgram + dataSection + bssSection + textSection;
     }
 
     private void createLabel(String label) {
@@ -139,10 +178,10 @@ public class FinalCode {
                         default -> null;
                     }
             );
-            var operation = opt.orElseThrow(() ->
-                                                    new SynthesisException(
-                                                            "Ill-formed expression " + Arrays.toString(
-                                                                    expr)));
+            var operation = opt
+                    .orElseThrow(() -> new SynthesisException(
+                            "Ill-formed expression " + Arrays.toString(expr)
+                    ));
             this.textSection += tab + "mov eax, " + second + "\n";
             this.textSection += tab + "mov ebx, " + third + "\n";
 
@@ -174,10 +213,14 @@ public class FinalCode {
 
     private void createVar(Iterator<String> it) {
         var obj = it.next();
-        String var =
-                """
-                    %s: resd 1
-                """.formatted(obj);
+        var decl = "%s%s: resd 1".formatted(tab, obj);
+
+        var space = lengthLine - decl.length();
+
+        String var = "%s%s%s".formatted(decl,
+                                        " ".repeat(space),
+                                        "; Declaração da variável " + obj + "\n"
+        );
         this.bssSection += var;
     }
 
@@ -222,12 +265,13 @@ public class FinalCode {
         var obj = it.next();
         var read =
                 """
+                    ; Ler a entrada do usuário para a variável %s
                     push %s
                     push dword fmtin
                     call scanf
                     add esp, 8
                  
-                """.formatted(obj);
+                """.formatted(obj, obj);
         this.textSection += read;
     }
 
@@ -236,25 +280,28 @@ public class FinalCode {
         String write;
         if(isDecoratedIdentifier(obj)) {
             write = """
+                        ; Escrever a variável %s na saída
                         push dword [%s]
                         push dword fmtout
                         call printf
                         add esp, 8
                         
-                    """.formatted(obj);
+                    """.formatted(obj, obj);
         }
         else {
             var str = "str_" + (count);
             write = """
+                        ; Escrever a string %s na saída
                         push dword %s
                         call printf
                         add esp, 4
                         
-                    """.formatted(str);
-            var constDeclaration =
-                    """
-                        %s: db %s, 0xA, 0x0
-                    """.formatted(str, obj);
+                    """.formatted(str, str);
+            var decl = "%s%s: db %s, 0xA, 0x0".formatted(tab, str, obj);
+            var constDeclaration = "%s%s%s".formatted(
+                    decl,
+                    " ".repeat(lengthLine - decl.length()), "; Declaração da string\n"
+            );
             this.dataSection += constDeclaration;
             count++;
         }
