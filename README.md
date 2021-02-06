@@ -1,6 +1,12 @@
 # Aurora Lang Compiler
 Aplicação desenvolvida durante a disciplina de Compiladores do curso de Engenharia da Computação no
 Instituto Federal de Ciências e Tecnologia
+
+## TODO's
+- [ ] Adaptar para última release do Java
+- [ ] Reimplementar compilador utilizando Kotlin
+- [ ] Implementar uma IDE para o compilador usando TornadoFX
+
 ## Funcionalidades implementadas
 - [x] Léxico
 - [X] Sintático
